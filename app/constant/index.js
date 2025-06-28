@@ -124,5 +124,3 @@ export const aboutUsSection = [
         ]
     }
 ]
-
-// export const mainProductSection
