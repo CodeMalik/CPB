@@ -1,10 +1,10 @@
-import subProducts from "@/data/subProducts.json";
+import products from "@/data/products.json";
 
 const page = async ({params}) => {
-  const subProduct = await subProducts.find((sp) => {
+  const product = await products.find((sp) => {
     sp.categorySlug === params.productSlug && sp.slug === params.subSlug;
   })
-  if (!subProduct) {
+  if (!product) {
     return <p>Sub Product not found</p>
   }
   return (
