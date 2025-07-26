@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { UploadCloud } from 'lucide-react';
+import { UploadCloud, FileText } from 'lucide-react';
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 export function ContactForm() {
@@ -191,7 +191,7 @@ export function ContactFormWithMap() {
 
             {/* Additional Info */}
             <div>
-              <label className="block font-semibold text-sm text-black mb-1 flex items-center gap-1">
+              <label className="font-semibold text-sm text-black mb-1 flex items-center gap-1">
                 <FileText className="w-4 h-4 text-red-600" />
                 ADDITIONAL INFORMATION
               </label>
