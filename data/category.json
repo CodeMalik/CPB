@@ -1,51 +1,13 @@
 [
   {
-    "_id": "1",
-    "h1": "Apparel Boxes",
-    "h2": "Custom Apparel Boxes",
+    "name": "Apparel Boxes",
+    "heading": "Custom Apparel Packging Boxes",
     "slug": "apparel-boxes",
-    "homeimage": "https://custompackboxes.com/wp-content/uploads/2024/10/Apparel-Boxes.jpg",
-    "heroImage": "https://custompackboxes.com/wp-content/uploads/2024/10/Apparel-Boxes.jpg",
-    "tagline": "Custom apparel boxes for clothing and accessories.",
-    "shortDescription": "Custom apparel boxes for clothing and accessories.",
-    "logDescription": [
-            {
-                "title": "Custom Apparel Boxes for Every Brand", 
-            "description": "At Custom Pack Boxes, we offer versatile custom apparel boxes that cater to a variety of industries, including fashion, retail, and e-commerce. These boxes are designed to suit any business, from boutique stores to large-scale clothing brands. With custom printing options, including logos and unique designs, our apparel boxes help enhance your brand identity. Whether you’re packaging shirts, accessories, or full clothing lines, our boxes are durable and stylish, offering premium protection for your products. We also ensure that each box is eco-friendly, making them the perfect solution for brands looking to be sustainable while maintaining aesthetic appeal."
-        },
-            {
-                "title": "Wholesale Apparel Boxes: Affordable and Durable Packaging Solutions", 
-                "description": "Wholesale orders are a cost-effective way for businesses to stock up on packaging. Our wholesale apparel boxes provide affordable pricing without compromising on quality. Designed to handle large volumes, these boxes are perfect for businesses preparing for seasonal sales, promotional events, or subscription services. By purchasing in bulk, brands can save significantly while also benefiting from free shipping on larger orders. Our bulk apparel packaging solutions are ideal for companies looking to cut costs while still presenting their products in a sleek and professional manner."
-            },
-            {
-                "title": "Bulk Orders of Apparel Gift Boxes for Special Occasions", 
-                "description": "Bulk ordering is particularly beneficial for businesses preparing for events such as Christmas apparel boxes or special promotions. Our custom apparel gift boxes are perfect for occasions like holidays, corporate gifts, or fashion brand promotions. With options for personalization, such as festive designs or branded messaging, these boxes enhance the customer’s unboxing experience. Bulk orders also offer a convenient way for businesses to prepare for high-demand periods, ensuring they have enough inventory to meet customer needs without running out of packaging."
-            },
-            {
-                "title": "Custom Printed Apparel Boxes with Logo for Branding", 
-                "description": "Your brand deserves to be seen, and our custom printed apparel boxes with logo are the perfect way to achieve that. These boxes allow you to showcase your logo and other branding elements prominently, helping to increase brand recognition with every package you send. Our printing options allow for vibrant colors and sharp imagery that leaves a lasting impression on your customers. By using custom printed boxes, you’re not only protecting your apparel but also turning your packaging into a marketing tool that extends your brand’s reach."
-            },
-            {
-                "title": "Choosing the Right Apparel Packaging for Your Business", 
-                "description": "Selecting the right apparel boxes for your business is crucial for maintaining product quality and enhancing customer experience. At Custom Pack Boxes, we offer a range of sizes and designs to cater to different types of apparel, from t-shirt boxes to underwear boxes. Each box is designed with durability and presentation in mind, ensuring that your products arrive in perfect condition. Whether you’re shipping bulk orders or delivering individual packages, we have the right solutions to meet your packaging needs."
-            },
-            {
-                "title": "Explore Our Other Packaging Solutions: T-Shirt Boxes and Underwear Boxes", 
-                "description": "In addition to our apparel boxes, we offer specialized packaging solutions for individual product lines, such as T-shirt boxes and Underwear boxes. These boxes are designed specifically for different apparel items, ensuring that each product has the perfect fit. This not only enhances the customer’s unboxing experience but also protects the product from damage during shipping. Explore our range of packaging options to find the perfect match for your business."
-            }
-        ]
-
-  },
-  {
-    "_id": "2",
-    "h1": "Bakery And Cake Boxes",
-    "h2": "Bakery And Cake Boxes",
-    "slug": "bakery-and-cake-boxes",
-    "homeimage": "https://custompackboxes.com/wp-content/uploads/2024/10/Bakery-And-Cake-Boxes.jpg",
-    "heroImage": "/image/cake-bakery-details.png",
-    "tagline": "Custom bakery and cake boxes for delicious treats.",
-    "shortDescription": "Custom bakery and cake boxes for delicious treats.",
-    "logDescription": [
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964279/Apparel-Boxes_xnshyv.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965362/apparel_category_vxoyeu.webp",
+    "tagline": "Premium Custom Apparel Boxes for Every Occasion – From retail to gift packaging, our wholesale custom apparel boxes offer a stylish, durable solution for clothing, accessories, and more.",
+    "shortDescription": "Our custom apparel boxes are designed to meet the packaging needs of various industries, including fashion, retail, and subscription services. At Custom Pack Boxes, we offer a wide selection of custom printed apparel boxes, from elegant gift packaging to sturdy shipping solutions. With free shipping, bulk discounts, and design support, you can tailor each box to showcase your brand’s style and identity. Whether you’re looking for holiday-themed apparel boxes, apparel packaging for retail, or subscription boxes, our collection ensures durability, customization, and customer satisfaction.",
+    "longDescription": [
       {
         "title": "Custom Apparel Boxes for Every Brand",
         "description": "At Custom Pack Boxes, we offer versatile custom apparel boxes that cater to a variety of industries, including fashion, retail, and e-commerce. These boxes are designed to suit any business, from boutique stores to large-scale clothing brands. With custom printing options, including logos and unique designs, our apparel boxes help enhance your brand identity. Whether you’re packaging shirts, accessories, or full clothing lines, our boxes are durable and stylish, offering premium protection for your products. We also ensure that each box is eco-friendly, making them the perfect solution for brands looking to be sustainable while maintaining aesthetic appeal."
@@ -71,5 +33,202 @@
         "description": "In addition to our apparel boxes, we offer specialized packaging solutions for individual product lines, such as T-shirt boxes and Underwear boxes. These boxes are designed specifically for different apparel items, ensuring that each product has the perfect fit. This not only enhances the customer’s unboxing experience but also protects the product from damage during shipping. Explore our range of packaging options to find the perfect match for your business."
       }
     ]
+  },
+  {
+    "name": "Bakery And Cake Boxes",
+    "heading": "Custom Bakery And Cake Packaging Boxes",
+    "slug": "bakery-and-cake-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964267/Bakery-And-Cake-Boxes_e7pl3k.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965361/bakery-cake-category.438feb8a_rslqyn.webp",
+    "tagline": "Discover premium bakery and cake boxes at Custom Pack Boxes. Our versatile packaging solutions cater to every baked delight, providing security and style for cakes, pastries, muffins, and more. ",
+    "shortDescription": "Custom bakery and cake boxes for delicious treats.",
+    "longDescription": [
+      {
+        "title": "Custom Apparel Boxes for Every Brand",
+        "description": "At Custom Pack Boxes, we offer versatile custom apparel boxes that cater to a variety of industries, including fashion, retail, and e-commerce. These boxes are designed to suit any business, from boutique stores to large-scale clothing brands. With custom printing options, including logos and unique designs, our apparel boxes help enhance your brand identity. Whether you’re packaging shirts, accessories, or full clothing lines, our boxes are durable and stylish, offering premium protection for your products. We also ensure that each box is eco-friendly, making them the perfect solution for brands looking to be sustainable while maintaining aesthetic appeal."
+      },
+      {
+        "title": "Wholesale Apparel Boxes: Affordable and Durable Packaging Solutions",
+        "description": "Wholesale orders are a cost-effective way for businesses to stock up on packaging. Our wholesale apparel boxes provide affordable pricing without compromising on quality. Designed to handle large volumes, these boxes are perfect for businesses preparing for seasonal sales, promotional events, or subscription services. By purchasing in bulk, brands can save significantly while also benefiting from free shipping on larger orders. Our bulk apparel packaging solutions are ideal for companies looking to cut costs while still presenting their products in a sleek and professional manner."
+      },
+      {
+        "title": "Bulk Orders of Apparel Gift Boxes for Special Occasions",
+        "description": "Bulk ordering is particularly beneficial for businesses preparing for events such as Christmas apparel boxes or special promotions. Our custom apparel gift boxes are perfect for occasions like holidays, corporate gifts, or fashion brand promotions. With options for personalization, such as festive designs or branded messaging, these boxes enhance the customer’s unboxing experience. Bulk orders also offer a convenient way for businesses to prepare for high-demand periods, ensuring they have enough inventory to meet customer needs without running out of packaging."
+      },
+      {
+        "title": "Custom Printed Apparel Boxes with Logo for Branding",
+        "description": "Your brand deserves to be seen, and our custom printed apparel boxes with logo are the perfect way to achieve that. These boxes allow you to showcase your logo and other branding elements prominently, helping to increase brand recognition with every package you send. Our printing options allow for vibrant colors and sharp imagery that leaves a lasting impression on your customers. By using custom printed boxes, you’re not only protecting your apparel but also turning your packaging into a marketing tool that extends your brand’s reach."
+      },
+      {
+        "title": "Choosing the Right Apparel Packaging for Your Business",
+        "description": "Selecting the right apparel boxes for your business is crucial for maintaining product quality and enhancing customer experience. At Custom Pack Boxes, we offer a range of sizes and designs to cater to different types of apparel, from t-shirt boxes to underwear boxes. Each box is designed with durability and presentation in mind, ensuring that your products arrive in perfect condition. Whether you’re shipping bulk orders or delivering individual packages, we have the right solutions to meet your packaging needs."
+      },
+      {
+        "title": "Explore Our Other Packaging Solutions: T-Shirt Boxes and Underwear Boxes",
+        "description": "In addition to our apparel boxes, we offer specialized packaging solutions for individual product lines, such as T-shirt boxes and Underwear boxes. These boxes are designed specifically for different apparel items, ensuring that each product has the perfect fit. This not only enhances the customer’s unboxing experience but also protects the product from damage during shipping. Explore our range of packaging options to find the perfect match for your business."
+      }
+    ]
+  },
+  {
+    "name": "Candle Boxes",
+    "heading": "Custom Candle Packaging Boxes",
+    "slug": "candle-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964267/Candle-Boxes-1_j5kkzl.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965360/candleBanner_ijn12m.webp",
+    "tagline": "Discover Custom Candle Boxes: Elegant Packaging for Every Candle Type – Enhance Your Brand with Eco-Friendly, Luxury, and Personalized Options.",
+    "shortDescription": "At Custom Pack Boxes, we provide premium candle boxes designed to elevate your brand. From luxury to kraft, subscription, and shipping options, our custom candle boxes are tailored to showcase and protect candles of all sizes and styles. Our eco-friendly, high-quality materials ensure durability and aesthetic appeal, catering to retailers and gift-givers alike. With wholesale options, free design support, and various packaging styles, our candle boxes align with your branding needs, offering versatile choices for showcasing candles elegantly. Let your candle packaging speak volumes about your brand with our tailored solutions."
+  },
+  {
+    "name": "Cosmetic Boxes",
+    "heading": "Custom Cosmetic Packging Boxes",
+    "slug": "cosmetic-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964267/Cosmetic-Boxe_jijthy.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965359/cosmetic-category.ae8189f1_z8voyk.webp",
+    "tagline": "Discover Custom Cosmetic Boxes for Your Beauty Brand – From skincare to perfumes, find tailored packaging solutions with free design support, bulk discounts, and eco-friendly options to elevate your brand’s presentation.",
+    "shortDescription": "Custom Pack Boxes offers a premium selection of cosmetic boxes designed to meet the unique needs of beauty brands. From luxury skincare packaging to specialized lipstick and nail polish boxes, our custom cosmetic boxes ensure that your products stand out. Our boxes are crafted with precision and attention to detail, using high-quality materials that protect your products while enhancing their aesthetic appeal. Whether you’re looking for storage boxes for cosmetics, personalized gift boxes, or subscription boxes, we provide flexible options that fit every brand’s requirements. Choose from a variety of sizes, designs, and finishes to match your branding. Our cosmetic boxes are available for wholesale and bulk orders, with free design support and discounts. Explore our range and discover the perfect solution for all your cosmetic packaging needs."
+  },
+  {
+    "name": "Food Boxes",
+    "heading": "Custom Food Packaging Boxes",
+    "slug": "food-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964267/Food-Boxes_zahptw.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965358/food-category.70d66c11_cbwjks.webp",
+    "tagline": "Custom Food Boxes for All Your Packaging Needs – Quality, Durability, and Design!",
+    "shortDescription": "Custom Pack Boxes offers an extensive range of food packaging solutions designed for durability and style. Our custom food boxes are available in various shapes and sizes, making them perfect for takeout, delivery, and storage. Whether you’re a restaurant, bakery, or food retailer, our food packaging boxes are tailored to meet your unique requirements. From food subscription boxes to commercial storage solutions, each box is crafted with premium materials to keep food fresh and secure. We also offer eco-friendly options, wholesale prices, and free design support. With features like bulk discounts and free shipping, Custom Pack Boxes is your go-to source for food packaging boxes. Shop with us to give your products the professional presentation they deserve."
+  },
+  {
+    "name": "Display Boxes",
+    "heading": "Custom Display Boxes",
+    "slug": "display-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964267/Display-Boxes_ao0ivq.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965357/display-category.646bc7db_tppzmo.webp",
+    "tagline": "High-Quality Display Boxes for Every Retail Need | Custom Pack Boxes",
+    "shortDescription": "We know your products need an excellent presentation to catch customers’ eyes. Our custom display boxes are perfect for showcasing products and catching attention on retail shelves, at events, or in exhibitions. These boxes work well for lightweight items like biscuits, candies, lip balms, bath bombs, chocolate, and more. Our display packaging is fully customizable to match your needs. You can choose the material, size, shape, and dimensions you want, and we’ll create the box just as you envision!"
+  },
+  {
+    "name": "CBD And Hemp Boxes",
+    "heading": "Custom CBD And Hemp Packging Boxes",
+    "slug": "cbd-and-hemp-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964267/CBD-And-Hemp-Boxes_keele8.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965356/CBD-_-Hemp-category.93e94038_bvh1s3.webp",
+    "tagline": "Discover the best custom CBD and hemp packaging solutions designed to elevate your brand. Enjoy free design support, bulk discounts, and quality assurance with our custom CBD boxes.",
+    "shortDescription": "At Custom Pack Boxes, we offer a wide selection of custom CBD and hemp boxes tailored for various products. Our CBD packaging includes options for tinctures, creams, vape oil, gummies, and more. Whether you need custom cardboard boxes for CBD products or premium hemp packaging, we provide high-quality solutions with free design support and discounts up to 20% on bulk orders. Our custom CBD boxes are perfect for showcasing your products with style and protection, ensuring your brand stands out in a competitive market. From CBD packaging bags to hemp cardboard boxes, we cater to all your packaging needs with sustainable, durable materials. Enjoy free shipping across the USA when you shop at Custom Pack Boxes."
+  },
+  {
+    "name": "Chocolate Boxes",
+    "heading": "Custom Chocolate Packaging Boxes",
+    "slug": "chocolate-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964267/Chocolate-Boxes_umygkr.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965355/chocolate-category.efecf922_ceasuv.webp",
+    "tagline": "Discover the finest selection of custom chocolate boxes at Custom Pack Boxes. Whether you need luxury packaging, gift boxes, or bulk orders, we offer free design support, fast shipping, and exclusive discounts to meet all your packaging needs.",
+    "shortDescription": "At Custom Pack Boxes, we specialize in creating high-quality custom chocolate boxes tailored to your specific needs. Our collection includes everything from elegant gift boxes to sturdy wholesale packaging. Whether you’re looking for personalized chocolate boxes for corporate gifts or luxury packaging for special events, we have the perfect solution. Our custom designs feature premium materials and are available in bulk quantities with discounts of up to 20%. Choose from a variety of options, including Christmas chocolate boxes, chocolate boxes with inserts, and luxury gift packaging. Enjoy free design support and fast, reliable shipping. Enhance your brand’s presentation and leave a lasting impression with our custom chocolate boxes, perfect for gifting and retail display."
+  },
+  {
+    "name": "Jewelry Boxes",
+    "heading": "Custom Jewelry Packaging Boxes",
+    "slug": "jewelry-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964268/Jewelry-Boxes_eihifp.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965354/jewelry-boxes-category.a2921238_f8xotn.webp",
+    "tagline": "Discover a versatile collection of custom jewelry boxes tailored to showcase and protect your precious pieces.",
+    "shortDescription": "At Custom Pack Boxes, we offer a comprehensive range of jewelry boxes designed to cater to various needs — from elegant gift boxes and personalized jewelry organizers to wholesale bulk orders for businesses. Our selection includes small jewelry boxes, luxury jewelry packaging, kraft and cardboard options, and subscription boxes for jewelry lovers. Whether you’re searching for unique jewelry gift boxes or storage solutions for necklaces, rings, earrings, and bracelets, our premium packaging ensures that your valuable items are well-protected and beautifully presented. With free design support, discounts up to 20%, and bulk ordering options, Custom Pack Boxes is your go-to partner for high-quality jewelry packaging. Explore our jewelry boxes and elevate your brand’s presentation with custom-made solutions that reflect sophistication and style."
+  },
+  {
+    "name": "Soap Boxes",
+    "heading": "Custom Soap Packaging Boxes",
+    "slug": "soap-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964270/Soap-Boxes_fzmpvw.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965352/soapBanner.28fb8f15_umvxyq.webp",
+    "tagline": "Explore Premium Custom Soap Boxes with Wholesale Options – Perfect for Eco-Friendly, Luxury, and Handmade Soap Brands! ",
+    "shortDescription": "Our Soap Boxes category offers an extensive selection of custom packaging solutions tailored for diverse soap products, including handmade, luxury, and eco-friendly options. At Custom Pack Boxes, we understand the importance of presenting your soaps in high-quality packaging that reflects your brand’s unique identity. Whether you need wholesale options for bulk orders or personalized designs for small batches, we have the right soap boxes for you."
+  },
+  {
+    "name": "Pizza Boxes",
+    "heading": "Custom Pizza Packaging Boxes",
+    "slug": "pizza-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964270/Pizza-Boxes_olrmbk.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965351/pizzaBanner.09056e05_dbksc1.webp",
+    "tagline": "Discover custom pizza boxes designed for durability and style. At Custom Pack Boxes, we offer a variety of pizza packaging solutions, including personalized, mini, kraft, white, and round boxes.",
+    "shortDescription": "Custom Pack Boxes offers an extensive range of custom pizza boxes to meet your packaging needs. Whether you need small pizza boxes, mini boxes, or bulk orders, our collection includes options for all kinds of pizzas. Choose from kraft, white, and round boxes, or go for unique shapes like hexagonal or slice boxes. We specialize in high-quality, corrugated pizza boxes that provide excellent protection and freshness. Enjoy free design support to make your custom printed pizza boxes stand out. With options for disposable, digital printed, and frozen pizza packaging, we cater to all requirements. Our wholesale deals and bulk discounts ensure you get the best value. Order today for fast shipping and up to 20% off on bulk orders."
+  },
+  {
+    "name": "Health Boxes",
+    "heading": "Custom Health Packaging Boxes",
+    "slug": "health-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964278/Health-Boxes_dpxybs.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965350/Health-Boxes.84e62f3f_fbdsbf.webp",
+    "tagline": "Explore premium health boxes for adults, men, and women. Custom Pack Boxes offers eco-friendly, durable packaging solutions with free design support and bulk discounts.",
+    "shortDescription": "Health boxes are an essential packaging solution for medical and wellness products, tailored for both personal and professional use. At Custom Pack Boxes, we offer a diverse range of subscription health boxes for men, women, and adults. Whether you need packaging for medicines, oils, masks, or other healthcare products, our boxes are designed for durability, convenience, and branding. With options like eco-friendly materials and custom printing, you can create packaging that stands out while maintaining functionality. Our health boxes come in various sizes, styles, and finishes, ideal for retail and bulk orders. Take advantage of free design support and wholesale discounts to enhance your packaging. From first-aid supplies to essential oils, Custom Pack Boxes provides solutions that cater to all your health packaging needs. Order now and enjoy fast shipping across the USA."
+  },
+  {
+    "name": "Cereal Boxes",
+    "heading": "Custom Cereal Packaging Boxes",
+    "slug": "cereal-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964270/Cereal-Boxes_cs8bb1.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965349/Cereal-Boxes.c8f3c80d_xujeb9.webp",
+    "tagline": "Enhance your brand with custom cereal boxes that captivate! From mini cereal boxes to bulk packaging!",
+    "shortDescription": "Discover the perfect packaging solution for cereal products with our custom cereal boxes at Custom Pack Boxes. Designed for both functionality and appeal, our cereal boxes come in various sizes, including mini and small options, allowing you to select the ideal packaging for your brand. Whether you need a box to hold a single serving or a bulk solution for retail, we have you covered. Our boxes are customizable to reflect your brand’s unique identity, helping your product stand out on the shelves. With options for colorful designs, wholesale orders, and free design support, Custom Pack Boxes ensures your packaging is as impressive as your product. Secure, stylish, and affordable, our custom cereal boxes will enhance your brand visibility and attract your target audience effortlessly."
+  },
+  {
+    "name": "Gift Boxes",
+    "heading": "Custom Gift Packaging Boxes",
+    "slug": "gift-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964271/Gift-Boxes_wayekd.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965349/Gift-Boxes.58c4ad75_y86akj.webp",
+    "tagline": "Discover Premium Gift Boxes for Every Occasion – Custom, Wholesale, and Personalized Options. Free Design Support and Discounts Up to 20% on Bulk Orders at Custom Pack Boxes!",
+    "shortDescription": "At Custom Pack Boxes, we offer a diverse selection of gift boxes tailored for all gifting needs. Whether you’re looking for Christmas gift boxes, jewelry gift boxes, chocolate gift boxes, or luxury packaging options, our collection covers it all. With free design support and bulk discounts, our gift boxes provide affordable, high-quality packaging for businesses, retailers, and personal events. Explore custom gift boxes that are perfect for apparel, personalized keepsakes, or seasonal gifts, available in a variety of sizes and designs. We provide wholesale gift boxes that are ideal for bulk orders, along with options for unique, personalized touches to make your gifts stand out. Choose from custom gift boxes, small gift boxes, and exclusive luxury options that cater to different styles and preferences. From eco-friendly packaging to sturdy cardboard options, our gift boxes are designed to add elegance and convenience to every occasion. Enjoy free shipping and discounts on bulk purchases, making your gifting experience seamless and affordable."
+  },
+  {
+    "name": "Corrugated Boxes",
+    "heading": "Custom Corrugated Packaging Boxes",
+    "slug": "corrugated-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964273/Corrugated-Boxes_g0ncv2.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965346/corrugatedCategory.beb1b8cd_ai53rd.webp",
+    "tagline": "Discover a wide range of custom corrugated boxes and shipping solutions designed for durability, branding, and secure delivery. Perfect for businesses of all sizes.",
+    "shortDescription": "At Custom Pack Boxes, we specialize in offering high-quality custom corrugated boxes, wholesale packaging solutions, and eco-friendly shipping boxes designed for your specific needs. Whether you’re shipping fragile products or bulk items, our corrugated shipping boxes are made to withstand the rigors of delivery, ensuring your products reach their destination intact. We offer an extensive variety of custom packaging boxes tailored to suit every business, with personalized options to help you stand out.Our corrugated mailer boxes, kraft mailer boxes, and custom printed boxes are available in wholesale quantities for businesses looking for cost-effective packaging solutions. Plus, we provide free design support, making it easy to create a box that reflects your brand’s personality.From customized corrugated boxes for shipping to bulk corrugated boxes for storage or distribution, we ensure all our products meet the highest standards. Free shipping on large orders ensures that your budget is optimized. Browse our collection of printed corrugated boxes, subscription boxes, and more to find the perfect packaging for your needs. With a focus on quality and reliability, Custom Pack Boxes is your trusted partner for durable packaging and shipping solutions."
+  },
+  {
+    "name": "Card Stock Boxes",
+    "heading": "Custom Card Stock Boxes",
+    "slug": "card-stock-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964276/Card-Stock_uqnzrk.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965346/retail-category.85d60571_abwccj.webp",
+    "tagline": "Durable and versatile card stock boxes tailored for retail, shipping, and gifting. Premium materials, free shipping, and bulk discounts ensure cost-effective packaging solutions for every business need.",
+    "shortDescription": "Custom Pack Boxes presents an exclusive range of card stock boxes, perfect for all your packaging needs. Designed for durability and style, our card stock boxes cater to diverse applications, including food packaging, retail displays, and gifting solutions. Crafted from premium materials, these boxes ensure your products are securely stored and elegantly presented. Whether you’re seeking food-grade card stock boxes or custom-printed options with logos, our solutions guarantee satisfaction. Our collection includes food boxes, pen boxes, and printable options, ideal for showcasing your brand with flair. With free design support and wholesale discounts, Custom Pack Boxes makes premium packaging accessible to businesses of all sizes. Enjoy free shipping on bulk orders and take advantage of our tailored services to create packaging that speaks for your brand. Explore our eco-friendly and affordable options today and elevate your product presentation effortlessly."
+  },
+  {
+    "name": "Pillow Boxes",
+    "heading": "Custom Pillow Packaging Boxes",
+    "slug": "pillow-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964275/Pillow-Boxes_qzl0e1.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965345/Pillow-Boxes.fe6ed3d3_p6epr8.webp",
+    "tagline": "Discover a wide variety of custom pillow boxes, perfect for every need, from gift packaging to wholesale orders. Free design support, bulk discounts, and free shipping included!",
+    "shortDescription": "At Custom Pack Boxes, we offer a diverse selection of custom pillow boxes tailored to meet all your packaging requirements. Whether you’re looking for personalized pillow boxes to add a unique touch to your products or seeking wholesale pillow boxes for bulk packaging, we have the perfect solution. Our range includes printed pillow boxes, kraft pillow boxes, and corrugated pillow boxes designed to suit various industries and occasions. With free shipping on all orders and discounts up to 20% on bulk purchases, you can ensure the best value for your packaging needs. We also provide free design support to help you create the ideal custom packaging with your logo, ensuring a professional and memorable presentation. From small businesses to large enterprises, our pillow boxes in bulk are the ideal choice for quality, cost-effective packaging. Whether you’re packing gifts, products, or promotional items, our selection of gift pillow boxes and Kraft pillow soap boxes offers both functionality and style. Explore our extensive collection and elevate your packaging today with Custom Pack Boxes!"
+  },
+  {
+    "name": "Christmas Boxes",
+    "heading": "Custom Christmas Packaging Boxes",
+    "slug": "christmas-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964273/Christmas-Boxes_jdrl1b.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965347/christmas_boxes.e51ef0db_pykwt8.webp",
+    "tagline": "Explore festive Christmas boxes for gifts, treats, and decorations. Decorative, large, and personalized options available with free shipping and bulk discounts.",
+    "shortDescription": "Celebrate the joy of gifting this holiday season with Christmas boxes from Custom Pack Boxes. Our collection includes decorative boxes, large gift boxes, and personalized options perfect for packing cookies, candies, and presents. Whether you’re searching for festive storage solutions or beautifully crafted gift boxes with lids, we’ve got you covered. Choose from an array of styles, sizes, and designs that cater to every need. Ideal for holiday parties, gift exchanges, or personal packaging, our bulk and wholesale deals ensure you get the best value. Crafted with durability and a touch of holiday magic, our Christmas boxes are designed to make your presents memorable. Shop today and enjoy free shipping and custom design support on all orders!"
+  },
+  {
+    "name": "Rigid Boxes",
+    "heading": "Custom Rigid Packaging Boxes",
+    "slug": "rigid-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964274/Rigid-Boxes_izjvnm.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965346/rigid-category.a0aaaecc_urmg2f.webp",
+    "tagline": "Discover premium custom rigid boxes designed to provide ultimate protection and luxury packaging. Whether you need wholesale, bulk, or custom-made rigid boxes with lids, we have the perfect solution for your business.",
+    "shortDescription": "At Custom Pack Boxes, we specialize in providing top-quality custom rigid boxes that meet your unique packaging needs. Our rigid boxes are available in various styles, including two-piece boxes, book-style boxes, and collapsible rigid boxes. These boxes are ideal for luxury packaging, gift packaging, and retail solutions. Whether you’re looking for wholesale rigid boxes, custom-designed options, or bulk orders, we offer versatile solutions to suit your business. Our rigid boxes with lids provide added protection for fragile and high-end products, ensuring they stay safe during shipping. The customizable nature of our boxes means that you can personalize them with logos, colors, and design elements that reflect your brand’s identity. We offer free design support, and with bulk discounts and free shipping, our services are designed to save you both time and money. Our collection includes collapsible rigid boxes, which are perfect for storage and efficient packaging solutions. We also provide custom luxury rigid boxes, ensuring your products stand out on the shelves and make a lasting impression. With affordable prices and fast delivery, Custom Pack Boxes is your one-stop shop for high-quality rigid packaging solutions."
+  },
+  {
+    "name": "Mylar Boxes",
+    "heading": "Custom Mylar Boxes",
+    "slug": "mylar-boxes",
+    "homeImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751964279/Mylar-Bags_tvacfj.jpg",
+    "heroImage": "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751965354/mylar-bags-category.e0c6849f_old9rv.webp",
+    "tagline": "",
+    "shortDescription": ""
   }
 ]

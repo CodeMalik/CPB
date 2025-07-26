@@ -8,12 +8,12 @@ const TopMenu = () => {
           <span className="flex items-center gap-1"><FaEnvelope /> sales@custompackboxes.com</span>
         </div>
         <div className="hidden sm:flex gap-5 text-lg">
-          <FaFacebookF className="cursor-pointer" />
-          <FaInstagram className="cursor-pointer" />
-          <FaLinkedinIn className="cursor-pointer" />
-          <FaPinterestP className="cursor-pointer" />
-          <FaYoutube className="cursor-pointer" />
-          <FaTiktok className="cursor-pointer" />
+          <a href='https://www.facebook.com/custompackboxes.us/' target='_blank'><FaFacebookF className="cursor-pointer" /></a>
+          <a href='https://www.instagram.com/accounts/login/?next=%2Fcustompackboxes.us%2F&source=omni_redirect' target='_blank'><FaInstagram className="cursor-pointer" /></a>
+          <a href='https://www.linkedin.com/company/custompackboxes/' target='_blank'><FaLinkedinIn className="cursor-pointer" /></a>
+          <a href='https://www.pinterest.com/custompackboxes/' target='_blank'><FaPinterestP className="cursor-pointer" /></a>
+          <a href='https://www.youtube.com/@CustomPackBoxes' target='_blank'><FaYoutube className="cursor-pointer" /></a>
+          <a href='https://www.tiktok.com/@custompackboxes' target='_blank'><FaTiktok className="cursor-pointer" /></a>
         </div>
       </div>
   )

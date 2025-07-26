@@ -15,6 +15,7 @@ export default function BoostSalesSection() {
             height={400}
             className="relative z-10 w-[300px] h-auto object-contain shadow-md"
             priority
+            alt="Overview Image"
           />
         </div>
 

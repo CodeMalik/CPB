@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import CustomHeading from './CustomHeading';
-import Link from 'next/link';
+import CustomElement from './CustomElement';
+const highlightWords = ["Custom", "Boxes Delivered",]
 
 
 
@@ -12,7 +12,7 @@ export default function HeroSection() {
         
         {/* Left Content */}
         <div className="flex-1">
-          <CustomHeading title={title} />
+          <CustomElement title={title} as='h1' isRed className='text-4xl md:text-6xl font-semibold' highlightWords={highlightWords} />
 
           <p className="mt-6 text-lg text-gray-700 max-w-96">
             Enhance Your Brand with Unique, Customizable Packaging Solutions – Free Shipping Across the USA!
@@ -39,10 +39,10 @@ export default function HeroSection() {
         {/* Right Image */}
         <div className="flex-1 w-full max-w-md md:max-w-3xl">
           <Image
-            src="https://custompackboxes.com/wp-content/uploads/2024/09/second-banner-mobile.6ea44d0a-1024x683.webp" // replace with your Cloudinary image
+            src="https://res.cloudinary.com/dfnjpfucl/image/upload/v1751973245/second-banner-mobile.6ea44d0a-1024x683_meoinx.webp" // replace with your Cloudinary image
             alt="Packaging Products"
             width={800}
-            height={800}
+            height={500}
             className="w-full h-auto object-contain"
           />
         </div>

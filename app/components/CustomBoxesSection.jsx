@@ -28,7 +28,7 @@ export default function CustomBoxesSection() {
             {customBoxSection.features.map((item, idx) => (
               <div
                 key={idx}
-                className="bg-pink-theme rounded-md p-5 flex flex-col items-start gap-4 space-x-4 hover:shadow-lg transition"
+                className="bg-pink-theme hover:bg-white rounded-md p-5 flex flex-col items-start gap-4 space-x-4 hover:shadow-2xl transition"
               >
                 <img
                   src={item.icon}

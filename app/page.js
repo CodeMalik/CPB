@@ -1,18 +1,21 @@
-import { Hero, CustomBoxesSection, AboutUs, ServiceIntro, ContactUs, PackagingSection, BoostSalesSection, FaqSection, PackagingFeatures, WhyChooseUs,  Products } from "./components";
+import { Hero, CustomBoxesSection, AboutUs, ServiceIntro, ContactUs, PackagingSection, BoostSalesSection, FaqSection, PackagingFeatures, WhyChooseUs,  Products, SpecificationTabs, Categories, Testimonials, Brands } from "./components";
 
 export default function Home() {
   return (
     <>
     <Hero />
+    <Brands />
     <CustomBoxesSection />
     <AboutUs />
-    <Products />
+    <Categories />
     <WhyChooseUs />
     <PackagingFeatures />
     <ServiceIntro />
     <ContactUs />
     <PackagingSection />
     <BoostSalesSection />
+    <SpecificationTabs />
+    <Testimonials />
     <FaqSection />
     </>
   );

@@ -1,5 +1,5 @@
 import { EmblaCarousel } from ".";
-import { packagingFeatures } from "../constant";
+import { packagingFeatures, features } from "../constant";
 
 export default function PackagingFeatures() {
   const { heading } = packagingFeatures;
@@ -9,7 +9,7 @@ export default function PackagingFeatures() {
       <h2 className="h2 text-2xl md:text-4xl text-center font-semibold">{heading}</h2>
     </div>
     <div className="py-12">
-    <EmblaCarousel />
+    <EmblaCarousel/>
     </div>
     </section>
   );

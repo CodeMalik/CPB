@@ -3,7 +3,7 @@ import { serviceIntro } from "../constant";
 export default function ServiceIntro() {
   const { heading, description, features, projectDelivered } = serviceIntro;
   return (
-    <section className="bg-[#f2e6e6] relative py-16 mb-40 px-4 md:px-16">
+    <section className="bg-[#f2e6e6] relative py-10 md:py-16 mb-24 lg:mb-40 md:px-16">
       <div className="container mx-auto">
         <div className="items-center justify-between mb-32 flex flex-col md:flex-row gap-10">
           {/* Left Content */}
@@ -32,18 +32,18 @@ export default function ServiceIntro() {
             })}
           </div>
         </div>
-        <div className="projects absolute py-10 -bottom-12 shadow-lg w-[80%]  left-1/2 -translate-x-1/2 mx-auto mt-10 bg-white">
+        <div className="projects relative lg:absolute  md:py-10 lg:-bottom-12 shadow-lg w-full lg:w-[80%]  lg:left-1/2 lg:-translate-x-1/2 mx-auto mt-10 bg-white">
           <div className="grid relative place-items-center grid-cols-1 md:grid-cols-4">
             {projectDelivered.map((project, index) => {
                 let Icon = project.icon;
               return (
-                <div key={index} className="flex  items-center gap-4 p-4">
-                  <Icon className="text-red-themed text-5xl" />
-                    <div className="flex flex-col gap-3">
-                        <h3 className="text-4xl font-semibold text-black">
+                <div key={index} className="flex flex-col md:flex-row items-center gap-4 p-4">
+                  <Icon className="text-red-themed text-4xl md:text-5xl" />
+                    <div className="flex flex-col items-center gap-3">
+                        <h3 className="text-2xl lg:text-4xl font-semibold text-black">
                         {project.title} <span className="text-red-themed">+</span>
                         </h3>
-                        <p className="text-gray-600 text-xl">{project.description}</p>
+                        <p className="text-gray-600 text-sm lg:text-xl">{project.description}</p>
                         </div>
                 </div>
               );

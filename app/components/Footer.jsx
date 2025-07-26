@@ -17,13 +17,11 @@ export default function Footer() {
         <div>
           <h2 className="font-semibold text-xl mb-2">Quick Links</h2>
           <ul className="space-y-1">
-            <li><Link href="about" className="hover:underline">About Us</Link></li>
-            <li><a href="#" className="hover:underline">Our Recent Boxes</a></li>
+            <li><Link href="/about" className="hover:underline">About Us</Link></li>
+            <li><a href="our-recent-boxes" className="hover:underline">Our Recent Boxes</a></li>
             <li><Link href="contact" className="hover:underline">Contact Us</Link></li>
-            <li><Link href="#" className="hover:underline">Cosmetics Packaging</Link></li>
-            <li><Link href="#" className="hover:underline">Blog</Link></li>
-            <li><Link href="#" className="hover:underline">Terms & Conditions</Link></li>
-            <li><Link href="#" className="hover:underline">Privacy Policy</Link></li>
+            <li><Link href="customized/apparel-boxes" className="hover:underline">Apparel Packaging</Link></li>
+            <li><Link href="terms-and-conditions" className="hover:underline">Terms & Conditions</Link></li>
           </ul>
         </div>
         {/* Contacts */}
@@ -48,8 +46,8 @@ export default function Footer() {
         <div>
           <h2 className="font-semibold text-xl mb-2">Hot Products</h2>
           <ul className="space-y-2">
-            <li>Custom Biscotti Boxes</li>
-            <li>Custom Bagel Boxes</li>
+            <li><Link href={"/custom-packaging/custom-underwear-boxes"}></Link>Custom Underwear Boxes</li>
+            <li><Link href={"custom-packaging/custom-belt-boxes"}></Link>Custom belt Boxes</li>
           </ul>
         </div>
       </div>

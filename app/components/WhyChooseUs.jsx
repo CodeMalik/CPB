@@ -116,13 +116,6 @@ export default function WhyChooseUs() {
           </div>
         </div>
         {/* Right Side Images (optional, as in screenshot) */}
-        <div className="mt-12 flex flex-wrap gap-4 justify-end">
-          {/* Replace src with your actual images */}
-          <img src="/images/box1.jpg" alt="Box Sample 1" className="w-36 h-28 object-cover rounded shadow-md" />
-          <img src="/images/box2.jpg" alt="Box Sample 2" className="w-36 h-28 object-cover rounded shadow-md" />
-          <img src="/images/box3.jpg" alt="Box Sample 3" className="w-36 h-28 object-cover rounded shadow-md" />
-          <img src="/images/box4.jpg" alt="Box Sample 4" className="w-36 h-28 object-cover rounded shadow-md" />
-        </div>
       </div>
     </section>
   );

@@ -7,6 +7,7 @@
 
   --color-red-themed: #FF0101;
   --color-pink-theme: #f2e9e9;
+  --color-text-black: rgb(24, 24, 26);
 
 }
 
@@ -22,6 +23,7 @@ body {
   margin: 0 auto;
   padding: 0 10px;
   max-width: 1560px;
+  /* color: rgb(24, 24, 26) */
 }
 
 .container {
