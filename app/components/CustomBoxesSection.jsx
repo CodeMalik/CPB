@@ -1,7 +1,6 @@
-// components/CustomBoxesSection.jsx
-
 import Image from "next/image";
 import { customBoxSection } from "../constant";
+import { aboutFeatures } from "../constant";
 
 export default function CustomBoxesSection() {
   return (
@@ -24,21 +23,23 @@ export default function CustomBoxesSection() {
         </div>
         {/* Feature Grid */}
         <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
-          <div className="grid grid-cols-1 sm:grid-cols-3 w-full lg:w-[65%] gap-5">
-            {customBoxSection.features.map((item, idx) => (
-              <div
-                key={idx}
-                className="bg-pink-theme hover:bg-white rounded-md p-5 flex flex-col items-start gap-4 space-x-4 hover:shadow-2xl transition"
-              >
-                <img
-                  src={item.icon}
-                  alt={item.title}
-                  className="w-17 h-17 object-contain"
-                />
-                <h4 className="font-semibold text-xl text-gray-900 w-[90%]">{item.title}</h4>
-              </div>
-            ))}
+          <div className="grid md:grid-cols-2 gap-8">
+      {aboutFeatures.map((feature, index) => {
+        const Icon = feature.icon;
+        return (
+          <div key={index} className="flex items-start gap-4">
+            <span className="rounded-lg p-2" style={{ backgroundColor: feature.color }}>
+              <Icon className="w-7 h-7 text-white" />
+            </span>
+            <div>
+              <h3 className="font-semibold text-lg text-[#222] mb-1">
+                {feature.title}
+              </h3>
+            </div>
           </div>
+        );
+      })}
+    </div>
 
           <div className="flex-1 max-w-lg mx-auto">
             <Image

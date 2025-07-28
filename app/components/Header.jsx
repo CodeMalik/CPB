@@ -1,6 +1,7 @@
 'use client'
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { Search } from 'lucide-react'
 import { TopMenu } from "./";
 import {
   FaBars,
@@ -10,10 +11,23 @@ import Link from "next/link";
 import { navigation } from "@/app/constant";
 
 export default function Header() {
+  const wrapperRef = useRef()
+  const [open, setOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(null);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
   return (
     <div className="fixed top-0 left-0 w-full z-50">
       {/* Top red bar */}
@@ -62,17 +76,25 @@ export default function Header() {
           </div>
 
           {/* Desktop Right */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-4" ref={wrapperRef}>
             <Link href={"/contact"}>
-            <button className="border border-red-500 text-red-600 px-4 py-4 hover:bg-red-100 transition">
+            <button className="border border-red-500 bg-red-themed px-4 text-white py-4 hover:bg-red-400 cursor-pointer transition">
               Get a Quote
             </button>
             </Link>
-            <input
+            <button onClick={() => setOpen((prev) => !prev)} className="text-gray-700 cursor-pointer hover:text-black transition">
+              <Search className="w-5 h-5" />
+            </button>
+            
+             {open && (
+        <div className="bg-white border ">
+          <input
               className="border px-2 w-[8rem] py-4 text-gray-700 hover:bg-gray-100 transition"
               type="text"
               placeholder="Search Here"
             />
+        </div>
+      )}
           </div>
 
           {/* Mobile Menu Icon */}

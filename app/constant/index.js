@@ -2,7 +2,14 @@ import { FaCogs, FaShippingFast, FaCube, FaBox, FaBoxes } from "react-icons/fa";
 import { MdAttachMoney } from "react-icons/md";
 import { MdOutlinePerson4 } from "react-icons/md";
 import { LuLayers } from "react-icons/lu";
-import { X, Truck, Clock, GalleryVertical, SprayCan, FlipHorizontal, Gift, Headset, PackageOpen, FastForward, Check, DollarSign } from "lucide-react"
+import { X, Clock, GalleryVertical, SprayCan, FlipHorizontal, Square,
+  Leaf,
+  Printer,
+  Gem,
+  Truck,
+  Palette,
+  Smile,
+  DollarSign } from "lucide-react"
 
 
 export const navigation = [
@@ -57,6 +64,66 @@ export const navigation = [
     url: "/contact",
   },
 ]
+
+
+export const aboutFeatures = [
+  {
+    icon: Square,
+    title: "Customize Size and Shape",
+    description:
+      "We bring your vision to life by offering complete flexibility over the size and shape of your packaging boxes. Whether you need unique dimensions or a specific structure, Custom Pack Boxes will create the perfect solution tailored to your exact specifications.",
+    color: "#ff7043",
+  },
+  {
+    icon: Leaf,
+    title: "Welcome to the Team Green!",
+    description:
+      "We understand our commitment to sustainability. That’s why Custom Pack Boxes proudly offers premium custom boxes crafted from sustainable and eco-friendly materials, ensuring your packaging aligns with your green values.",
+    color: "#ff7043",
+  },
+  {
+    icon: Printer,
+    title: "High-End Printing Quality!",
+    description:
+      "Experience exceptional printing results with Custom Pack Boxes. We utilize advanced digital and inkjet printing techniques to deliver vibrant, precise, and high-quality packaging that sets you apart from the competition.",
+    color: "#64b5f6",
+  },
+  {
+    icon: Gem,
+    title: "Exclusive Finishing and Features",
+    description:
+      "The final touch that makes your packaging truly stand out! Enjoy limitless customization options, including exclusive finishes and features, to create stunning boxes that make a lasting impression.",
+    color: "#4db6ac",
+  },
+  {
+    icon: Truck,
+    title: "Free & Fast Delivery",
+    description:
+      "Delivery fees? Not with us. Enjoy free, rapid, and reliable delivery straight to your doorstep, ensuring your custom packaging arrives on time, every time.",
+    color: "#5c6bc0",
+  },
+  {
+    icon: Palette,
+    title: "Free Design Support",
+    description:
+      "You imagine it, and our expert design team brings it to life—professional design assistance at no extra cost to create packaging that perfectly represents your brand.",
+    color: "#1976d2",
+  },
+  {
+    icon: Smile,
+    title: "Customer Satisfaction Above All!",
+    description:
+      "Our customers are our top priority! Our dedicated Customer Service Representatives are available 24/7 to assist you. Reach out anytime—we’re here to help!",
+    color: "#bc9956",
+  },
+  {
+    icon: DollarSign,
+    title: "Lowest Prices Guaranteed!",
+    description:
+      "Unbeatable pricing you won’t find anywhere else! Scale your business with affordable custom packaging solutions, all while maintaining top-notch quality.",
+    color: "#ffb300",
+  },
+];
 
 export const clientsImages = [
   {

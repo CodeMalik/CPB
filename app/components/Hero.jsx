@@ -1,34 +1,31 @@
-import Image from 'next/image';
-import CustomElement from './CustomElement';
-const highlightWords = ["Custom", "Boxes Delivered",]
-
-
+import Image from "next/image";
+import CustomElement from "./CustomElement";
+const highlightWords = ["Custom", "Boxes Delivered"];
 
 export default function HeroSection() {
-    const title = "Top-Quality Custom Packaging Boxes Delivered"
+  const title = "Top-Quality Custom Packaging Boxes Delivered";
   return (
     <section className="bg-[#f6eaea] px-6 py-12 md:py-20 mt-[10rem] md:mt-32">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
-        
         {/* Left Content */}
         <div className="flex-1">
-          <CustomElement title={title} as='h1' isRed className='text-4xl md:text-6xl font-semibold' highlightWords={highlightWords} />
+          <CustomElement
+            title={title}
+            as="h1"
+            isRed
+            className="text-4xl md:text-6xl font-semibold"
+            highlightWords={highlightWords}
+          />
 
           <p className="mt-6 text-lg text-gray-700 max-w-96">
-            Enhance Your Brand with Unique, Customizable Packaging Solutions – Free Shipping Across the USA!
+            Enhance Your Brand with Unique, Customizable Packaging Solutions –
+            Free Shipping Across the USA!
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <a href='#quote'>
-            <button
-              className='bg-red-themed text-white px-6 py-6 hover:bg-red-700 transition-colors cursor-pointer'
-            >
-              Get Started
-            </button>
-            </a>
-            <a href='#quote'>
-            <button
-              className='border border-red-themed text-red-themed px-6 py-6 cursor-pointer hover:bg-red-100 transition-colors'
+            <a href="#quote">
+              <button
+              className='border border-red-themed bg-red-themed px-6 py-4 cursor-pointer rounded-full text-white hover:bg-red-400 transition-colors'
             >
               Get a Free Quote Today!
             </button>
