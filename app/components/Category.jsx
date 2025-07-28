@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+const fetchUrl =  process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
 
 const Category = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category`, {
+    const res = await fetch(`${fetchUrl}/api/category`, {
     cache: "no-store",
   });
 

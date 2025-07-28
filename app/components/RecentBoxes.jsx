@@ -1,4 +1,3 @@
-import React from 'react'
 import { recentProducts } from '../constant'
 import Image from 'next/image'
 const RecentBoxes = () => {
