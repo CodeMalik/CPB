@@ -22,7 +22,7 @@ const Products = ({heading, tagline, shortDescription, products}) => {
         </div>
         <div className="flex flex-wrap justify-center items-center gap-8 mt-8">
           {products.map((product, index) => (
-            <Link href={`custom-packaging/${product.slug}`} key={index}>
+            <Link href={`/custom-packaging/${product.slug}`} key={index}>
             <div
               className="bg-gray-100 hover:shadow-2xl transition-all duration-300"
             >
