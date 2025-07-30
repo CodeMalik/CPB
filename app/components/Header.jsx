@@ -34,7 +34,7 @@ export default function Header() {
       <TopMenu />
 
       {/* Bottom white bar */}
-      <div className="bg-white py-4 px-2 md:pl-6 md:pr-32 shadow">
+      <div className="bg-white py-2 px-2 md:pl-6 md:pr-32 shadow">
         <div className="flex items-center justify-between">
           {/* Logo + Desktop Nav */}
           <div className="flex items-center gap-6">
@@ -78,7 +78,7 @@ export default function Header() {
           {/* Desktop Right */}
           <div className="hidden lg:flex items-center gap-4" ref={wrapperRef}>
             <Link href={"/contact"}>
-            <button className="border border-red-500 bg-red-themed px-4 text-white py-4 hover:bg-red-400 cursor-pointer transition">
+            <button className="border border-red-500 bg-red-themed px-4 text-white py-3 hover:bg-red-400 cursor-pointer transition">
               Get a Quote
             </button>
             </Link>
@@ -89,7 +89,7 @@ export default function Header() {
              {open && (
         <div className="bg-white border ">
           <input
-              className="border px-2 w-[8rem] py-4 text-gray-700 hover:bg-gray-100 transition"
+              className="border px-2 w-[8rem] py-3 text-gray-700 hover:bg-gray-100 transition"
               type="text"
               placeholder="Search Here"
             />

@@ -1,14 +1,13 @@
 import Image from "next/image";
 import { aboutUsSection } from "../constant";
 import Link from "next/link";
+import { CustomHtml } from ".";
 
 const AboutUs = () => {
   return (
     <section>
       <div className="container ">
-        <h2 className="text-2xl md:text-3xl text-center font-semibold">
-          {aboutUsSection.heading}
-        </h2>
+        <CustomHtml as="h2" html={aboutUsSection.heading} className="text-4xl text-center max-w-[70rem] mt-8 mx-auto"/>
         <div className="flex justify-between flex-col lg:flex-row items-center gap-6 mt-8">
           <div className="left lg:w-[50%]">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -19,7 +18,7 @@ const AboutUs = () => {
                     index === 0 ? "md:col-span-2" : "md:col-span-1"
                   }`}
                 >
-                    <h4 className="text-red-themed mb-3 font-bold">{benefit.title && benefit.title}</h4>
+                    <h4 className="text-red-themed mb-3 text-lg font-bold">{benefit.title && benefit.title}</h4>
                     <p className="text-gray-600">{benefit.description}</p>
                 </div>
               ))}

@@ -5,8 +5,8 @@ export default function Home() {
     <>
     <Hero />
     <CustomBoxesSection />
-    <AboutUs />
     <Categories />
+    <AboutUs />
     <PackagingFeatures />
     <ServiceIntro />
     <ContactUs />

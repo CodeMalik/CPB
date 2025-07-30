@@ -20,8 +20,8 @@ console.log(products)
   return (
     <div className="mt-[10rem]">
       <CategoryHero imageSrc={category.heroImage} name={category.name} />
-      <Products tagline={category.tagline} heading={category.heading} shortDescription={category.shortDescription} products={products}/>
       <ContactForm />
+      <Products tagline={category.tagline} heading={category.heading} shortDescription={category.shortDescription} products={products}/>
       <LongDescription longDescription={category.longDescription} />
       <PackagingFeatures />
       <ServiceIntro />

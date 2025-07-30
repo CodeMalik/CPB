@@ -1,6 +1,15 @@
 import { Header, Footer } from "./components";
 import { Poppins } from "next/font/google";
+import { Montserrat } from 'next/font/google';
 import "./globals.css";
+
+
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"]
+});
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -17,7 +26,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable}  antialiased`}
+        className={`${montserrat.variable}  antialiased`}
       >
         <Header />
         {children}

@@ -1,6 +1,8 @@
 import Image from "next/image";
 import CustomElement from "./CustomElement";
 const highlightWords = ["Custom", "Boxes Delivered"];
+import { benefitsImages } from "../constant"
+
 
 export default function HeroSection() {
   const title = "Top-Quality Custom Packaging Boxes Delivered";
@@ -18,8 +20,7 @@ export default function HeroSection() {
           />
 
           <p className="mt-6 text-lg text-gray-700 max-w-96">
-            Enhance Your Brand with Unique, Customizable Packaging Solutions –
-            Free Shipping Across the USA!
+            Custom Packaging That Tells Your Brand Story — Delivered Free Across the USA!
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
@@ -43,6 +44,13 @@ export default function HeroSection() {
             className="w-full h-auto object-contain"
           />
         </div>
+      </div>
+      <div className="mt-12">
+      <div className="container flex flex-wrap items-center justify-center gap-12 ">
+              {benefitsImages.map((image, index) => (
+                  <Image key={index} src={image.src} alt={image.name} width={120} height={120}/>
+              ))}
+          </div>
       </div>
     </section>
   );

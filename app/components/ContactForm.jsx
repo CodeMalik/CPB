@@ -3,140 +3,102 @@
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { UploadCloud, FileText } from 'lucide-react';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
+import { useState } from "react"
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-export function ContactForm() {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setError,
-    clearErrors,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
-  } = useForm();
+export  function ContactForm() {
+  const { register, handleSubmit, setValue, watch, reset } = useForm()
+  const [captchaAnswer, setCaptchaAnswer] = useState(9 * 11)
 
-  const onSubmit = async (data) => {
-    clearErrors('api');
-
-    const formData = new FormData();
-    Object.keys(data).forEach((key) => {
-      if (key === 'artwork') {
-        formData.append(key, data[key][0]); // first file
-      } else {
-        formData.append(key, data[key]);
-      }
-    });
-
-    try {
-      const res = await fetch('/api/send-mail-box', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!res.ok) {
-        setError('api', { type: 'manual', message: 'Failed to send message. Try again.' });
-      } else {
-        reset();
-      }
-    } catch (error) {
-      setError('api', { type: 'manual', message: 'Something went wrong.' });
+  const onSubmit = (data) => {
+    if (parseInt(data.captcha) !== captchaAnswer) {
+      alert("Incorrect captcha!")
+      return
     }
-  };
+
+    console.log("Form Data:", data)
+    alert("Quote requested successfully!")
+    reset()
+  }
 
   return (
-    <div className="bg-[#f5f5f5] my-12 rounded-tr-[80px] rounded-bl-[80px] overflow-hidden mx-auto shadow-xk max-w-6xl">
-      <div className="bg-red-themed text-white text-center text-2xl font-bold py-6">CONTACT US!</div>
+    <form onSubmit={handleSubmit(onSubmit)} className="border w-[23rem] md:w-full rounded-xl pb-12 md:max-w-4xl md:mx-auto bg-white shadow">
+      <div className="grid md:grid-cols-2 items-center mb-6 w-full">
+        <div className="bg-black text-white px-6 py-3 rounded-tr-xl md:rounded-tr-none rounded-tl-xl font-semibold text-base">Get Personalized Quote</div>
+        <div className="bg-gray-100 px-6 py-3 md:rounded-tr-xl font-semibold text-base">Free Shiping</div>
+      </div>
+      {/* Top Tabs */}
+<div className='px-4 mt-12'>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <Input placeholder="Length" {...register("length")} className={"py-6"}/>
+        <Input placeholder="Width" {...register("width")} className={"py-6"}/>
+        <Input placeholder="Depth" {...register("depth")} className={"py-6"}/>
+        <Input placeholder="Quantity" {...register("quantity")} className={"py-6"}/>
+      </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
-        {/* Product Info */}
-        <div>
-          <Label className="font-bold flex items-center gap-2 text-sm text-black">
-            <UploadCloud className="text-red-600 w-4 h-4" /> PRODUCT INFO
-          </Label>
-          <Input placeholder="Product Name" {...register('productName')} className=" bg-white py-2 rounded-none" />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+        <Select onValueChange={(value) => setValue("boxType", value)}>
+          <SelectTrigger className={'w-full py-6'}>
+            <SelectValue placeholder="Box Type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="custom">Custom</SelectItem>
+            <SelectItem value="mailer">Mailer</SelectItem>
+            <SelectItem value="display">Display</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <Select onValueChange={(value) => setValue("size", value)}>
+          <SelectTrigger className={"w-full py-6"}>
+            <SelectValue placeholder="Select Size" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="small">Small</SelectItem>
+            <SelectItem value="medium">Medium</SelectItem>
+            <SelectItem value="large">Large</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <Select  onValueChange={(value) => setValue("color", value)}>
+          <SelectTrigger className={"w-full py-6"}>
+            <SelectValue placeholder="Select Color" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="white">White</SelectItem>
+            <SelectItem value="brown">Brown</SelectItem>
+            <SelectItem value="black">Black</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <Input placeholder="Name" {...register("name")}  className={'py-6'}/>
+        <Input placeholder="Phone" {...register("phone")}  className={'py-6'}/>
+        <Input placeholder="E-mail*" type="email" {...register("email", { required: true })}  className={'py-6'}/>
+        <Input placeholder="Select Your Country" {...register("country")}  className={'py-6'}/>
+      </div>
+
+      <div className="mt-4">
+        <Textarea placeholder="Message" {...register("message")} className={"py-6"} />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 items-center">
+        <div className="text-sm font-medium">
+          9 * 11 =
         </div>
+        <Input placeholder="Captcha" {...register("captcha")} />
+      </div>
 
-        {/* Size */}
-        <div>
-          <Label className="font-bold flex items-center gap-2 text-sm text-black">
-            <UploadCloud className="text-red-600 w-4 h-4" /> SELECT SIZE
-          </Label>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <Input placeholder="Length" {...register('length')} className="bg-white py-2 rounded-none" />
-            <Input placeholder="Width" {...register('width')} className="bg-white py-2 rounded-none" />
-            <Input placeholder="Depth" {...register('depth')} className="bg-white py-2 rounded-none" />
-            <select {...register('unit')} className="bg-white py-2 px-3 border rounded-none">
-              <option value="inches">Inches</option>
-              <option value="cm">CM</option>
-              <option value="mm">MM</option>
-            </select>
-          </div>
-        </div>
-
-        {/* Material */}
-        <div>
-          <Label className="font-bold flex items-center gap-2 text-sm text-black">
-            <UploadCloud className="text-red-600 w-4 h-4" /> CHOOSE MATERIAL
-          </Label>
-          <div className="grid sm:grid-cols-3 gap-3">
-            <select {...register('stock')} className="bg-white py-2 px-3 border rounded-none">
-              <option value="kraft">Kraft</option>
-              <option value="corrugated">Corrugated</option>
-            </select>
-            <select {...register('color')} className="bg-white py-2 px-3 border rounded-none">
-              <option value="full">Full Color</option>
-              <option value="c1">Color 1</option>
-              <option value="c2">Color 2</option>
-              <option value="c3">Color 3</option>
-            </select>
-            <Input placeholder="Quantity" {...register('quantity')} className="bg-white py-2 rounded-none" />
-          </div>
-        </div>
-
-        {/* Upload Artwork */}
-        <div>
-          <Label className="font-bold flex items-center gap-2 text-sm text-black">
-            <UploadCloud className="text-red-600 w-4 h-4" /> UPLOAD ARTWORK
-          </Label>
-          <Input type="file" {...register('artwork')} className="bg-white py-2" />
-        </div>
-
-        {/* Personal Info */}
-        <div>
-          <Label className="font-bold flex items-center gap-2 text-sm text-black">
-            <UploadCloud className="text-red-600 w-4 h-4" /> PERSONAL INFORMATION
-          </Label>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <Input placeholder="Name" {...register('name')} className="bg-white py-2 rounded-none" />
-            <Input placeholder="Email" {...register('email')} type="email" className="bg-white py-2 rounded-none" />
-            <Input placeholder="Phone" {...register('phone')} className="bg-white py-2 rounded-none" />
-          </div>
-        </div>
-
-        {/* Additional Info */}
-        <div>
-          <Label className="font-bold flex items-center gap-2 text-sm text-black">
-            <UploadCloud className="text-red-600 w-4 h-4" /> ADDITIONAL INFORMATION
-          </Label>
-          <Textarea placeholder="Additional information" {...register('additionalInfo')} className="bg-white py-2 rounded-none" />
-        </div>
-
-        {/* Error Message */}
-        {errors.api && <p className="text-red-600">{errors.api.message}</p>}
-        {isSubmitSuccessful && !errors.api && <p className="text-green-600">Message sent successfully!</p>}
-
-        {/* Submit */}
-        <div className="text-center">
-          <Button disabled={isSubmitting} type="submit" className="bg-red-themed hover:bg-red-themed/80 text-white font-bold px-8 py-2 rounded">
-            {isSubmitting ? 'Sending...' : 'SEND'}
-          </Button>
-        </div>
-      </form>
-    </div>
-  );
+      <div className="mt-6">
+        <Button type="submit" className="w-full rounded-full bg-red-themed text-white py-6 text-base cursor-pointer hover:bg-black/90">
+          Get Personalized Quote
+        </Button>
+      </div>
+      </div>
+    </form>
+  )
 }
 
 

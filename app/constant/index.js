@@ -157,7 +157,7 @@ export const customBoxSection = {
   tagline: "Your one-stop destination for personalized packaging",
   heading: "Design Ideal Custom Boxes",
   description:
-    "Custom Pack Boxes crafted your boxes in various shapes, sizes, and materials, and can feature unique designs, logos, and colors to enhance brand identity. Ideal for businesses looking to differentiate their products in the market.",
+    "Your packaging is your first impression so make it unforgettable with Custom Pack Boxes. Tailored designs, bold branding, and free creative freedom in every box.",
   image:
     "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751364382/service-side-img_maflfh.jpg",
   features: [
@@ -199,7 +199,7 @@ export const productsDetails = {
 
 export const aboutUsSection = {
   heading:
-    "Custom Pack Boxes Provides Complete Solutions For All Your Custom Brand Packaging Needs, Ensuring Your Products Stand out With High-quality Designs And Materials.",
+    "<span class='dm-sans font-semibold text-red-themed'>Custom Packaging</span> for Brands That Want More Than a Box Unique Designs, Premium Materials, and <span class='dm-sans font-semibold text-red-themed'>Total Brand Control</span>.",
   image:
     "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751364339/Capture-1-1_dof9ln.png",
   aboutBenefits: [
@@ -383,9 +383,9 @@ export const ourHistory = {
 export const specificationTabs = [
   {
     heading: "Materials/Paper We Use",
+    title: "Not Just Packaging. Purpose.",
     description: [
-      "At Custom Pack Boxes, we utilize a variety of high-quality materials to create durable and visually appealing packaging solutions. From eco-friendly kraft paper and sturdy corrugated cardboard to premium cardstock and luxurious textured papers, we offer a wide selection to suit your unique packaging needs. Choose the perfect material that complements your brand and product, ensuring exceptional presentation and protection.",
-      "At Custom Pack Boxes, we take pride in offering high-quality, sustainable packaging solutions. Our primary material, cardboard, is selected for its strength and recyclability, ensuring that every box meets our eco-friendly standards. Sourced from responsibly managed forests, our cardboard is both durable and lightweight, perfect for a wide range of packaging needs. We also use soy-based inks and recyclable adhesives to further reduce our environmental footprint. By choosing Custom Pack Boxes, you’re not just getting premium packaging—you’re supporting sustainable practices that protect our planet.",
+      "At Custom Pack Boxes, quality and sustainability guide every choice. We use carefully selected materials to ensure your packaging looks sharp, feels premium, and protects what matters. We prioritize sustainable sourcing, recyclable components, and low-impact printing, so your brand looks good while doing good."
     ],
     options: [
       {
@@ -432,9 +432,9 @@ export const specificationTabs = [
   },
   {
     heading: "Printing Options",
+    title: "Design in Every Detail",
     description: [
-      "Custom Pack Boxes offers a variety of high-quality printing options to bring your packaging designs to life. Choose from digital printing for vibrant colors and intricate details, offset printing for a polished and professional finish, or flexographic printing for cost-effective, large-scale production. Enhance your packaging further with additional options like spot UV, foil stamping, embossing, and debossing to create a unique and captivating look that perfectly represents your brand.",
-      "At Custom Pack Boxes, we know that the presentation of your product is just as vital as the product itself. That’s why we provide a diverse range of printing options for our cardboard packaging boxes, crafted to make your brand shine. Whether you desire vibrant full-color prints, refined embossing, or elegant foil stamping, our cutting-edge printing technology delivers exceptional quality that captures your brand’s essence. With our customizable printing options, you can create packaging that not only safeguards your products but also elevates your brand’s visual appeal and market presence. Choose Custom Pack Boxes for packaging that truly makes a statement.",
+      "We offer advanced printing techniques that bring your packaging to life with clarity, color, and character. From bold visuals to subtle textures, every detail is crafted to reflect your brand's identity and elevate its presence. Because packaging isn’t just protection, it’s presentation."
     ],
     options: [
       {
@@ -983,3 +983,40 @@ Additional shipping and handling charges will be levied for packages that necess
     content: `In no event shall Timpackaging.com or its licensors, suppliers, or vendors, their officers, directors, employees, or agents be liable for any special, incidental, indirect, or consequential damages of any kind, or for any damages whatsoever resulting from loss of use, data, or profits, whether or not Timpackaging.com has been advised of the possibility of damage, arising out of or in connection with the use or performance of the site or of failure to provide products or services that you order from Timpackaging.com or its affiliates, including without limitation, damages arising from mistake, omission, virus, delay, or interruption of service. In no event shall Timpackaging.com be liable or responsible for any damages or consequences arising from or related to your inappropriate or unauthorized use of this site or its content.`
   }
 ];
+
+
+
+export const benefitsImages = [
+  {
+    name: "image1",
+    src: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753702586/100-free-shipping-icon-1_zjjby6.webp"
+  },
+  {
+    name: "image2",
+    src: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753702586/customer-support-icon-1_qcjnaa.webp"
+  },
+  {
+    name: "image3",
+    src: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753702585/free-flat-3d-view-icon-1_nalimm.webp"
+  },
+  {
+    name: "image4",
+    src: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753702585/free-one-colour-printing-icon-1_kxdcru.webp"
+  },
+  {
+    name: "image5",
+    src: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753702585/free-design-support-icon-1_yxhomh.webp"
+  },
+  {
+    name: "image6",
+    src: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753702585/quick-turnaroung-time-icon-1_djfb8m.webp"
+  },
+  {
+    name: "image7",
+    src: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753702585/get-instant-quotation-icon-1_bbwvsv.webp"
+  },
+  {
+    name: "image8",
+    src: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753702585/no-die-plate-charges-icon-1_ktblzz.webp"
+  },
+]

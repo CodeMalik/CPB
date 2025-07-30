@@ -11,7 +11,6 @@ const Category = async () => {
     return <div>Error fetching categories</div>;
   }
   const categories = await res.json();
-  console.log(categories)
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
       {categories.map((category) => (

@@ -20,7 +20,7 @@ const SpecificationTabs = () => {
           </TabsList>
           {specificationTabs.map((tabs, index) => (
             <TabsContent key={index} value={tabs.heading} className={"border-t-2 pt-8 md:pt-1 border-red-themed mt-10"}>
-              <h2 className="text-3xl lg:text-[2.8rem] text-text-black font-semibold text-center my-4">{tabs.heading}</h2>
+              <h2 className={`mont-font text-3xl lg:text-[2.8rem] text-text-black font-semibold text-center my-4`}>{tabs.title}</h2>
               {tabs.description.map((desc, descIndex) => (
                 <p key={descIndex} className="text-center block mb-4">{desc}</p>
 
