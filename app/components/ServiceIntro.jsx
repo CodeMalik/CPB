@@ -32,7 +32,7 @@ export default function ServiceIntro() {
             })}
           </div>
         </div>
-        <div className="projects relative lg:absolute  md:py-10 lg:-bottom-12 shadow-lg w-full lg:w-[80%]  lg:left-1/2 lg:-translate-x-1/2 mx-auto mt-10 bg-white">
+        <div className="projects relative lg:absolute  md:py-10 lg:-bottom-12 shadow-lg w-full lg:w-[80%]  lg:left-1/2 lg:-translate-x-1/2 mx-auto mt-10 rounded-xl bg-white">
           <div className="grid relative place-items-center grid-cols-1 md:grid-cols-4">
             {projectDelivered.map((project, index) => {
                 let Icon = project.icon;

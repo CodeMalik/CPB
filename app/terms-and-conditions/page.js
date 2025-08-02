@@ -3,8 +3,8 @@ import { termsSections } from '../constant';
 
 export default function TermsAndConditions() {
   return (
-    <div className="min-h-screen py-48 px-4 sm:px-6 lg:px-8">
-        <CategoryHero name={"Terms and Conditions"}/>
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8">
+        <CategoryHero name={"Terms and Conditions"} imageSrc={""}/>
 
       <div className="container mx-auto shadow-md rounded-lg overflow-hidden">
         

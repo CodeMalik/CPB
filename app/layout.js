@@ -1,9 +1,14 @@
 import { Header, Footer } from "./components";
 import { Poppins } from "next/font/google";
 import { Montserrat } from 'next/font/google';
+import {Roboto_Slab} from "next/font/google"
 import "./globals.css";
 
-
+const robotoSlab =  Roboto_Slab({
+  subsets: ['latin'],
+  variable: '--font-roboto-slab',
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"]
+})
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -26,7 +31,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${montserrat.variable}  antialiased`}
+        className={`${montserrat.variable} ${robotoSlab.variable}  antialiased`}
       >
         <Header />
         {children}

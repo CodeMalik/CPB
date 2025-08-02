@@ -1,6 +1,7 @@
 // app/components/Footer.tsx
 import { Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -8,7 +9,7 @@ export default function Footer() {
       <div className="mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Company Info */}
         <div>
-          <h2 className="font-semibold text-xl mb-2">Company Info</h2>
+          <Image src={"/logo.png"} width={200} height={200} alt="Website logo" className="-mt-4 mb-6"/>
           <p>
             <span className="font-semibold text-[#e3342f]">Custom Pack Boxes</span> is a leading manufacturer and wholesale supplier of high-quality packaging products for a wide range of industries. Our extensive product line includes customized corrugated boxes, kraft boxes, mailer boxes, rigid boxes and more.
           </p>
@@ -54,7 +55,7 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="mx-auto px-4 mt-8 flex flex-col md:flex-row items-center justify-between border-t border-red-200 pt-4">
         <div className="text-sm text-[#222]">
-          © Copyright 2024 - <span className="font-semibold text-[#e3342f]">Custom Pack Boxes</span> All rights Reserved
+          © Copyright {new Date().getFullYear()} - <span className="font-semibold text-[#e3342f]">Custom Pack Boxes</span> All rights Reserved
         </div>
         <div className="flex items-center gap-4 mt-4 md:mt-0">
           {/* Replace these with your actual images/icons */}

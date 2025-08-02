@@ -7,7 +7,7 @@ import { benefitsImages } from "../constant"
 export default function HeroSection() {
   const title = "Top-Quality Custom Packaging Boxes Delivered";
   return (
-    <section className="bg-[#f6eaea] px-6 py-12 md:py-20 mt-[10rem] md:mt-32">
+    <section className="bg-[#f6eaea] px-6 py-12 md:py-20">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
         {/* Left Content */}
         <div className="flex-1">

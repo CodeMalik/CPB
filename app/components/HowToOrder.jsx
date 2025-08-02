@@ -24,8 +24,8 @@ const steps = [
 export default function HowToOrder() {
   return (
     <section className="bg-white px-4 md:px-8">
-      <h2 className="text-3xl md:text-3xl pb-8 font-bold text-center">
-        How to Order From Us
+      <h2 className="text-3xl md:text-3xl pb-8 font-semibold text-center">
+        How to <span className="text-red-themed font-bold">Order</span> From Us
       </h2>
 
       <div className="relative max-w-6xl mx-auto text-xs">
@@ -45,7 +45,7 @@ export default function HowToOrder() {
                         <p className="text-gray-800">{step.text}</p>
                       </div>
                     </div>
-                    <div className="hidden text-xs md:flex  md:items-center justify-center w-7 h-7 bg-black text-white rounded-full font-bold absolute left-1/2 transform -translate-x-1/2 z-20">
+                    <div className="hidden text-xs md:flex  md:items-center justify-center w-7 h-7 bg-red-themed text-white rounded-full font-bold absolute left-1/2 transform -translate-x-1/2 z-20">
                       {step.number}
                     </div>
                     <div className="w-0 md:w-1/2" />
@@ -56,7 +56,7 @@ export default function HowToOrder() {
                 {!isLeft && (
                   <>
                     <div className="w-0 md:w-1/2" />
-                    <div className="hidden md:flex items-center justify-center w-7 h-7 bg-black text-white rounded-full font-bold absolute left-1/2 transform -translate-x-1/2 z-20">
+                    <div className="hidden md:flex items-center justify-center w-7 h-7 bg-red-themed text-white rounded-full font-bold absolute left-1/2 transform -translate-x-1/2 z-20">
                       {step.number}
                     </div>
                     <div className="w-full md:w-1/2 flex justify-start md:pl-6 z-10">

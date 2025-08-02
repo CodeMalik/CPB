@@ -31,4 +31,6 @@ export { default as Brands }  from "./Brands"
 export { default as BrandCarousel } from "./BrandCarousel"
 export { default as benefits } from "./Benefits"
 export { default as CustomHtml } from "./wrapper/CustomHtml"
+export { default as MidCta } from './MidCta'
+export { default as FinalCta } from "./FinalCta"
 export { default as Footer } from "./Footer";

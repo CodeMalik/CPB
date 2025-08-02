@@ -18,16 +18,16 @@ const page =  async ({ params }) => {
   }).lean()
 console.log(products)
   return (
-    <div className="mt-[10rem]">
+    <>
       <CategoryHero imageSrc={category.heroImage} name={category.name} />
-      <ContactForm />
+      <ContactForm  isHome={false} content={category.heading} name={category.name}/>
       <Products tagline={category.tagline} heading={category.heading} shortDescription={category.shortDescription} products={products}/>
       <LongDescription longDescription={category.longDescription} />
       <PackagingFeatures />
       <ServiceIntro />
       <Testimonials />
       <FaqSection />
-    </div>
+    </>
   )
 }
 

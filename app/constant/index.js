@@ -190,11 +190,7 @@ export const customBoxSection = {
 
 export const productsDetails = {
   heading: "Partner with Custom Pack Boxes for Exceptional Packaging Solutions",
-  description: [
-    "At Custom Pack Boxes, we recognize the critical need for scalability and reliability in fulfilling your custom packaging box requirements. Whether you’re a small business with modest needs or a large corporation with high-volume demands, you can rely on us to provide packaging solutions that grow with your business and stand the test of time.",
-    "Scalability is embedded in our operations, enabling us to seamlessly adapt to varying demands and cater to your evolving needs. From producing small batches of custom window box packaging for promotional events to large-scale production runs for major product launches, we possess the resources, expertise, and flexibility to scale our services accordingly.",
-    "Reliability is the foundation of our business ethos, particularly in delivering custom packaging boxes for small businesses. We pride ourselves on consistently meeting our commitments. Our state-of-the-art facilities, rigorous quality control measures, and experienced team ensure every packaging project is executed with precision and care. Trust Custom Pack Boxes to deliver top-quality packaging solutions that adhere to your specifications, timelines, and budget, regardless of project size or complexity.",
-  ],
+  description: "At Custom Pack Boxes, we combine unmatched scalability and rock-solid reliability to deliver custom packaging solutions that grow with your business—whether you need a few boxes for a small promo or a massive run for a big launch. With flexible production, strict quality control, and a commitment to your timelines and budget, we’re your trusted partner in packaging success.",
 };
 
 export const aboutUsSection = {
@@ -1020,3 +1016,34 @@ export const benefitsImages = [
     src: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753702585/no-die-plate-charges-icon-1_ktblzz.webp"
   },
 ]
+
+
+export const formDetails = {
+  productType: [
+    "Apparel Box", 
+    "Bakery Box",
+    "Mailer Box",
+    "Rigid Box",
+    "Pizza Box",
+    "Cosmetic Box",
+    "Gift Box", 
+    "Pillow Box", 
+    "Candle Box", 
+    "Soap Box", 
+    "Display Box",
+    "Mylar Bag", 
+    "CBD", 
+    "Cigarette",
+    "Others"
+  ],
+  size : [
+    "Inches", "CM",  "MM"
+  ],
+  color: [
+    "No Printing",
+    "Color 1",
+    "Color 2",
+    "Color 3",
+    "Color 4",
+  ]
+}

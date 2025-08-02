@@ -1,4 +1,4 @@
-import { Hero, CustomBoxesSection, AboutUs, ServiceIntro, ContactUs, PackagingSection, FaqSection, PackagingFeatures, SpecificationTabs, Categories, Testimonials, Brands } from "./components";
+import { Hero, CustomBoxesSection, AboutUs, ServiceIntro, ContactUs, PackagingSection, FaqSection, PackagingFeatures, SpecificationTabs, Categories, Testimonials, Brands, FinalCta, MidCta } from "./components";
 
 export default function Home() {
   return (
@@ -7,14 +7,15 @@ export default function Home() {
     <CustomBoxesSection />
     <Categories />
     <AboutUs />
-    <PackagingFeatures />
+    <MidCta />
     <ServiceIntro />
+    <Brands />
     <ContactUs />
     <PackagingSection />
-    <Brands />
     <SpecificationTabs />
     <Testimonials />
     <FaqSection />
+    <FinalCta />
     </>
   );
 }

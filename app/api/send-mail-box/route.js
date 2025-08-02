@@ -5,13 +5,12 @@ export async function POST(req) {
   const formData = await req.formData();
   const fields = Object.fromEntries(formData);
 
-  // Extract file
-  const file = formData.get('artwork');
-  let attachment = [];
+  const file = formData.get("artwork");
+  const attachments = [];
 
-  if (file && typeof file === 'object' && file.name) {
+  if (file && typeof file === "object" && file.name) {
     const buffer = Buffer.from(await file.arrayBuffer());
-    attachment.push({
+    attachments.push({
       filename: file.name,
       content: buffer,
     });
@@ -20,32 +19,33 @@ export async function POST(req) {
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-      user: process.env.EMAIL_USER,      
-      pass: process.env.EMAIL_PASS,       
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
 
   try {
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER, // your receiving address
-      subject: 'New Contact Form Submission',
+      to: process.env.EMAIL_USER,
+      subject: 'New Quote Request',
       text: `
         Name: ${fields.name}
         Email: ${fields.email}
         Phone: ${fields.phone}
-        Product: ${fields.productName}
-        Size: ${fields.length} x ${fields.width} x ${fields.depth} (${fields.unit})
-        Material: ${fields.stock}, Color: ${fields.color}, Quantity: ${fields.quantity}
-        Message: ${fields.additionalInfo}
+        Box Type: ${fields.boxType}
+        Dimensions: ${fields.length} x ${fields.width} x ${fields.depth}
+        Quantity: ${fields.quantity}
+        Size: ${fields.size}
+        Color: ${fields.color}
+        Message: ${fields.message}
       `,
-      attachments: attachment,
+      attachments,
     });
 
     return NextResponse.json({ message: 'Email sent successfully' });
-  } catch (err) {
-    console.error(err);
-    console.log(err.message)
+  } catch (error) {
+    console.error('Email error:', error);
     return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
   }
 }
