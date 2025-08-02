@@ -18,6 +18,7 @@ import Link from "next/link";
 
 export function ContactForm({ isHome = true, content, isBread = false, name }) {
   const [submitted, setIsSubmetted] = useState(false)
+  const [error, setError] = useState(null)
   const {
     register,
     handleSubmit,
@@ -71,7 +72,7 @@ export function ContactForm({ isHome = true, content, isBread = false, name }) {
       setPreview(null);
     } catch (err) {
       console.error("Error sending form:", err.message);
-      alert("Failed to send quote. Please try again.", err.message);
+      setError(err.message)
     }
   };
   const handleImageChange = (e) => {
@@ -290,11 +291,14 @@ export function ContactForm({ isHome = true, content, isBread = false, name }) {
           >
            {isSubmitting ? "Submitting..." : "Submit"}
           </Button>
-          {submitted && (
-        <p className="text-green-600 text-sm mt-2">
-          ✅ Your message was sent successfully!
-        </p>
-      )}
+          {error && (
+              <p>{error}</p>
+          ) }
+      {submitted && (
+          <p className="text-green-600 text-sm mt-2">
+            ✅ Your message was sent successfully!
+          </p>
+          )}
         </div>
       </div>
     </form>
