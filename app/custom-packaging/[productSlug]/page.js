@@ -9,7 +9,7 @@ const page =  async ({params}) => {
   const product = await Product.findOne({slug: productSlug})
   await connectDB()
   return (
-    <>
+    <div className='mt-4'>
     <ProductHero heading={product.heading} shortDesc={product.shortDescription} tagline={product.tagline} images={product.images} category={product.categorySlug} name={product.name} />
     <LongDescription longDescription={product.longDescription} />
     <ProductSpecifications />
@@ -17,7 +17,7 @@ const page =  async ({params}) => {
     <PackagingFeatures />
     <Testimonials />
     <FaqSection />
-    </>
+    </div>
   )
 }
 
