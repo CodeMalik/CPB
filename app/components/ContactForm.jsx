@@ -71,7 +71,7 @@ export function ContactForm({ isHome = true, content, isBread = false, name }) {
       setPreview(null);
     } catch (err) {
       console.error("Error sending form:", err.message);
-      alert("Failed to send quote. Please try again.");
+      alert("Failed to send quote. Please try again.", err.message);
     }
   };
   const handleImageChange = (e) => {
