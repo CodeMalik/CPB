@@ -16,7 +16,6 @@ const page =  async ({ params }) => {
   const products = await Product.find({
     categoryIds: {$in: [categoryObjectId]}
   }).lean()
-console.log(products)
   return (
     <>
       <CategoryHero imageSrc={category.heroImage} name={category.name} />

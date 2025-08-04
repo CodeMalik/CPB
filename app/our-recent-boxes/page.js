@@ -3,7 +3,7 @@ import { RecentBoxes } from "../components";
 
 const page = () => {
   return (
-    <section className="pt-48">
+    <section className="mt-12">
         <div className="container">
       <div className="info text-center mb-12">
         <h1 className="text-4xl font-semibold ">Our Recent Boxes</h1>

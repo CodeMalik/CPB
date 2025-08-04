@@ -1,4 +1,4 @@
-import { Header, Footer } from "./components";
+import { Header, Footer, ClientProgressProvider } from "./components";
 import { Poppins } from "next/font/google";
 import { Montserrat } from 'next/font/google';
 import {Roboto_Slab} from "next/font/google"
@@ -33,9 +33,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${montserrat.variable} ${robotoSlab.variable}  antialiased`}
       >
+        <ClientProgressProvider>
         <Header />
         {children}
         <Footer />
+        </ClientProgressProvider>
       </body>
     </html>
   );
