@@ -1,6 +1,7 @@
 import { connectDB } from "@/lib/mongoose";
 import Category from "@/app/models/Category";
 
+export const dynamic = "force-dynamic";
 
 
 export const GET = async () => {
@@ -14,13 +15,30 @@ export const GET = async () => {
 }
 
 
-export const POST = async (req) => {
-        try {
-            const data = await req.json()
-            await connectDB()
-            const newCategory = await Category.create(data)
-            return Response.json(newCategory, {status: 201}) 
-        } catch(err) {
-            return Response.json({err: err.message || "Failed to create new category"}, {status: 500})
-        }
+export async function POST(req) {
+  try {
+    const data = await req.json();
+    await connectDB();
+    const newCategory = await Category.create(data);
+
+    return new Response(JSON.stringify(newCategory), {
+      status: 201,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+  } catch (err) {
+    console.error("API Error:", err);
+    return new Response(
+      JSON.stringify({ err: err.message || "Failed to create category" }),
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
+  }
 }

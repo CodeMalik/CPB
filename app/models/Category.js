@@ -1,10 +1,5 @@
 import mongoose from "mongoose";
 
-const descriptionSchema = new mongoose.Schema({
-    title: String,
-    description: String
-})
-
 
 const CategorySchema = new mongoose.Schema({
      
@@ -14,8 +9,8 @@ const CategorySchema = new mongoose.Schema({
     homeImage: String,
     heroImage: String,
     tagline: String,
-    shortDescription: String,
-    longDescription: [descriptionSchema]
+    shortDescription: mongoose.Schema.Types.Mixed,
+    longDescription: mongoose.Schema.Types.Mixed
 })
 
 
