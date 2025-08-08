@@ -24,7 +24,7 @@ export const GET = async (req, { params }) => {
 
 export const PUT = async (req, { params }) => {
   try {
-      await connectDB();
+    await connectDB();
     const { id } = params;
     const updateData = await req.json();
 

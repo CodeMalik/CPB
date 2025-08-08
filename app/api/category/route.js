@@ -3,6 +3,17 @@ import Category from "@/app/models/Category";
 
 export const dynamic = "force-dynamic";
 
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
+}
+
 
 export const GET = async () => {
     try {
