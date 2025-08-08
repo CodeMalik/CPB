@@ -1,6 +1,18 @@
 import { connectDB } from "@/lib/mongoose";
 import Category from "@/app/models/Category";
 
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
+}
+
+
 export const GET = async (req, { params }) => {
   try {
     const { id } = params;
@@ -45,3 +57,36 @@ export const PUT = async (req, { params }) => {
     );
   }
 };
+
+
+export const DELETE = async (req, { params }) => {
+  try {
+    await connectDB();
+
+    const { id } = params;
+
+    const deletedCategory = await Category.findByIdAndDelete(id);
+
+    if (!deletedCategory) {
+      return Response.json(
+        { error: "Category not found" },
+        { status: 404 }
+      );
+    }
+    return new Response(JSON.stringify({ message: "Deleted successfully" }), {
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+    });
+
+  } catch (err) {
+    console.error("Delete error:", err);
+    return Response.json(
+      { error: "Failed to delete Category" },
+      { status: 500 }
+    );
+  }
+};
+

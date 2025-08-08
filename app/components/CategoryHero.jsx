@@ -5,16 +5,16 @@ import Link from "next/link";
 const CategoryHero = ({imageSrc, name}) => {
   return (
     <section className="relative bg-gray-200 w-full h-[380px]">
-      {!imageSrc ? ( null): (
+     {imageSrc ? (
+  <Image
+    src={imageSrc}
+    alt="Apparel Boxes"
+    fill
+    priority
+    className="object-cover hidden md:block"
+  />
+) : null}
 
-        <Image
-          src={imageSrc}
-          alt="Apparel Boxes"
-          fill
-          priority
-          className="object-cover hidden md:block"
-        />
-      )}
 
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10">
         <h1 className="text-3xl md:text-4xl">{name}</h1>
