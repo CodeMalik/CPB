@@ -49,7 +49,14 @@ export const PUT = async (req, { params }) => {
       return Response.json({ err: "Category not found" }, { status: 404 });
     }
 
-    return Response.json(updatedCategory, { status: 200 });
+    return new Response(JSON.stringify(updatedCategory), {
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      },
+    });
   } catch (err) {
     return Response.json(
       { err: err.message || "Failed to update category" },
