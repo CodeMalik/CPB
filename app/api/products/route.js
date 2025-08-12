@@ -34,7 +34,7 @@ export async function POST(req) {
     } = body;
 
     // 🟡 1. Find category by slug
-    const category = await Category.find({ slug: { $in: categorySlug } });
+    const category = await Category.find({ slug: Array.isArray(categorySlug) ? { $in: categorySlug } : categorySlug });
 
     if (!category || category.length === 0) {
       return NextResponse.json(
