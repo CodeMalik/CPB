@@ -19,7 +19,15 @@ export const GET = async () => {
     try {
         await connectDB()
         const categories = await Category.find()
-        return Response.json(categories, {status: 200})
+        return new Response(JSON.stringify(categories), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      },
+    });
     } catch(err) {
         return Response.json({err: "Failed to Fetch Categories"}, {status: 500})
     }
