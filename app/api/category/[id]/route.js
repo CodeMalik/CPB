@@ -80,7 +80,7 @@ export const DELETE = async (req, { params }) => {
         { status: 404 }
       );
     }
-    return new Response(JSON.stringify({ message: "Deleted successfully" }), {
+    return new Response(JSON.stringify({ message: "Category deleted successfully" }), {
       status: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
