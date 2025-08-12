@@ -11,7 +11,7 @@ const ProductSchema = new mongoose.Schema({
   slug: {type: String, required: true},
   categorySlug: {type: mongoose.Schema.Types.Mixed, required: true},
   image: { type: String, required: true },
-  images: { type: [String], required: true },
+  images: { type: [String], required: false },
   tagline: String,
   shortDescription: mongoose.Schema.Types.Mixed,
 
