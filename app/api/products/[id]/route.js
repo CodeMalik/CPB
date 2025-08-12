@@ -16,6 +16,28 @@ export async function OPTIONS() {
   return new NextResponse(null, { status: 204, headers: corsHeaders });
 }
 
+
+export const GET = async (req, { params }) => {
+  try {
+    const { id } = params;
+
+    await connectDB();
+
+    const category = await Product.findById(id);
+
+    if (!Product) {
+      return NextResponse.json({ err: "product not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(category, { status: 200 });
+  } catch (err) {
+    return NextResponse.json(
+      { err: err.message || "Failed to fetch product" },
+      { status: 500 }
+    );
+  }
+};
+
 // DELETE /api/products/[id]
 export const DELETE = async (req, { params }) => {
   try {
