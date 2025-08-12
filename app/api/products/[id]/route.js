@@ -2,15 +2,18 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongoose";
 import Product from "@/app/models/Product";
 
+export const dynamic = "force-dynamic";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
+
+// Preflight
 export async function OPTIONS() {
-  return new Response(null, {
-    status: 204,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    },
-  });
+  return new NextResponse(null, { status: 204, headers: corsHeaders });
 }
 
 // DELETE /api/products/[id]
@@ -29,18 +32,15 @@ export const DELETE = async (req, { params }) => {
       );
     }
 
-   return new Response(JSON.stringify({ message: "Product deleted successfully" }), {
+   return new NextResponse(JSON.stringify({ message: "Product deleted successfully" }), {
       status: 200,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
+      headers: corsHeaders
     });
   } catch (err) {
     console.error("Delete error:", err);
     return NextResponse.json(
       { error: "Failed to delete product" },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     );
   }
 };
@@ -61,18 +61,14 @@ export const PUT = async (req, { params }) => {
       return Response.json({ err: "product not found" }, { status: 404 });
     }
 
-    return new Response(JSON.stringify(updatedProduct), {
+    return new NextResponse(JSON.stringify(updatedProduct), {
       status: 200,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-      },
+      headers: corsHeaders
     });
   } catch (err) {
-    return Response.json(
+    return NextResponse.json(
       { err: err.message || "Failed to update Product" },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     );
   }
 };
