@@ -2,7 +2,18 @@ import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/mongoose';
 import Product from '@/app/models/Product';
 import Category from '@/app/models/Category';
-// POST /api/products
+export const dynamic = "force-dynamic";
+
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
+}
 export async function POST(req) {
   try {
     await connectDB();
@@ -49,7 +60,15 @@ export async function POST(req) {
       meta
     });
 
-    return NextResponse.json( newProduct ,{ status: 201 });
+     return new Response(JSON.stringify(newProduct), {
+      status: 201,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      },
+    });
   } catch (error) {
     console.error('Error creating product:', error);
     return NextResponse.json(
@@ -63,7 +82,15 @@ export async function GET() {
   try {
     await connectDB();
     const products = await Product.find();
-    return NextResponse.json(products);
+     return new Response(JSON.stringify(products), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      },
+    });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to fetch products' }, { status: 500 });
   }
