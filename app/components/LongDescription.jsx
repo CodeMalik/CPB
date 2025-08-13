@@ -11,9 +11,9 @@ const LongDescription = ({longDescription}) => {
             .replace(/\\u0027/g, "'");
 }
 
-    if (longDescription.length == 0 || longDescription == null) {
-        return null
-    }
+   if (!longDescription || (Array.isArray(longDescription) && longDescription.length === 0)) {                                                           
+   return null      
+  }                                                                                                                                 
   return (
     <div className=" w-full my-20 py-12 bg-pink-theme relative text-gray-900">
     {/* Diagonal Grid with Electric Orange */}
@@ -45,7 +45,7 @@ const LongDescription = ({longDescription}) => {
   ))
 ) : (
   <div
-  className="prose prose-sm md:prose-base"
+  className="prose prose-sm md:prose-base max-w-none"
   dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(longDescription) }}
 />
 )}

@@ -35,7 +35,7 @@ export const GET = async (req, { params }) => {
       { err: err.message || "Failed to fetch product" },
       { status: 500 }
     );
-  }
+  } 
 };
 
 // DELETE /api/products/[id]
