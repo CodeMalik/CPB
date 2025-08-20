@@ -3,7 +3,7 @@ import { ImageGalleryWrapper } from ".";
 import { ContactForm } from ".";
 import Link from "next/link";
 
-const ProductHero = ({ heading, shortDesc, images, category, name }) => {
+const ProductHero = ({ heading, shortDesc, images, category, name, image }) => {
   return (
     <section>
       <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row w-[90%] md:w-full justify-between items-start gap-12">
@@ -48,7 +48,7 @@ const ProductHero = ({ heading, shortDesc, images, category, name }) => {
               <p className="text-sm mb-6 text-gray-700">{shortDesc}</p>
             )}
           </div>
-          <ImageGalleryWrapper images={images} />
+          <ImageGalleryWrapper images={images} image={image} />
         </div>
         <div className="right w-full flex-1">
           <ContactForm content={"Customize Your Box"} isHome={false} />

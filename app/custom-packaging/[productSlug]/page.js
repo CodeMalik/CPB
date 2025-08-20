@@ -3,29 +3,27 @@ import { connectDB } from "@/lib/mongoose"
 import Product from "@/app/models/Product"
 import { ProductHero, LongDescription, SpecificationTabs, ProductSpecifications, FaqSection, Testimonials, PackagingFeatures } from '@/app/components'
 
-// Function to fetch metadata for a dynamic page
 async function getDynamicPageMetadata(identifier) {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
     const res = await fetch(`${baseUrl}/api/meta/${identifier}`, {
-      cache: 'no-store' // Or 'force-cache' if you want to cache metadata
+      cache: 'no-store'
     });
 
     if (!res.ok) {
       if (res.status === 404) {
         console.warn(`Metadata not found for identifier: ${identifier}`);
-        return null; // Or return default metadata
+        return null; 
       }
       throw new Error(`Failed to fetch metadata: ${res.statusText}`);
     }
     return res.json();
   } catch (error) {
     console.error(`Error fetching metadata for ${identifier}:`, error);
-    return null; // Return null or default metadata on error
+    return null;
   }
 }
 
-// generateMetadata function for dynamic product pages
 export async function generateMetadata({ params }) {
   const { productSlug } = params;
   const metaData = await getDynamicPageMetadata(productSlug);
@@ -63,7 +61,7 @@ const page =  async ({params}) => {
   }
   return (
     <div className='mt-4'>
-    <ProductHero heading={product.heading} shortDesc={product.shortDescription} tagline={product.tagline} images={product.images} category={product.categorySlug} name={product.name} />
+    <ProductHero heading={product.heading} image={product.image} shortDesc={product.shortDescription} tagline={product.tagline} images={product.images} category={product.categorySlug} name={product.name} />
     <LongDescription longDescription={product.longDescription} />
     <ProductSpecifications />
     <SpecificationTabs />

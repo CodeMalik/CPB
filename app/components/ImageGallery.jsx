@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const ImageGallery = ({ images }) => {
+const ImageGallery = ({ images, image }) => {
   const [selectedImage, setSelectedImage] = useState(images[0] || "");
   return (
     <div className="w-full max-w-3xl mx-auto">
@@ -17,7 +17,7 @@ const ImageGallery = ({ images }) => {
       </div>
 
       <div className="grid w-full grid-cols-4 gap-5">
-        {images.map((img, idx) => (
+        {Array.isArray(images) ? images.map((img, idx) => (
           <button
             key={idx}
             onClick={() => setSelectedImage(img)}
@@ -34,7 +34,14 @@ const ImageGallery = ({ images }) => {
               className="object-cover"
             />
           </button>
-        ))}
+        )): (
+          <Image
+            src={image}
+            alt={`Thumbnail ${idx + 1}`}
+            fill
+            className="object-cover"
+          />
+        )}
       </div>
     </div>
   );

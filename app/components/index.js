@@ -34,4 +34,6 @@ export { default as CustomHtml } from "./wrapper/CustomHtml"
 export { default as MidCta } from './MidCta'
 export { default as ClientProgressProvider } from "./ClientProgressProvider"
 export { default as FinalCta } from "./FinalCta"
+export { default as SearchInput } from "./SearchInput"
+export { default as SearchResults } from "./SearchResults"
 export { default as Footer } from "./Footer";

@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { Search } from "lucide-react";
-import { TopMenu } from "./";
+import { SearchInput, TopMenu } from "./";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Link from "next/link";
 import { navigation } from "@/app/constant";
@@ -99,12 +99,9 @@ export default function Header() {
                 Get a Quote
               </button>
             </Link>
-            <button
-              onClick={() => setOpen((prev) => !prev)}
-              className="text-gray-700 cursor-pointer hover:text-black transition"
-            >
-              <Search className="w-5 h-5" />
-            </button>
+            <div>
+              <SearchInput />
+            </div>
 
             {open && (
               <div className="bg-white border ">

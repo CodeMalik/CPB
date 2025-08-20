@@ -1,12 +1,26 @@
-import { Hero, CustomBoxesSection, AboutUs, ServiceIntro, ContactUs, PackagingSection, FaqSection, PackagingFeatures, SpecificationTabs, Categories, Testimonials, Brands, FinalCta, MidCta } from "./components";
+import {
+  Hero,
+  CustomBoxesSection,
+  AboutUs,
+  ServiceIntro,
+  ContactUs,
+  PackagingSection,
+  FaqSection,
+  SpecificationTabs,
+  Categories,
+  Testimonials,
+  Brands,
+  FinalCta,
+  MidCta,
+} from "./components";
 
 // Function to fetch metadata for a static page
 async function getStaticPageMetadata(identifier) {
   try {
     // Ensure NEXT_PUBLIC_BASE_URL is set in your .env.local file
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
     const res = await fetch(`${baseUrl}/api/meta/${identifier}`, {
-      cache: 'no-store' // Or 'force-cache' if you want to cache metadata
+      cache: "no-store", // Or 'force-cache' if you want to cache metadata
     });
 
     if (!res.ok) {
@@ -25,14 +39,14 @@ async function getStaticPageMetadata(identifier) {
 
 // generateMetadata function for the Home page
 export async function generateMetadata() {
-  const metaData = await getStaticPageMetadata('home'); // Use 'home' as the identifier
+  const metaData = await getStaticPageMetadata("home"); // Use 'home' as the identifier
 
   if (!metaData) {
     // Default metadata if no specific entry is found in the database
     return {
-      title: 'Home | Custom Pack Boxes',
-      description: 'Your ultimate destination for custom packaging solutions.',
-      keywords: 'custom boxes, packaging, home, custom packaging solutions',
+      title: "Custom Pack Boxes | Premium Packaging Solutions",
+      description: "Your ultimate destination for custom packaging solutions.",
+      keywords: "custom boxes, packaging, home, custom packaging solutions",
     };
   }
 
@@ -52,19 +66,19 @@ export async function generateMetadata() {
 export default function Home() {
   return (
     <>
-    <Hero />
-    <CustomBoxesSection />
-    <Categories />
-    <AboutUs />
-    <MidCta />
-    <ServiceIntro />
-    <Brands />
-    <ContactUs />
-    <PackagingSection />
-    <SpecificationTabs />
-    <Testimonials />
-    <FaqSection />
-    <FinalCta />
+      <Hero />
+      <CustomBoxesSection />
+      <Categories />
+      <AboutUs />
+      <MidCta />
+      <ServiceIntro />
+      <Brands />
+      <ContactUs />
+      <PackagingSection />
+      <SpecificationTabs />
+      <Testimonials />
+      <FaqSection />
+      <FinalCta />
     </>
   );
 }
