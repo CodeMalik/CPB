@@ -1,4 +1,5 @@
 import { Header, Footer, ClientProgressProvider } from "./components";
+import { Suspense } from "react";
 import { Poppins } from "next/font/google";
 import { Montserrat } from 'next/font/google';
 import {Roboto_Slab} from "next/font/google"
@@ -36,7 +37,9 @@ export default function RootLayout({ children }) {
       >
         <ClientProgressProvider>
         <Header />
+        <Suspense>
         {children}
+        </Suspense>
         <Footer />
         </ClientProgressProvider>
       </body>
