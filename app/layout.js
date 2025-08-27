@@ -35,13 +35,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${montserrat.variable} ${robotoSlab.variable}  antialiased`}
       >
+        <Suspense>
         <ClientProgressProvider>
         <Header />
-        <Suspense>
         {children}
-        </Suspense>
         <Footer />
         </ClientProgressProvider>
+        </Suspense>
       </body>
     </html>
   );
