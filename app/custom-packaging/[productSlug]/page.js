@@ -13,7 +13,7 @@ async function getDynamicPageMetadata(identifier) {
     if (!res.ok) {
       if (res.status === 404) {
         console.warn(`Metadata not found for identifier: ${identifier}`);
-        return null; 
+        return null;
       }
       throw new Error(`Failed to fetch metadata: ${res.statusText}`);
     }
@@ -50,24 +50,24 @@ export async function generateMetadata({ params }) {
   };
 }
 
-const page =  async ({params}) => {
+const page = async ({ params }) => {
   await connectDB()
   const { productSlug } = params;
 
-  const product = await Product.findOne({slug: productSlug})
+  const product = await Product.findOne({ slug: productSlug })
 
   if (!product) {
     return <p className='min-h-screen w-full flex items-center justify-center text-4xl text-red-themed'>This is the problem while rendring this page</p>
   }
   return (
     <div className='mt-4'>
-    <ProductHero heading={product.heading} image={product.image} shortDesc={product.shortDescription} tagline={product.tagline} images={product.images} category={product.categorySlug} name={product.name} />
-    <LongDescription longDescription={product.longDescription} />
-    <ProductSpecifications />
-    <SpecificationTabs />
-    <PackagingFeatures />
-    <Testimonials />
-    <FaqSection />
+      <ProductHero heading={product.heading} image={product.image} shortDesc={product.shortDescription} tagline={product.tagline} images={product.images} category={product.categorySlug} name={product.name} />
+      <LongDescription longDescription={product.longDescription} />
+      <ProductSpecifications />
+      <SpecificationTabs />
+      <PackagingFeatures />
+      <Testimonials />
+      <FaqSection />
     </div>
   )
 }
