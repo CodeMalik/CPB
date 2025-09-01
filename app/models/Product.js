@@ -5,8 +5,16 @@ const ProductSchema = new mongoose.Schema({
   heading: { type: String, required: true },
   slug: {type: String, required: true},
   categorySlug: {type: String, required: true},
-  image: String,
-  images: { type: [String], required: false },
+   image: {
+    url: String,
+    public_id: String,
+  },
+  images: [
+    {
+      url: String,
+      public_id: String,
+    },
+  ],
   tagline: String,
   shortDescription: mongoose.Schema.Types.Mixed,
 
