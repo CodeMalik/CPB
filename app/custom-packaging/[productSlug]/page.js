@@ -52,7 +52,7 @@ export async function generateMetadata({ params }) {
 
 const page = async ({ params }) => {
   await connectDB()
-  const { productSlug } = params;
+  const { productSlug } =  await params;
 
   const product = await Product.findOne({ slug: productSlug })
 

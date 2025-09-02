@@ -2,9 +2,13 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const ImageGallery = ({ images = [], image }) => {
-  // Pick initial selected image
-  const initialImage = images.length > 0 ? images[0] : image;
+const ImageGallery = ({ images, image }) => {
+ 
+
+  // ✅ Decide what to display
+  const hasGallery = images.length > 0;
+  const initialImage = hasGallery ? validImages[0] : image;
+
   const [selectedImage, setSelectedImage] = useState(initialImage);
 
   return (
@@ -21,9 +25,9 @@ const ImageGallery = ({ images = [], image }) => {
       </div>
 
       {/* Thumbnails */}
-      <div className="grid w-full grid-cols-4 gap-5">
-        {images.length > 0 ? (
-          images.map((img, idx) => (
+      {hasGallery ? (
+        <div className="grid w-full grid-cols-4 gap-5">
+          {images.map((img, idx) => (
             <button
               key={idx}
               onClick={() => setSelectedImage(img)}
@@ -40,18 +44,20 @@ const ImageGallery = ({ images = [], image }) => {
                 className="object-cover"
               />
             </button>
-          ))
-        ) : (
-          <div className="relative w-full h-[100px] rounded border-2 border-gray-300 overflow-hidden">
-            <Image
-              src={image}
-              alt="Single thumbnail"
-              fill
-              className="object-cover"
-            />
-          </div>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        // Fallback: just show single image
+        // <div className="relative w-full h-[100px] rounded border-2 border-gray-300 overflow-hidden">
+        //   <Image
+        //     src={image}
+        //     alt="Single thumbnail"
+        //     fill
+        //     className="object-cover"
+        //   />
+        // </div>
+        null
+      )}
     </div>
   );
 };
