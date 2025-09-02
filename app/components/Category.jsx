@@ -18,7 +18,7 @@ const Category = async () => {
         <div className="rounded-2xl group m-2 border-2 shadow-md shadow-red-themed/45 border-gray-400 px-4 py-3">
         <div className="image  relative">
           <Image
-            src={category.homeImage}
+            src={category.homeImage?.url  || category.homeImage }
             alt={category.name}
             className="w-full h-auto object-cover mb-2 rounded-xl transition-transform duration-200"
             width={300}

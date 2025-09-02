@@ -27,7 +27,7 @@ const Products = ({heading, tagline, shortDescription, products}) => {
               className="bg-gray-100 hover:shadow-2xl transition-all duration-300"
             >
               <Image
-                src={product.image}
+                src={product.image?.url || product.image}
                 alt={product.name}
                 width={300}
                 height={300}
