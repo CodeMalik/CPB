@@ -4,7 +4,7 @@ const TopMenu = () => {
   return (
     <div className="bg-[#FF0101] text-white  md:ml:20 pl-28 pr-12 py-3.5 text-sm flex justify-between items-center">
         <div className="flex flex-wrap items-center gap-4 text-sm">
-          <span className="flex items-center gap-1"><FaPhoneAlt /> (406) 3380-235</span>
+          <span className="flex items-center gap-1"><FaPhoneAlt />(406) 289 6262</span>
           <span className="flex items-center gap-1"><FaEnvelope /> sales@custompackboxes.com</span>
         </div>
         <div className="hidden sm:flex gap-5 text-lg">
