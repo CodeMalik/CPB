@@ -109,9 +109,9 @@ export function ContactForm({ isHome = true, content, isBread = false, name }) {
               : "pt-4 pb-1 mb-7 bg-red-themed text-white rounded-tl-lg rounded-tr-lg"
           }`}
         >
-          <span
+          <h2
             className={`text-2xl md:text-2xl  font-semibold`}
-          >{`Get ${content} At Wholesale Prices`}</span>
+          >{`Get ${content} At Wholesale Prices`}</h2>
           <div className="mt-4 text-sm">
             {isBread ?? <Link href={"/"}>Home</Link> / <span>{name}</span>}
           </div>
