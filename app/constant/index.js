@@ -839,21 +839,21 @@ You acknowledge that Timpackaging.com™ and its designees retain the right (but
   {
     id: 'design-files',
     title: 'DESIGN FILES',
-    content: `Timpackaging.com™ will solely furnish design files at 72 DPI (low resolution). Should you desire to procure higher resolution designed files, please contact support@Timpackaging.com for a quotation.`
+    content: `Custompackaging.com™ will solely furnish design files at 72 DPI (low resolution). Should you desire to procure higher resolution designed files, please contact support@custompackaging.com for a quotation.`
   },
   {
     id: 'customer-submitted-artwork',
     title: 'CUSTOMER SUBMITTED ARTWORK',
-    content: `All artwork or designs and images must be submitted in CMYK format and with a minimum resolution of 300 DPI. Timpackaging.com™ disclaims responsibility for any color alterations that arise in conversions from RGB to CMYK color modes. Additionally, Timpackaging.com™ disclaims responsibility for images printed as fuzzy, distorted, or pixilated due to customer-provided artwork.`
+    content: `All artwork or designs and images must be submitted in CMYK format and with a minimum resolution of 300 DPI. custompacking.com™ disclaims responsibility for any color alterations that arise in conversions from RGB to CMYK color modes. Additionally, Timpackaging.com™ disclaims responsibility for images printed as fuzzy, distorted, or pixilated due to customer-provided artwork.`
   },
   {
     id: 'proofing-matching',
     title: 'PROOFING & MATCHING',
     content: `All print jobs mandate customer approval of the final artwork and job specification sheet. Post order placement, final artwork proofs and a job specification sheet will be dispatched to customers via email. Customers are liable for reviewing all details stipulated in the specification sheet, including but not restricted to, delivery dates and/or production speed, and confirming that all customer requirements have been accurately noted. Timpackaging.com™ disclaims liability for any specifications and requirements beyond what is delineated in the final specification sheet. Moreover, it is incumbent upon the customer to review the final artwork proof as proofreading is the customer's responsibility. Due to the myriad ways that files are prepared, unplanned changes may occur. The final proof depicts what will be printed. Timpackaging.com™ earnestly recommends that the proof be printed out at 100% to verify actual position, spelling, and other design elements. Timpackaging.com™ will not be liable for any design or spelling issues that remain unidentified by the customer and relayed to Timpackaging.com immediately. Upon approval, the design file and job specifications will be forwarded to the production department and printed as is.
 
-Timpackaging.com™ disclaims liability for color matching or ink density on screen proofs approved by the customers. Screen proofs prognosticate design layout, text accuracy, image proportion, and placement, but not color or density. Timpackaging.com™ will endeavor to match the gradient density of each color in duo-tone. Timpackaging.com™ disclaims liability for the final appearance of a duo-tone unless the customer requests a color match proof. Furthermore, application of lamination may impact or alter the appearance of the printed colors.
+Custompackaging.com™ disclaims liability for color matching or ink density on screen proofs approved by the customers. Screen proofs prognosticate design layout, text accuracy, image proportion, and placement, but not color or density. Timpackaging.com™ will endeavor to match the gradient density of each color in duo-tone. Timpackaging.com™ disclaims liability for the final appearance of a duo-tone unless the customer requests a color match proof. Furthermore, application of lamination may impact or alter the appearance of the printed colors.
 
-Timpackaging.com™ disclaims liability for the final color appearance of laminated product/s.`
+custompackaging.com™ disclaims liability for the final color appearance of laminated product/s.`
   },
   {
     id: 'materials',
@@ -863,7 +863,7 @@ Timpackaging.com™ disclaims liability for the final color appearance of lamina
   {
     id: 'customer-responsibility',
     title: 'CUSTOMER IS RESPONSIBLE FOR PROOF AND LAYOUT APPROVAL PRIOR TO PRINTING.',
-    content: `Timpackaging.com™ is NOT LIABLE for errors in a printed product attributable to any of the following:
+    content: `Custom.com™ is NOT LIABLE for errors in a printed product attributable to any of the following:
 
 - Graphics Orientation or Placement and Incorrect Font Usage
 - Spelling, Grammatical, and Punctuation Errors
@@ -1047,3 +1047,82 @@ export const formDetails = {
     "Color 4",
   ]
 }
+
+
+export const privacySections = [
+  {
+    id: 'privacy-and-security',
+    title: 'PRIVACY AND SECURITY',
+    content: `At Tim Packaging, safeguarding our customers' privacy is paramount. We uphold strict confidentiality standards and do not trade, sell, or disclose any client information to third parties unless necessary for processing and delivering orders.`
+  },
+  {
+    id: 'registration',
+    title: 'REGISTRATION',
+    content: `To access Tim Packaging services, users must complete a registration form, providing their name and email address. This data enables us to reach out regarding our services, irrespective of whether they've made a purchase.`
+  },
+  {
+    id: 'order',
+    title: 'ORDER',
+    content: `When placing an order, users are prompted to furnish contact details (such as name, email, and shipping address) and financial particulars (like credit card information). This ensures smooth credit card authorization and order fulfillment. Should any hiccups arise during processing, we rely on this information to communicate with the user promptly.`
+  },
+  {
+    id: 'cookies',
+    title: 'COOKIES',
+    content: `Utilizing persistent cookies, both My Tim Packaging and the Tim Packaging order section employ these to uniquely identify users, link user files with orders, and facilitate the shopping experience. Please note that our site necessitates cookies for optimal functionality.`
+  },
+  {
+    id: 'log-files',
+    title: 'LOG FILES',
+    content: `In line with standard website practices, we utilize log files to analyze trends, administer the site, and aggregate user movement data. However, this information remains unlinked to personally identifiable details.`
+  },
+  {
+    id: 'communications',
+    title: 'COMMUNICATIONS FROM THE SITE',
+    content: `Special Offers and Updates: Occasionally, established members receive updates on products, services, and exclusive deals. However, users have the autonomy to opt out of these communications at any time.
+
+Newsletter: Upon registration, customers are automatically subscribed to our newsletter, but we provide an opt-out option to respect user privacy preferences.
+
+Customer Service: We maintain regular communication with users to address service requests, utilizing email and phone channels to resolve issues related to ongoing orders.`
+  },
+  {
+    id: 'legal-disclaimer',
+    title: 'LEGAL DISCLAIMER',
+    content: `While committed to preserving user privacy, we may be obligated to disclose personal information as mandated by law, ensuring transparency and compliance.`
+  },
+  {
+    id: 'third-parties',
+    title: 'THIRD PARTY INTERMEDIARIES',
+    content: `We engage external shipping and credit card processing companies, which handle user data exclusively for the intended purposes without retention or secondary usage.`
+  },
+  {
+    id: 'business-transitions',
+    title: 'BUSINESS TRANSITIONS',
+    content: `In scenarios like mergers or acquisitions, users' personal information may be transferred as part of the assets. However, users will be duly notified of any changes affecting data usage.`
+  },
+  {
+    id: 'choice-opt-out',
+    title: 'CHOICE / OPT-OUT',
+    content: `Users are provided with clear opt-out mechanisms to exclude their information from non-essential marketing communications.`
+  },
+  {
+    id: 'links',
+    title: 'LINKS',
+    content: `While our site may contain links to external platforms, we advise users to review the privacy policies of these sites independently, as we hold no responsibility for their practices.`
+  },
+  {
+    id: 'security',
+    title: 'SECURITY',
+    content: `Employing stringent measures, our website ensures the encryption of sensitive information both online and offline, guaranteeing the utmost protection of user data.`
+  },
+  {
+    id: 'notification-of-changes',
+    title: 'NOTIFICATION OF CHANGES',
+    content: `Any alterations to our privacy policy will be promptly communicated to users via email and prominently displayed on our website, ensuring transparency and user awareness.
+
+If any changes occur in how we handle personally identifiable information that do not affect data already stored in our system, we'll provide clear notification on our website and through email communication. Users will have the choice to opt-in or opt-out of the revised practices.
+
+Should users opt-out of communication or deactivate their accounts, their personal information will be respected and not utilized in any new manner.
+
+In addition, any significant modifications to our privacy practices will be prominently announced on our website to ensure users are kept informed about how their information is collected, used, and under what circumstances it may be disclosed.`
+  }
+];

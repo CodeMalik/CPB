@@ -7,7 +7,7 @@ const ImageGallery = ({ images, image }) => {
 
   // ✅ Decide what to display
   const hasGallery = images.length > 0;
-  const initialImage = hasGallery ? validImages[0] : image?.url;
+  const initialImage = hasGallery ? validImages[0] : image?.url || image;
 
   const [selectedImage, setSelectedImage] = useState(initialImage);
 
