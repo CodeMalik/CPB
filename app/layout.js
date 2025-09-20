@@ -46,7 +46,6 @@ export default function RootLayout({ children }) {
               })(window,document,'script','dataLayer','GTM-K238CTPC');`,
           }}
         />
-        {/* No Script GTM */}
         <noscript><iframe
           src="https://www.googletagmanager.com/ns.html?id=GTM-K238CTPC"
           height="0"
@@ -56,11 +55,11 @@ export default function RootLayout({ children }) {
         </noscript>
 
         <Suspense>
-          <ClientProgressProvider>
+          {/* <ClientProgressProvider> */}
             <Header />
             {children}
             <Footer />
-          </ClientProgressProvider>
+          {/* </ClientProgressProvider> */}
         </Suspense>
          <Script
           id="tawk-to"
