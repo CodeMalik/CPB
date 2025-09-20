@@ -7,11 +7,17 @@ const ProductSchema = new mongoose.Schema({
   categorySlug: {type: String, required: true},
    image: {
     url: String,
+    alt: String,
+    title: String,
+    caption: String,
     public_id: String,
   },
   images: [
     {
       url: String,
+      alt: String,
+      title: String,
+      caption: String,
       public_id: String,
     },
   ],
