@@ -5,7 +5,7 @@ const CategorySchema = new mongoose.Schema({
      
     name: {type: String, required: true},
     heading: {type: String, required: true},
-    slug: {type: String, required: true},
+    slug: {type: String, required: true, unique: true},
     homeImage: {
         url: String,
         public_id: String,
