@@ -3,6 +3,7 @@ import Category from "@/app/models/Category"
 import Product from "@/app/models/Product"
 import { CategoryHero, ContactForm, FaqSection, LongDescription, PackagingFeatures, Products, ServiceIntro, Testimonials } from "@/app/components"
 import mongoose from "mongoose";
+import { notFound } from "next/navigation";
 
 // Function to fetch metadata for a dynamic page
 async function getDynamicPageMetadata(identifier) {
@@ -60,7 +61,7 @@ const page =  async ({ params }) => {
   const category = await Category.findOne({ slug: categorySlug }).lean();
 
     if (!category) {
-    return <div className="p-6 text-red-600">Category not found.</div>;
+    return notFound();
   }
   const categoryObjectId = new mongoose.Types.ObjectId(category._id);
   const products = await Product.find({

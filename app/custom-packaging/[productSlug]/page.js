@@ -2,6 +2,7 @@ import React from 'react'
 import { connectDB } from "@/lib/mongoose"
 import Product from "@/app/models/Product"
 import { ProductHero, LongDescription, SpecificationTabs, ProductSpecifications, FaqSection, Testimonials, PackagingFeatures } from '@/app/components'
+import { notFound } from 'next/navigation'
 
 async function getDynamicPageMetadata(identifier) {
   try {
@@ -57,7 +58,7 @@ const page = async ({ params }) => {
   const product = await Product.findOne({ slug: productSlug })
 
   if (!product) {
-    return <p className='min-h-screen w-full flex items-center justify-center text-4xl text-red-themed'>This is the problem while rendring this page</p>
+    return notFound();
   }
   return (
     <div className='mt-4'>
