@@ -7,7 +7,7 @@ const CategoryHero = ({imageSrc, name}) => {
     <section className="relative bg-gray-200 w-full h-[380px]">
      {imageSrc ? (
   <Image
-    src={imageSrc}
+    src={imageSrc.url || imageSrc}
     alt="Apparel Boxes"
     fill
     priority
