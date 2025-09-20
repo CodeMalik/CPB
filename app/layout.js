@@ -32,7 +32,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
+      <body
+        className={`${montserrat.variable} ${robotoSlab.variable}  antialiased`}
+      >
         <Script
           id="gtm-script"
           strategy="afterInteractive"
@@ -44,10 +46,6 @@ export default function RootLayout({ children }) {
               })(window,document,'script','dataLayer','GTM-K238CTPC');`,
           }}
         />
-      </head>
-      <body
-        className={`${montserrat.variable} ${robotoSlab.variable}  antialiased`}
-      >
         {/* No Script GTM */}
         <noscript><iframe
           src="https://www.googletagmanager.com/ns.html?id=GTM-K238CTPC"
