@@ -36,11 +36,11 @@ export default function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <Phone className="w-5 h-5 text-[#e3342f]" />
-              <span>(406) 289 6262</span>
+              <a className="" href="tel:+4062896262">(406) 289 6262</a>
             </li>
             <li className="flex items-center gap-2">
               <Mail className="w-5 h-5 text-[#e3342f]" />
-              <span>support@custompackboxes.com</span>
+              <a href="mailto:support@custompackboxes.com">support@custompackboxes.com</a>
             </li>
           </ul>
         </div> 

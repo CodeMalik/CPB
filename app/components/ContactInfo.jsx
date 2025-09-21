@@ -6,16 +6,19 @@ const contactData = [
     icon: <MapPin className="text-white w-10 h-10" />,
     title: "Address",
     content: "1001 S Main St #7115, Kalispell, MT 59901, USA",
+    link: null
   },
   {
     icon: <Mail className="text-white w-10 h-10" />,
     title: "Email",
     content: "support@custompackboxes.com",
+    link: null
   },
   {
     icon: <Phone className="text-white w-10 h-10" />,
     title: "Contact",
-    content: "+14063380235",
+    content: "(406) 289 6262",
+    link: "+4062896262"
   },
 ];
 
@@ -37,7 +40,13 @@ export default function ContactSection() {
                 {item.icon}
               </div>
               <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-              <p className="text-gray-500 text-sm">{item.content}</p>
+                {item.link !== null ? (
+                  <a className="text-gray-500 text-sm" href="tel:+4062896262">{item.content}</a>
+                ): (
+                  
+                  <p className="text-gray-500 text-sm">
+                {item.content}</p>
+                )}
             </div>
           ))}
         </div>
