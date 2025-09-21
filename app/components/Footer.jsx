@@ -23,6 +23,7 @@ export default function Footer() {
             <li><Link href="/contact" className="hover:underline">Contact Us</Link></li>
             <li><Link href="/customized/apparel-boxes" className="hover:underline">Apparel Packaging</Link></li>
             <li><Link href="/terms-and-conditions" className="hover:underline">Terms & Conditions</Link></li>
+            <li><Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link></li>
           </ul>
         </div>
         {/* Contacts */}
@@ -42,7 +43,7 @@ export default function Footer() {
               <span>support@custompackboxes.com</span>
             </li>
           </ul>
-        </div>
+        </div> 
         {/* Hot Products */}
         <div>
           <h2 className="font-semibold text-xl mb-2">Hot Products</h2>
