@@ -371,7 +371,7 @@ export const whoWeAre = {
 export const ourHistory = {
   heading: "Our History",
   description:
-    "Custom Pack Boxes has a rich history that spans several decades. We have been at the forefront of the packaging industry, continually evolving and adapting to meet the changing needs of our clients. Our journey began with a small team of passionate individuals who had a vision to revolutionize the packaging industry.Through perseverance and dedication, we gradually expanded our operations, investing in state-of-the-art technology and manufacturing processes to ensure the highest quality standards. Over the years, Tim Packaging has grown from strength to strength, establishing a reputation for excellence and reliability.We have worked with a diverse range of clients, from small businesses to multinational corporations, across various industries, including food and beverage, cosmetics, electronics, and more.",
+    "Custom Pack Boxes has a rich history that spans several decades. We have been at the forefront of the packaging industry, continually evolving and adapting to meet the changing needs of our clients. Our journey began with a small team of passionate individuals who had a vision to revolutionize the packaging industry.Through perseverance and dedication, we gradually expanded our operations, investing in state-of-the-art technology and manufacturing processes to ensure the highest quality standards. Over the years, Custom pack Boxes has grown from strength to strength, establishing a reputation for excellence and reliability.We have worked with a diverse range of clients, from small businesses to multinational corporations, across various industries, including food and beverage, cosmetics, electronics, and more.",
   imageUrl:
     "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751545007/about1.acdf6a18-1-scaled-1-704x1024_kbfsdq.webp",
 };
@@ -1053,12 +1053,12 @@ export const privacySections = [
   {
     id: 'privacy-and-security',
     title: 'PRIVACY AND SECURITY',
-    content: `At Tim Packaging, safeguarding our customers' privacy is paramount. We uphold strict confidentiality standards and do not trade, sell, or disclose any client information to third parties unless necessary for processing and delivering orders.`
+    content: `At Custom Pack boxes, safeguarding our customers' privacy is paramount. We uphold strict confidentiality standards and do not trade, sell, or disclose any client information to third parties unless necessary for processing and delivering orders.`
   },
   {
     id: 'registration',
     title: 'REGISTRATION',
-    content: `To access Tim Packaging services, users must complete a registration form, providing their name and email address. This data enables us to reach out regarding our services, irrespective of whether they've made a purchase.`
+    content: `To access Custom Pack boxes services, users must complete a registration form, providing their name and email address. This data enables us to reach out regarding our services, irrespective of whether they've made a purchase.`
   },
   {
     id: 'order',
@@ -1068,7 +1068,7 @@ export const privacySections = [
   {
     id: 'cookies',
     title: 'COOKIES',
-    content: `Utilizing persistent cookies, both My Tim Packaging and the Tim Packaging order section employ these to uniquely identify users, link user files with orders, and facilitate the shopping experience. Please note that our site necessitates cookies for optimal functionality.`
+    content: `Utilizing persistent cookies, both My Custom Pack boxes and the Custom Pack Boxes order section employ these to uniquely identify users, link user files with orders, and facilitate the shopping experience. Please note that our site necessitates cookies for optimal functionality.`
   },
   {
     id: 'log-files',
