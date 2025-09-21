@@ -54,13 +54,13 @@ export default function RootLayout({ children }) {
         ></iframe>
         </noscript>
 
-        {/* <Suspense> */}
+        <Suspense>
           {/* <ClientProgressProvider> */}
             <Header />
             {children}
             <Footer />
           {/* </ClientProgressProvider> */}
-        {/* </Suspense> */}
+        </Suspense>
          <Script
           id="tawk-to"
           strategy="afterInteractive"
