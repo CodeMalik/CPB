@@ -11,7 +11,7 @@ export default function Footer() {
         <div>
           <Image src={"/logo.png"} width={200} height={200} alt="Website logo" className="-mt-4 mb-6"/>
           <p>
-            <span className="font-semibold text-[#e3342f]">Custom Pack Boxes</span> is a leading manufacturer and wholesale supplier of high-quality packaging products for a wide range of industries. Our extensive product line includes customized corrugated boxes, kraft boxes, mailer boxes, rigid boxes and more.
+            <Link href={"/"} className="font-semibold text-[#e3342f]">Custom Pack Boxes</Link> is a leading manufacturer and wholesale supplier of high-quality packaging products for a wide range of industries. Our extensive product line includes customized corrugated boxes, kraft boxes, mailer boxes, rigid boxes and more.
           </p>
         </div>
         {/* Quick Links */}
@@ -19,7 +19,7 @@ export default function Footer() {
           <h2 className="font-semibold text-xl mb-2">Quick Links</h2>
           <ul className="space-y-1">
             <li><Link href="/about" className="hover:underline">About Us</Link></li>
-            <li><a href="/our-recent-boxes" className="hover:underline">Our Recent Boxes</a></li>
+            <li><Link href="/our-recent-boxes" className="hover:underline">Our Recent Boxes</Link></li>
             <li><Link href="/contact" className="hover:underline">Contact Us</Link></li>
             <li><Link href="/customized/apparel-boxes" className="hover:underline">Apparel Packaging</Link></li>
             <li><Link href="/terms-and-conditions" className="hover:underline">Terms & Conditions</Link></li>
@@ -36,11 +36,11 @@ export default function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <Phone className="w-5 h-5 text-[#e3342f]" />
-              <a className="" href="tel:+4062896262">(406) 289 6262</a>
+              <a className="hover:underline" href="tel:+14062896262">(406) 289 6262</a>
             </li>
             <li className="flex items-center gap-2">
               <Mail className="w-5 h-5 text-[#e3342f]" />
-              <a href="mailto:support@custompackboxes.com">support@custompackboxes.com</a>
+              <a className="hover:underline" href="mailto:sales@custompackboxes.com">sales@custompackboxes.com</a>
             </li>
           </ul>
         </div> 
@@ -50,6 +50,10 @@ export default function Footer() {
           <ul className="space-y-2">
             <li><Link href={"/custom-packaging/custom-underwear-boxes"}></Link>Custom Underwear Boxes</li>
             <li><Link href={"/custom-packaging/custom-belt-boxes"}></Link>Custom belt Boxes</li>
+            <li><Link href={"/custom-packaging/custom-chocolate-boxes"}></Link>Custom Chocolate Boxes</li>
+            <li><Link href={"/custom-packaging/custom-christmas-gift-boxes"}></Link>Christmas Gift Boxes</li>
+            <li><Link href={"/custom-packaging/custom-skin-care-boxes"}></Link>Custom Skin Care Boxes</li>
+            <li><Link href={"/custom-packaging/soap-boxes-wholesale"}></Link>Soap Boxes Wholesale</li>
           </ul>
         </div>
       </div>
