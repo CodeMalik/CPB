@@ -60,7 +60,7 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="mx-auto px-4 mt-8 flex flex-col md:flex-row items-center justify-between border-t border-red-200 pt-4">
         <div className="text-sm text-[#222]">
-          © Copyright {new Date().getFullYear()} - <span className="font-semibold text-[#e3342f]">Custom Pack Boxes</span> All rights Reserved
+          © Copyright {new Date().getFullYear()} - <Link href={"/"} className="font-semibold text-[#e3342f]">Custom Pack Boxes</Link> All rights Reserved
         </div>
         <div className="flex items-center gap-4 mt-4 md:mt-0">
           {/* Replace these with your actual images/icons */}
