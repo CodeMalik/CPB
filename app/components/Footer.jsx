@@ -48,12 +48,12 @@ export default function Footer() {
         <div>
           <h2 className="font-semibold text-xl mb-2">Hot Products</h2>
           <ul className="space-y-2">
-            <li><Link href={"/custom-packaging/custom-underwear-boxes"}></Link>Custom Underwear Boxes</li>
-            <li><Link href={"/custom-packaging/custom-belt-boxes"}></Link>Custom belt Boxes</li>
-            <li><Link href={"/custom-packaging/custom-chocolate-boxes"}></Link>Custom Chocolate Boxes</li>
-            <li><Link href={"/custom-packaging/custom-christmas-gift-boxes"}></Link>Christmas Gift Boxes</li>
-            <li><Link href={"/custom-packaging/custom-skin-care-boxes"}></Link>Custom Skin Care Boxes</li>
-            <li><Link href={"/custom-packaging/soap-boxes-wholesale"}></Link>Soap Boxes Wholesale</li>
+            <li><Link className="hover:underline" href={"/custom-packaging/custom-underwear-boxes"}>Custom Underwear Boxes</Link></li>
+            <li><Link className="hover:underline" href={"/custom-packaging/custom-belt-boxes"}>Custom belt Boxes</Link></li>
+            <li><Link className="hover:underline" href={"/custom-packaging/custom-chocolate-boxes"}>Custom Chocolate Boxes</Link></li>
+            <li><Link className="hover:underline" href={"/custom-packaging/custom-christmas-gift-boxes"}>Christmas Gift Boxes</Link></li>
+            <li><Link className="hover:underline" href={"/custom-packaging/custom-skin-care-boxes"}>Custom Skin Care Boxes</Link></li>
+            <li><Link className="hover:underline" href={"/custom-packaging/soap-boxes-wholesale"}>Soap Boxes Wholesale</Link></li>
           </ul>
         </div>
       </div>
