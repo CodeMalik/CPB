@@ -74,6 +74,7 @@ export const PUT = async (req, { params }) => {
     const { id } = params;
     const updateData = await req.json();
 
+    console.log("Update data received:", JSON.stringify(updateData, null, 2));
 
     const updatedProduct = await Product.findByIdAndUpdate(id, updateData, {
       new: true,
