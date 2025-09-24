@@ -32,7 +32,6 @@ export async function POST(req) {
       categorySlug,
       meta
     } = body;
-    console.log("Image Object we getting", image)
     // 🟡 1. Find category by slug
     const category = await Category.find({ slug: Array.isArray(categorySlug) ? { $in: categorySlug } : categorySlug });
 
@@ -59,8 +58,6 @@ export async function POST(req) {
       categorySlug,
       meta
     });
-
-    console.log(newProduct, "new product")
 
      return new NextResponse(JSON.stringify(newProduct), {
       status: 201,
