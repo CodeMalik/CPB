@@ -69,7 +69,7 @@ export default function ThankYou() {
                         <li className="flex items-start">
                             <span className="text-red-500 font-bold mr-3">3.</span>
                             <div>
-                                <strong>Approval:</strong> Once you approve the proof, we'll get started on your custom packaging!
+                                <strong>Approval:</strong> Once you approve the proof. We will get started on your custom packaging!
                             </div>
                         </li>
                     </ul>
@@ -78,7 +78,7 @@ export default function ThankYou() {
                 {/* Call to Action */}
                 <div className="flex justify-center mb-8">
                     <a
-                        href="/"
+                        href="https://custompackboxes.com"
                         className="bg-red-500 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-red-600 transition-all duration-300 transform hover:translate-y-[-2px]"
                     >
                         Return to back
