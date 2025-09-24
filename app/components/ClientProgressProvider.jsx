@@ -7,7 +7,7 @@ export default function ClientProgressProvider({ children }) {
   return (
     <AppProgressProvider
       height="2px"
-      color="pink"
+      color="green"
       options={{ showSpinner: false }}
       shallowRouting
     >

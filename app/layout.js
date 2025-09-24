@@ -1,4 +1,5 @@
 import { Header, Footer, ClientProgressProvider } from "./components";
+import { headers } from 'next/headers'
 import Script from "next/script";
 import { Suspense } from "react";
 import { Poppins } from "next/font/google";
@@ -30,6 +31,9 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const headersList = headers()
+  const pathname = headersList.get('x-pathname') || ''
+  const isThankYouPage = pathname === '/thank-you'
   return (
     <html lang="en">
       <body
@@ -55,11 +59,11 @@ export default function RootLayout({ children }) {
         </noscript>
 
         <Suspense>
-          {/* <ClientProgressProvider> */}
-            <Header />
+          <ClientProgressProvider>
+            {!isThankYouPage && <Header />}
             {children}
-            <Footer />
-          {/* </ClientProgressProvider> */}
+            {!isThankYouPage && <Footer />}
+          </ClientProgressProvider>
         </Suspense>
          <Script
           id="tawk-to"

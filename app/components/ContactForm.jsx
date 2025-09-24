@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation"; 
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,6 +17,7 @@ import { formDetails } from "../constant";
 import Link from "next/link";
 
 export function ContactForm({ isHome = true, content, isBread = false, name }) {
+  const router = useRouter()
   const [submitted, setIsSubmetted] = useState(false)
   const [error, setError] = useState(null)
   const {
@@ -70,6 +71,7 @@ export function ContactForm({ isHome = true, content, isBread = false, name }) {
       setIsSubmetted(true)
       reset();
       setPreview(null);
+      router.push("/thank-you")
     } catch (err) {
       console.error("Error sending form:", err.message);
       setError(err.message)
