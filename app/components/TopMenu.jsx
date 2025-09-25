@@ -1,11 +1,11 @@
 import React from 'react'
-import { FaPhoneAlt, FaEnvelope, FaFacebookF, FaInstagram, FaLinkedinIn, FaPinterestP, FaYoutube, FaTiktok } from 'react-icons/fa'
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaPinterestP, FaYoutube, FaTiktok } from 'react-icons/fa'
 const TopMenu = () => {
   return (
     <div className="bg-[#FF0101] text-white  md:ml:20 pl-28 pr-12 py-3.5 text-sm flex justify-between items-center">
         <div className="flex flex-wrap items-center gap-4 text-sm">
-          <span className="flex items-center gap-1"><FaPhoneAlt />(406) 289 6262</span>
-          <span className="flex items-center gap-1"><FaEnvelope /> sales@custompackboxes.com</span>
+          <a className="hover:underline" href="tel:+(406)2896262">(406) 289 6262</a>
+          <a className="hover:underline" href="mailto:sales@custompackboxes.com">sales@custompackboxes.com</a>
         </div>
         <div className="hidden sm:flex gap-5 text-lg">
           <a href='https://www.facebook.com/custompackboxes.us/' target='_blank'><FaFacebookF className="cursor-pointer" /></a>
