@@ -10,7 +10,7 @@ const Products = ({heading, tagline, shortDescription, products}) => {
     <section className="py-10">
       <div className="container-big">
         <div className="text-center">
-          <h2 className="text-3xl my-4 md:text-4xl lg:text-5xl font-semibold">
+          <h2 className="mb-20 mt-10 text-3xl my-4 md:text-4xl lg:text-5xl font-semibold">
             {heading}
           </h2>
           <p className="tagline text-red-themed font-semibold mb-8 text-lg">

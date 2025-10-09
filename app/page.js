@@ -67,13 +67,13 @@ export default function Home() {
   return (
     <>
       <Hero />
+       <ContactUs />
       <CustomBoxesSection />
       <Categories />
       <AboutUs />
       <MidCta />
       <ServiceIntro />
       <Brands />
-      <ContactUs />
       <PackagingSection />
       <SpecificationTabs />
       <Testimonials />

@@ -70,9 +70,9 @@ const page =  async ({ params }) => {
   return (
     <>
       <CategoryHero imageSrc={category.heroImage} name={category.name} />
-      <ContactForm  isHome={false} content={category.heading} name={category.name}/>
-      <Products tagline={category.tagline} heading={category.heading} shortDescription={category.shortDescription} products={products}/>
-      <LongDescription longDescription={category.longDescription} />
+      <Products heading={category.heading} products={products}/>
+      <ContactForm  isHome={false} content={category.heading} name={category.name} tagline={category.tagline} shortDescription={category.shortDescription} />
+      <LongDescription longDescription={category.longDescription  } />
       <PackagingFeatures />
       <ServiceIntro />
       <Testimonials />

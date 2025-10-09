@@ -20,6 +20,7 @@ export default function PackagingSection() {
           By <span className="text-red-themed font-bold">Custom Pack Boxes</span>
         </h2>
       </div>
+      
     </section>
   );
 }

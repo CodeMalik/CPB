@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation"; 
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -14,9 +16,8 @@ import {
 } from "@/components/ui/select";
 import { useState, useRef } from "react";
 import { formDetails } from "../constant";
-import Link from "next/link";
 
-export function ContactForm({ isHome = true, content, isBread = false, name }) {
+export function ContactForm({ isHome = true, content, isBread = false, name, tagline, shortDescription }) {
   const router = useRouter()
   const [submitted, setIsSubmetted] = useState(false)
   const [error, setError] = useState(null)
@@ -90,220 +91,282 @@ export function ContactForm({ isHome = true, content, isBread = false, name }) {
   const { productType, size, color } = formDetails;
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className=" border md:w-full rounded-xl mt-10 pb-12 md:mx-auto md:max-w-6xl bg-white shadow"
-    >
-      {isHome ? (
-        <div className="grid md:grid-cols-2 items-center mb-6 w-full">
-          <div className="bg-red-themed text-white px-6 py-3 rounded-tr-xl md:rounded-tr-none rounded-tl-xl font-semibold text-base">
-            Get Personalized Quote
+    <div>
+      {/* Contact Form */}
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className=" border md:w-full rounded-xl mt-10 pb-12 md:mx-auto md:max-w-6xl bg-white shadow"
+      >
+        {isHome ? (
+          <div className="grid md:grid-cols-2 items-center mb-6 w-full">
+            <div className="bg-red-themed text-white px-6 py-3 rounded-tr-xl md:rounded-tr-none rounded-tl-xl font-semibold text-base">
+              Get Personalized Quote
+            </div>
+            <div className="bg-gray-100 px-6 py-3 md:rounded-tr-xl font-semibold text-base">
+              Free Shiping
+            </div>
           </div>
-          <div className="bg-gray-100 px-6 py-3 md:rounded-tr-xl font-semibold text-base">
-            Free Shiping
+        ) : (
+          <div
+            className={`text-center w-full ${
+              isBread
+                ? "py-6"
+                : "pt-4 pb-1 mb-7 bg-red-themed text-white rounded-tl-lg rounded-tr-lg"
+            }`}
+          >
+            <h2
+              className={`text-2xl md:text-2xl  font-semibold`}
+            >{`Get ${content} At Wholesale Prices`}</h2>
+            <div className="mt-4 text-sm">
+              {isBread ?? <Link href={"/"}>Home</Link> / <span>{name}</span>}
+            </div>
           </div>
-        </div>
-      ) : (
-        <div
-          className={`text-center w-full ${
-            isBread
-              ? "py-6"
-              : "pt-4 pb-1 mb-7 bg-red-themed text-white rounded-tl-lg rounded-tr-lg"
-          }`}
-        >
-          <h2
-            className={`text-2xl md:text-2xl  font-semibold`}
-          >{`Get ${content} At Wholesale Prices`}</h2>
-          <div className="mt-4 text-sm">
-            {isBread ?? <Link href={"/"}>Home</Link> / <span>{name}</span>}
-          </div>
-        </div>
-      )}
+        )}
 
-      {/* Top Tabs */}
-      <div className={`px-4 ${!isHome ? "mt-12" : "mt-12"}`}>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Input
-            placeholder="Length"
-            {...register("length")}
-            className={"py-6"}
-          />
-          <Input
-            placeholder="Width"
-            {...register("width")}
-            className={"py-6"}
-          />
-          <Input
-            placeholder="Depth"
-            {...register("depth")}
-            className={"py-6"}
-          />
-          <Input
-            placeholder="Quantity"
-            {...register("quantity")}
-            className={`py-6`}
-          />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-          <Select onValueChange={(value) => setValue("boxType", value)}>
-            <SelectTrigger className={"w-full py-6"}>
-              <SelectValue placeholder="Box Type" />
-            </SelectTrigger>
-            <SelectContent>
-              {productType.map((product, index) => (
-                <SelectItem
-                  className={index === 3 ? "col-span-2 md:col-span-1" : ""}
-                  key={index}
-                  value={product}
-                >
-                  {product}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          <Select onValueChange={(value) => setValue("size", value)}>
-            <SelectTrigger className={"w-full py-6"}>
-              <SelectValue placeholder="Select Size" />
-            </SelectTrigger>
-            <SelectContent>
-              {size.map((s, index) => (
-                <SelectItem key={index} value={s}>
-                  {s.toLowerCase()}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          <Select onValueChange={(value) => setValue("color", value)}>
-            <SelectTrigger className={"w-full py-6"}>
-              <SelectValue placeholder="Select Color" />
-            </SelectTrigger>
-            <SelectContent>
-              {color.map((c, index) => (
-                <SelectItem key={index} value={c}>
-                  {c}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-2 gap-4 mt-4">
-          <span className="relative">
-  {errors.name && (
-    <p className="text-xs absolute text-red-themed -top-4">
-      {errors.name.message}
-    </p>
-  )}
-  <Input
-    placeholder="Name"
-    {...register("name", {
-      required: "Name is required",
-      minLength: {
-        value: 3,
-        message: "Name must be at least 3 characters",
-      },
-    })}
-    className={`py-6 ${errors.name ? "border border-red-themed" : ""}`}
-  />
-</span>
-
-<Input
-  placeholder="Phone"
-  {...register("phone")}
-  className="py-6"
-/>
-
-<span className="relative">
-  {errors.email && (
-    <p className="text-xs absolute text-red-themed -top-4">
-      {errors.email.message}
-    </p>
-  )}
-  <Input
-    placeholder="E-mail*"
-    type="email"
-    {...register("email", {
-      required: "Email is Required",
-      pattern: {
-        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-        message: "Enter a valid email address",
-      },
-    })}
-    className={`py-6 ${errors.email ? "border border-red-themed" : ""}`}
-  />
-</span>
-          <div className="flex items-center">
+        {/* Top Tabs */}
+        <div className={`px-4 ${!isHome ? "mt-12" : "mt-12"}`}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Input
-              type="file"
-              accept="image/*"
-              ref={fileInputRef}
-              onChange={handleImageChange}
-              className="hidden"
+              placeholder="Length"
+              {...register("length")}
+              className={"py-6"}
             />
+            <Input
+              placeholder="Width"
+              {...register("width")}
+              className={"py-6"}
+            />
+            <Input
+              placeholder="Depth"
+              {...register("depth")}
+              className={"py-6"}
+            />
+            <Input
+              placeholder="Quantity"
+              {...register("quantity")}
+              className={`py-6`}
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+            <Select onValueChange={(value) => setValue("boxType", value)}>
+              <SelectTrigger className={"w-full py-6"}>
+                <SelectValue placeholder="Box Type" />
+              </SelectTrigger>
+              <SelectContent>
+                {productType.map((product, index) => (
+                  <SelectItem
+                    className={index === 3 ? "col-span-2 md:col-span-1" : ""}
+                    key={index}
+                    value={product}
+                  >
+                    {product}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select onValueChange={(value) => setValue("size", value)}>
+              <SelectTrigger className={"w-full py-6"}>
+                <SelectValue placeholder="Select Size" />
+              </SelectTrigger>
+              <SelectContent>
+                {size.map((s, index) => (
+                  <SelectItem key={index} value={s}>
+                    {s.toLowerCase()}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select onValueChange={(value) => setValue("color", value)}>
+              <SelectTrigger className={"w-full py-6"}>
+                <SelectValue placeholder="Select Color" />
+              </SelectTrigger>
+              <SelectContent>
+                {color.map((c, index) => (
+                  <SelectItem key={index} value={c}>
+                    {c}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-4 mt-4">
+            <span className="relative">
+              {errors.name && (
+                <p className="text-xs absolute text-red-themed -top-4">
+                  {errors.name.message}
+                </p>
+              )}
+              <Input
+                placeholder="Name"
+                {...register("name", {
+                  required: "Name is required",
+                  minLength: {
+                    value: 3,
+                    message: "Name must be at least 3 characters",
+                  },
+                })}
+                className={`py-6 ${errors.name ? "border border-red-themed" : ""}`}
+              />
+            </span>
+
+            <Input
+              placeholder="Phone"
+              {...register("phone")}
+              className="py-6"
+            />
+
+            <span className="relative">
+              {errors.email && (
+                <p className="text-xs absolute text-red-themed -top-4">
+                  {errors.email.message}
+                </p>
+              )}
+              <Input
+                placeholder="E-mail*"
+                type="email"
+                {...register("email", {
+                  required: "Email is Required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Enter a valid email address",
+                  },
+                })}
+                className={`py-6 ${errors.email ? "border border-red-themed" : ""}`}
+              />
+            </span>
+            <div className="flex items-center">
+              <Input
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                onChange={handleImageChange}
+                className="hidden"
+              />
+              <Button
+                variant="outline"
+                className={"py-6 justify-start text-base"}
+                type="button"
+                onClick={triggerFileSelect}
+              >
+                <UploadCloud className="w-4 h-4 mr-2" />
+                Upload
+              </Button>
+              {preview && (
+                <div className="ml-6">
+                  <img
+                    src={preview}
+                    width={100}
+                    height={50}
+                    alt="Preview"
+                    className="max-w-xs border"
+                  />
+                  <span></span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="mt-4">
+            {errors.email && (
+              <p className="text-xs  text-red-themed">{errors.email.message}</p>
+            )}
+            <Textarea
+              placeholder="Message"
+              {...register("message", { required: "Please Enter you message" })}
+              className={`py-6 ${
+                errors.message ? "border border-red-themed" : ""
+              }`}
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 items-center">
+            <div className="text-sm font-medium">9 * 11 =</div>
+            <Input placeholder="Captcha" {...register("captcha")} />
+          </div>
+
+          <div className="mt-6">
             <Button
-              variant="outline"
-              className={"py-6 justify-start text-base"}
-              type="button"
-              onClick={triggerFileSelect}
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full rounded-full bg-red-themed text-white py-6 text-base cursor-pointer hover:bg-black/90"
             >
-              <UploadCloud className="w-4 h-4 mr-2" />
-              Upload
+             {isSubmitting ? "Submitting..." : "Submit"}
             </Button>
-            {preview && (
-              <div className="ml-6">
-                <img
-                  src={preview}
-                  width={100}
-                  height={50}
-                  alt="Preview"
-                  className="max-w-xs border"
-                />
-                <span></span>
-              </div>
+            {error && (
+                <p>{error}</p>
+            ) }
+        {submitted && (
+            <p className="text-green-600 text-sm mt-2">
+              ✅ Your message was sent successfully!
+            </p>
             )}
           </div>
         </div>
+      </form>
 
-        <div className="mt-4">
-          {errors.email && (
-            <p className="text-xs  text-red-themed">{errors.email.message}</p>
-          )}
-          <Textarea
-            placeholder="Message"
-            {...register("message", { required: "Please Enter you message" })}
-            className={`py-6 ${
-              errors.message ? "border border-red-themed" : ""
-            }`}
-          />
+      {/* Tagline and Description below the contact form */}
+      <div className="text-center mt-10">
+        <p className="tagline text-red-themed font-semibold mb-8 text-lg m-20">
+          {tagline}
+        </p>
+        <p className="description text-lg ml-20 mr-20">
+          {shortDescription}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+const Products = ({heading, products}) => {
+  if (products.length == 0 || products.length < 1) {
+    return null
+  }
+  return (
+    <section className="py-10">
+      <div className="container-big">
+        <div className="text-center">
+          <h2 className="mb-20 mt-10 text-3xl my-4 md:text-4xl lg:text-5xl font-semibold">
+            {heading}
+          </h2>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 items-center">
-          <div className="text-sm font-medium">9 * 11 =</div>
-          <Input placeholder="Captcha" {...register("captcha")} />
-        </div>
-
-        <div className="mt-6">
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full rounded-full bg-red-themed text-white py-6 text-base cursor-pointer hover:bg-black/90"
-          >
-           {isSubmitting ? "Submitting..." : "Submit"}
-          </Button>
-          {error && (
-              <p>{error}</p>
-          ) }
-      {submitted && (
-          <p className="text-green-600 text-sm mt-2">
-            ✅ Your message was sent successfully!
-          </p>
-          )}
+        <div className="flex flex-wrap justify-center items-center gap-8 mt-8">
+          {products.map((product, index) => (
+            <Link href={`/custom-packaging/${product.slug}`} key={index}>
+            <div
+              className="bg-gray-100 hover:shadow-2xl transition-all duration-300"
+            >
+              <Image
+                src={product.image?.url || product.image}
+                alt={product.name}
+                width={300}
+                height={300}
+              />
+              <h3 className="text-center py-3 text-lg font-semibold">
+                {product.name}
+              </h3>
+            </div>
+            </Link>
+          ))}
         </div>
       </div>
-    </form>
+    </section>
+  );
+};
+
+// Main component that combines both
+export default function ContactWithProducts({ 
+  contactProps, 
+  productsProps 
+}) {
+  return (
+    <div>
+      <ContactForm {...contactProps} />
+      <Products {...productsProps} />
+    </div>
   );
 }
 
