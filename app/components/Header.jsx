@@ -25,6 +25,24 @@ export default function Header() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  // Function to handle icon display - increased size to 24x24
+  const renderIcon = (IconComponent, alt, className = "w-6 h-6") => {
+    if (!IconComponent) return null;
+    
+    return (
+      <div className="flex-shrink-0">
+        <Image 
+          src={IconComponent} 
+          alt={alt} 
+          width={24}
+          height={24}
+          className={`object-contain ${className}`}
+        />
+      </div>
+    );
+  };
+
   return (
     <>
       <div className="hidden md:block">
@@ -60,10 +78,12 @@ export default function Header() {
                   {item.submenu ? (
                     <button className="group flex items-center gap-1 py-5 px-2 cursor-pointer hover:bg-red-themed hover:text-white transition-colors duration-200">
                       {item.title}{" "}
-                      <img
+                      <Image
                         src="/icons/down-arrow.png"
                         width={20}
+                        height={20}
                         className="group-hover:invert"
+                        alt="Dropdown arrow"
                       />
                     </button>
                   ) : (
@@ -77,12 +97,10 @@ export default function Header() {
                         <Link
                           key={index}
                           href={sub.url}
-                          className="flex items-center gap-2 hover:text-red-600"
+                          className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-md transition-colors duration-200 min-h-[44px]"
                         >
-                          {sub.icon && (
-                            <img src={sub.icon} alt="Navigation Icons" />
-                          )}
-                          <span>{sub.title}</span>
+                          {renderIcon(sub.icon, `${sub.title} icon`)}
+                          <span className="text-sm font-medium">{sub.title}</span>
                         </Link>
                       ))}
                     </div>
@@ -153,30 +171,27 @@ export default function Header() {
                         }
                       >
                         <span>{item.title}</span>
-                        <img
+                        <Image
                           src="/icons/down-arrow.png"
-                          className={`w-4 transition-transform ${
+                          width={16}
+                          height={16}
+                          className={`transition-transform ${
                             mobileDropdownOpen === item.id ? "rotate-180" : ""
                           }`}
+                          alt="Dropdown arrow"
                         />
                       </button>
                       {mobileDropdownOpen === item.id && (
-                        <div className="pl-4 mt-2 flex flex-col gap-2">
+                        <div className="pl-4 mt-2 flex flex-col gap-3">
                           {item.submenu.map((sub, index) => (
                             <Link
                               key={index}
                               href={sub.url}
-                              className="flex items-center gap-2 hover:text-red-600"
+                              className="flex items-center gap-3 py-2 px-2 hover:bg-gray-50 rounded-md transition-colors duration-200 min-h-[44px]"
                               onClick={() => setMobileMenuOpen(false)}
                             >
-                              {sub.icon && (
-                                <img
-                                  src={sub.icon}
-                                  alt={sub.title}
-                                  className="w-4 h-4"
-                                />
-                              )}
-                              <span>{sub.title}</span>
+                              {renderIcon(sub.icon, `${sub.title} icon`, "w-6 h-6")}
+                              <span className="text-sm">{sub.title}</span>
                             </Link>
                           ))}
                         </div>
@@ -195,9 +210,11 @@ export default function Header() {
               ))}
 
               {/* Quote & Search Buttons */}
-              <button className="mt-4 border border-red-500 text-red-600 px-4 py-2 rounded hover:bg-red-100 transition w-max">
-                Get a Quote
-              </button>
+              <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
+                <button className="mt-4 border border-red-500 text-red-600 px-4 py-2 rounded hover:bg-red-100 transition w-max">
+                  Get a Quote
+                </button>
+              </Link>
               <input
                 className="border px-4 py-2 rounded text-gray-700 hover:bg-gray-100 transition w-full mt-2"
                 type="text"

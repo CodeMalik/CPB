@@ -15,7 +15,7 @@ const reviews = [
     id: 2,
     name: "Jane Smith",
     rating: 5,
-    comment: "We have been working with Tim Packaging for a few years now and are always impressed with the quality of boxes we receive.",
+    comment: "We have been working with Custom Pack Boxes for a few years now and are always impressed with the quality of boxes we receive.",
     date: "2025-07-10",
     image: "/jane.webp"
   },
@@ -23,7 +23,7 @@ const reviews = [
     id: 3,
     name: "Alex Johnson",
     rating: 4,
-    comment: "I was so impressed with the custom boxes I bought from Tim Packaging! They were exactly what I was looking for, and the quality was amazing.",
+    comment: "I was so impressed with the custom boxes I bought from Custom Pack Boxes! They were exactly what I was looking for, and the quality was amazing.",
     date: "2025-07-08",
     image: "/alex.webp"
   }

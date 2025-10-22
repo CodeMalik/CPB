@@ -14,7 +14,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { formDetails } from "../constant";
 
 export function ContactForm({ isHome = true, content, isBread = false, name, tagline, shortDescription }) {
@@ -29,16 +29,75 @@ export function ContactForm({ isHome = true, content, isBread = false, name, tag
     reset,
     formState: { errors, isSubmitting },
   } = useForm();
-  const [captchaAnswer, setCaptchaAnswer] = useState(9 * 11);
   const [preview, setPreview] = useState(null);
+  const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
 
   const fileInputRef = useRef(null);
 
+  // Load reCAPTCHA
+  useEffect(() => {
+    const loadRecaptcha = () => {
+      const script = document.createElement('script');
+      script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
+      script.async = true;
+      script.defer = true;
+      script.onload = () => {
+        setRecaptchaLoaded(true);
+      };
+      document.head.appendChild(script);
+    };
+
+    if (!window.grecaptcha) {
+      loadRecaptcha();
+    } else {
+      setRecaptchaLoaded(true);
+    }
+  }, []);
+
+  const executeRecaptcha = async () => {
+    if (!window.grecaptcha) {
+      throw new Error("reCAPTCHA not loaded");
+    }
+    
+    return new Promise((resolve, reject) => {
+      window.grecaptcha.ready(async () => {
+        try {
+          const token = await window.grecaptcha.execute(
+            process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY, 
+            { action: 'submit' }
+          );
+          resolve(token);
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+  };
+
   const onSubmit = async (data) => {
-    if (parseInt(data.captcha) !== captchaAnswer) {
-      alert("Incorrect captcha!");
+    // For local development, skip reCAPTCHA
+    if (process.env.NODE_ENV === 'development') {
+      await submitForm(data, 'development-bypass');
       return;
     }
+
+    if (!recaptchaLoaded) {
+      alert("Security check is loading, please try again in a moment.");
+      return;
+    }
+
+    let recaptchaToken;
+    try {
+      recaptchaToken = await executeRecaptcha();
+    } catch (error) {
+      alert("Security check failed. Please try again.");
+      return;
+    }
+
+    await submitForm(data, recaptchaToken);
+  };
+
+  const submitForm = async (data, recaptchaToken) => {
     const formData = new FormData();
 
     formData.append("name", data.name || "");
@@ -52,6 +111,7 @@ export function ContactForm({ isHome = true, content, isBread = false, name, tag
     formData.append("size", data.size || "");
     formData.append("color", data.color || "");
     formData.append("message", data.message || "");
+    formData.append("recaptchaToken", recaptchaToken);
 
     if (data.image) {
       formData.append("artwork", data.image);
@@ -72,12 +132,13 @@ export function ContactForm({ isHome = true, content, isBread = false, name, tag
       setIsSubmetted(true)
       reset();
       setPreview(null);
-      router.push("/thank-you")
+      // Removed router.push("/thank-you") - no thank you page redirect
     } catch (err) {
       console.error("Error sending form:", err.message);
       setError(err.message)
     }
   };
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -85,9 +146,11 @@ export function ContactForm({ isHome = true, content, isBread = false, name, tag
     setPreview(URL.createObjectURL(file));
     setValue("image", file, { shouldValidate: true });
   };
+
   const triggerFileSelect = () => {
     fileInputRef.current.click();
   };
+
   const { productType, size, color } = formDetails;
 
   return (
@@ -283,10 +346,7 @@ export function ContactForm({ isHome = true, content, isBread = false, name, tag
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 items-center">
-            <div className="text-sm font-medium">9 * 11 =</div>
-            <Input placeholder="Captcha" {...register("captcha")} />
-          </div>
+          {/* REMOVED: Math captcha section ("9 * 11 =") */}
 
           <div className="mt-6">
             <Button
@@ -297,12 +357,12 @@ export function ContactForm({ isHome = true, content, isBread = false, name, tag
              {isSubmitting ? "Submitting..." : "Submit"}
             </Button>
             {error && (
-                <p>{error}</p>
+                <p className="text-red-500 text-sm mt-2">{error}</p>
             ) }
-        {submitted && (
-            <p className="text-green-600 text-sm mt-2">
-              ✅ Your message was sent successfully!
-            </p>
+            {submitted && (
+                <p className="text-green-600 text-sm mt-2">
+                  ✅ Your message was sent successfully!
+                </p>
             )}
           </div>
         </div>
