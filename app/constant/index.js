@@ -46,6 +46,7 @@ export const navigation = [
     title: "Box by Industry",
     url: "#",
     submenu: [
+<<<<<<< HEAD
       { title: "Apparel Boxes", url: "/customized/apparel-boxes", icon: apparelIcon },
       { title: "Bakery And Cake Boxes", url: "/customized/bakery-and-cake-boxes", icon: bakeryIcon },
       { title: "Candle Boxes", url: "/customized/candle-boxes", icon: candleIcon },
@@ -62,6 +63,24 @@ export const navigation = [
       { title: "Jewelry Boxes", url: "/customized/jewelry-boxes", icon: jewelryIcon },
       { title: "Health Boxes", url: "/customized/health-boxes", icon: healthIcon },
       { title: "Christmas Boxes", url: "/customized/christmas-boxes", icon: christmasIcon }, 
+=======
+         { title: "Apparel Boxes", url: "/customized/apparel-boxes", icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753542340/1_bzdh8h.png" },
+      { title: "Bakery And Cake Boxes", url: "/customized/bakery-and-cake-boxes", icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753542340/2_m9jcd1.png" },
+      { title: "Candle Boxes", url: "/customized/candle-boxes", icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753542340/3_nuwjet.png" },
+      { title: "Cosmetic Boxes", url: "/customized/cosmetic-boxes", icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753542340/4_trjmtw.png" },
+      { title: "Cereal Boxes", url: "/customized/cereal-boxes", icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753542340/5_oguic4.png" },
+      { title: "Display Boxes", url: "/customized/display-boxes", icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753542341/6_jsptd0.png" },
+      { title: "Mylar Bags", url: "/customized/mylar-boxes", icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753542341/7_tinrky.png" },
+      { title: "Chocolate Boxes", url: "/customized/chocolate-boxes", icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753542342/8_pzkdvk.png" },
+      { title: "Soap Boxes", url: "/customized/soap-boxes", icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753542342/9_fuzixn.png" },
+      { title: "Gift Boxes", url: " /customized/gift-boxes", icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753542343/10_bb17sd.png" },
+      { title: "Food Boxes", url: "/customized/food-boxes", icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753542343/11_odxzu3.png" },
+      { title: "Pizza Boxes", url: "/customized/pizza-boxes ", icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753542344/12_v7zxsv.png" },
+      { title: "CBD And Hemp Boxes", url: "/customized/cbd-and-hemp-boxes", icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753542344/13_b8ufij.png" },
+      { title: "Jewelry Boxes", url: "/customized/jewelry-boxes", icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753542345/14_axuqx5.png" },
+      { title: "Health Boxes", url: "/customized/health-boxes", icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753542346/15_oewufz.png" },
+      { title: "Christmas Boxes", url: "/customized/christmas-boxes", icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1753542346/16_hfouij.png" },
+>>>>>>> 0eac59961431b463f2ca489ce532c88f34dc50d1
     ],
   }, 
   {
