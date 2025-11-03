@@ -1,9 +1,14 @@
 # *
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /thank-you
 
 # Host
 Host: https://custompackboxes.com
 
 # Sitemaps
 Sitemap: https://custompackboxes.com/sitemap.xml
+Sitemap: https://custompackboxes.com/server-sitemap.xml

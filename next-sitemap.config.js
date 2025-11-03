@@ -2,77 +2,42 @@
 const { MongoClient } = require('mongodb')
 
 const config = {
-  siteUrl: process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3000'
-    : 'https://custompackboxes.com',
+  siteUrl: process.env.SITE_URL || 'https://custompackboxes.com',
   generateRobotsTxt: true,
-  sitemapSize: 10000,
+  sitemapSize: 5000,
   generateIndexSitemap: false,
-
+  
   exclude: [
     '/api/*',
-    '/_not-found',
-    '/thank-you',
+    '/_not-found', 
+    '/thank-you', 
     '/admin/*',
-    '/custom-packaging/*', // We'll handle these manually to avoid duplicates
-    '/customized/*', // We'll handle these manually to avoid duplicates
+    '/server-sitemap.xml',
   ],
 
-  // 🎯 Transform function to fix automatic URL generation
   transform: async (config, path) => {
-    // Skip API routes and excluded paths
     if (path.startsWith('/api/') || path === '/thank-you' || path === '/_not-found') {
       return null
     }
 
-    // 🎯 FIX: Home page - set priority to 1.0
-    if (path === '/') {
-      return {
-        loc: path,
-        changefreq: 'weekly',
-        priority: 1.0, // Changed from 1 to 1.0
-        lastmod: new Date().toISOString(),
-      }
-    }
-
-    // 🎯 FIX: Convert direct product URLs to /custom-packaging/ format
-    if (path.includes('-boxes') && !path.startsWith('/custom-packaging/') && !path.startsWith('/customized/')) {
-      // Check if this is a product page (has "custom-" prefix in most cases)
-      if (path.includes('/custom-') || path === '/candle-boxes' || path === '/apparel-boxes' || path === '/bakery-and-cake-boxes') {
-        // This is likely a product page that should be under /custom-packaging/
-        const slug = path.replace('/', '')
-        return {
-          loc: `/custom-packaging/${slug}`,
-          changefreq: 'weekly',
-          priority: 0.9, // Changed from 0.8 to 0.9
-          lastmod: new Date().toISOString(),
-        }
-      }
-    }
-
-    // 🎯 Handle static pages
+    // Static pages configuration
     const staticPages = {
-      '/': 1.0, // Already handled above, but keeping for reference
-      '/about': 0.8,
-      '/contact': 0.8,
-      '/our-recent-boxes': 0.9,
-      '/search': 0.6,
-      '/privacy-policy': 0.3,
-      '/terms-and-conditions': 0.3,
+      '/': { priority: 1.0, changefreq: 'daily' },
+      '/about': { priority: 0.8, changefreq: 'monthly' },
+      '/contact': { priority: 0.8, changefreq: 'monthly' },
+      '/our-recent-boxes': { priority: 0.9, changefreq: 'weekly' },
+      '/search': { priority: 0.6, changefreq: 'monthly' },
+      '/privacy-policy': { priority: 0.3, changefreq: 'yearly' },
+      '/terms-and-conditions': { priority: 0.3, changefreq: 'yearly' },
     }
 
-    if (staticPages[path] !== undefined) {
+    if (staticPages[path]) {
       return {
         loc: path,
-        changefreq: 'weekly',
-        priority: staticPages[path],
+        changefreq: staticPages[path].changefreq,
+        priority: staticPages[path].priority,
         lastmod: new Date().toISOString(),
       }
-    }
-
-    // 🎯 For all other pages, use default settings but skip if they look like products/categories
-    if (path.includes('-boxes') && !path.startsWith('/custom-packaging/') && !path.startsWith('/customized/')) {
-      return null // Skip direct product/category URLs
     }
 
     return {
@@ -83,109 +48,115 @@ const config = {
     }
   },
 
-  // 🎯 Additional paths from MongoDB
   additionalPaths: async (config) => {
     const result = []
 
-    // 🎯 FIX: Add home page explicitly with priority 1.0
-    result.push({
-      loc: '/',
-      changefreq: 'weekly',
-      priority: 1.0,
-      lastmod: new Date().toISOString(),
+    // Always include static pages
+    const staticPages = [
+      { loc: '/', priority: 1.0, changefreq: 'daily' },
+      { loc: '/about', priority: 0.8, changefreq: 'monthly' },
+      { loc: '/contact', priority: 0.8, changefreq: 'monthly' },
+      { loc: '/our-recent-boxes', priority: 0.9, changefreq: 'weekly' },
+      { loc: '/search', priority: 0.6, changefreq: 'monthly' },
+      { loc: '/privacy-policy', priority: 0.3, changefreq: 'yearly' },
+      { loc: '/terms-and-conditions', priority: 0.3, changefreq: 'yearly' },
+    ]
+
+    staticPages.forEach(page => {
+      result.push({
+        ...page,
+        lastmod: new Date().toISOString(),
+      })
     })
 
-    // Get dynamic URLs from MongoDB
+    // Add dynamic products and categories from MongoDB
     if (!process.env.MONGODB_URI) {
-      console.log('📝 MONGODB_URI not found')
+      console.log('❌ MONGODB_URI not found - skipping dynamic URLs')
       return result
     }
-
+    
     let client
     try {
-      console.log('🔗 Connecting to MongoDB...')
+      console.log('🔗 Connecting to MongoDB for sitemap...')
       client = await MongoClient.connect(process.env.MONGODB_URI, {
-        serverSelectionTimeoutMS: 5000,
+        serverSelectionTimeoutMS: 10000,
+        maxPoolSize: 10,
       })
-
+      
       const db = client.db('custom-pack-boxes')
       console.log('✅ Connected to MongoDB successfully!')
-
-      // 🎯 1. Get products - generate /custom-packaging/ URLs
-      console.log('🔄 Looking for products...')
-      const collections = await db.listCollections().toArray()
-      const collectionNames = collections.map(c => c.name)
-
-      const productCollections = ['products', 'product', 'items', 'boxes']
-      for (const collName of productCollections) {
-        if (collectionNames.includes(collName)) {
-          console.log(`🔄 Reading ${collName} collection...`)
-          const products = await db.collection(collName)
-            .find({})
-            .limit(1000)
-            .toArray()
-
-          console.log(`📦 Found ${products.length} products in ${collName}`)
-
-          products.forEach(product => {
-            const slug = product.slug || product.identifier || product.name || product.title
-            if (slug) {
-              // 🎯 Generate /custom-packaging/ URLs for products with priority 0.9
-              result.push({
-                loc: `/custom-packaging/${slug}`,
-                lastmod: product.updatedAt ? new Date(product.updatedAt).toISOString() :
-                        product.createdAt ? new Date(product.createdAt).toISOString() :
-                        new Date().toISOString(),
-                changefreq: 'weekly',
-                priority: 0.9, // Changed from 0.8 to 0.9
-              })
-            }
+      
+      // Get products
+      const products = await db.collection('products')
+        .find({ status: { $ne: 'draft' } }) // Exclude drafts
+        .project({ slug: 1, updatedAt: 1, createdAt: 1 })
+        .limit(2000)
+        .toArray()
+      
+      console.log(`📦 Found ${products.length} products for sitemap`)
+      
+      products.forEach(product => {
+        if (product.slug) {
+          result.push({
+            loc: `/custom-packaging/${product.slug}`,
+            lastmod: product.updatedAt ? new Date(product.updatedAt).toISOString() : 
+                    product.createdAt ? new Date(product.createdAt).toISOString() : 
+                    new Date().toISOString(),
+            changefreq: 'weekly',
+            priority: 0.9,
           })
-          break
         }
-      }
+      })
 
-      // 🎯 2. Get categories - generate /customized/ URLs
-      const categoryCollections = ['categories', 'category', 'collections']
-      for (const collName of categoryCollections) {
-        if (collectionNames.includes(collName)) {
-          console.log(`🔄 Reading ${collName} collection...`)
-          const categories = await db.collection(collName)
-            .find({})
-            .limit(500)
-            .toArray()
-
-          console.log(`📂 Found ${categories.length} categories in ${collName}`)
-
-          categories.forEach(category => {
-            const slug = category.slug || category.identifier || category.name || category.title
-            if (slug) {
-              // 🎯 Generate /customized/ URLs for categories with priority 0.9
-              result.push({
-                loc: `/customized/${slug}`,
-                lastmod: category.updatedAt ? new Date(category.updatedAt).toISOString() :
-                        category.createdAt ? new Date(category.createdAt).toISOString() :
-                        new Date().toISOString(),
-                changefreq: 'weekly',
-                priority: 0.9, // Changed from 0.8 to 0.9
-              })
-            }
+      // Get categories
+      const categories = await db.collection('categories')
+        .find({})
+        .project({ slug: 1, updatedAt: 1, createdAt: 1 })
+        .limit(500)
+        .toArray()
+      
+      console.log(`📂 Found ${categories.length} categories for sitemap`)
+      
+      categories.forEach(category => {
+        if (category.slug) {
+          result.push({
+            loc: `/customized/${category.slug}`,
+            lastmod: category.updatedAt ? new Date(category.updatedAt).toISOString() : 
+                    category.createdAt ? new Date(category.createdAt).toISOString() : 
+                    new Date().toISOString(),
+            changefreq: 'weekly',
+            priority: 0.9,
           })
-          break
         }
-      }
-
-      console.log(`🎯 Total dynamic URLs generated: ${result.length}`)
-
+      })
+      
+      console.log(`🎯 Total URLs in sitemap: ${result.length}`)
+      
     } catch (error) {
-      console.log('❌ MongoDB failed:', error.message)
+      console.log('❌ MongoDB connection failed:', error.message)
+      // Don't throw error, just return static pages
     } finally {
       if (client) {
         await client.close()
-        console.log('🔌 MongoDB connection closed')
       }
     }
 
     return result
   },
+
+  // Add robots.txt configuration
+  robotsTxtOptions: {
+    policies: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: ['/api/', '/admin/', '/_next/', '/thank-you'],
+      },
+    ],
+    additionalSitemaps: [
+      `${process.env.SITE_URL || 'https://custompackboxes.com'}/server-sitemap.xml`,
+    ],
+  },
 }
+
+module.exports = config
