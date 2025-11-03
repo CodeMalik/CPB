@@ -3,9 +3,10 @@ import { MongoClient } from 'mongodb';
 
 export async function GET() {
   const baseUrl = 'https://custompackboxes.com';
+  const requestTime = new Date().toISOString();
   
   try {
-    console.log('🔄 Generating FRESH sitemap...');
+    console.log(`🔄 [${requestTime}] Generating FRESH sitemap...`);
     
     if (!process.env.MONGODB_URI) {
       throw new Error('MONGODB_URI environment variable is missing');
@@ -18,78 +19,114 @@ export async function GET() {
     await client.connect();
     const db = client.db('custom-pack-boxes');
 
-    // Get ALL active products (include new ones)
+    // 🎯 CORRECTED QUERY - Only get ACTIVE products
     const products = await db.collection('products')
       .find({ 
-        $or: [
-          { status: { $exists: false } }, // Products without status field
-          { status: { $ne: 'deleted' } }, // Products not deleted
-          { status: 'active' }, // Active products
-          { isActive: true } // Active products
+        // Only include products that are NOT deleted AND are active
+        $and: [
+          { 
+            $or: [
+              { status: { $exists: false } }, // No status field = include
+              { status: { $ne: 'deleted' } }, // Status not 'deleted' = include
+              { status: 'active' } // Status is 'active' = include
+            ]
+          },
+          {
+            $or: [
+              { isActive: { $exists: false } }, // No isActive field = include
+              { isActive: true }, // isActive is true = include
+              { isActive: { $ne: false } } // isActive not false = include
+            ]
+          }
         ]
       })
-      .project({ slug: 1, updatedAt: 1, createdAt: 1, title: 1 })
-      .sort({ createdAt: -1 })
+      .project({ slug: 1, updatedAt: 1, createdAt: 1, title: 1, status: 1, isActive: 1 })
+      .sort({ updatedAt: -1 })
       .toArray();
 
-    // Get ALL active categories
+    // 🎯 CORRECTED QUERY - Only get ACTIVE categories
     const categories = await db.collection('categories')
       .find({ 
-        $or: [
-          { status: { $exists: false } }, // Categories without status field
-          { status: { $ne: 'deleted' } }, // Categories not deleted
-          { status: 'active' }, // Active categories
-          { isActive: true } // Active categories
+        $and: [
+          { 
+            $or: [
+              { status: { $exists: false } },
+              { status: { $ne: 'deleted' } },
+              { status: 'active' }
+            ]
+          },
+          {
+            $or: [
+              { isActive: { $exists: false } },
+              { isActive: true },
+              { isActive: { $ne: false } }
+            ]
+          }
         ]
       })
-      .project({ slug: 1, updatedAt: 1, createdAt: 1, name: 1 })
-      .sort({ createdAt: -1 })
+      .project({ slug: 1, updatedAt: 1, createdAt: 1, name: 1, status: 1, isActive: 1 })
+      .sort({ updatedAt: -1 })
       .toArray();
 
     await client.close();
 
-    console.log(`📊 Sitemap data: ${products.length} products, ${categories.length} categories`);
+    console.log(`📊 [${requestTime}] Active products: ${products.length}`);
+    console.log(`📊 [${requestTime}] Active categories: ${categories.length}`);
+    
+    // 🎯 DEBUG: Show sample of what's included
+    if (products.length > 0) {
+      console.log('📦 Sample active products:', products.slice(0, 3).map(p => ({
+        slug: p.slug,
+        status: p.status,
+        isActive: p.isActive,
+        updatedAt: p.updatedAt
+      })));
+    }
 
-    // Generate XML with CURRENT data
+    // Generate XML with CORRECT data
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Generated: ${requestTime} -->
+  <!-- Active Products: ${products.length}, Active Categories: ${categories.length} -->
+  
   <!-- Static Pages -->
   <url>
     <loc>${baseUrl}</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
+    <lastmod>${requestTime}</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>${baseUrl}/about</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
+    <lastmod>${requestTime}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>${baseUrl}/contact</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
+    <lastmod>${requestTime}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>${baseUrl}/our-recent-boxes</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
+    <lastmod>${requestTime}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>${baseUrl}/search</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
+    <lastmod>${requestTime}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
-  <!-- REAL PRODUCTS - Updated: ${new Date().toISOString()} -->
+  <!-- ACTIVE PRODUCTS ONLY -->
   ${products.map(product => {
+    // 🎯 USE REAL updatedAt timestamp, not fallback
     const lastmod = product.updatedAt ? new Date(product.updatedAt).toISOString() : 
                    product.createdAt ? new Date(product.createdAt).toISOString() : 
-                   new Date().toISOString();
+                   requestTime;
     return `
   <url>
     <loc>${baseUrl}/custom-packaging/${product.slug}</loc>
@@ -99,11 +136,11 @@ export async function GET() {
   </url>`;
   }).join('')}
 
-  <!-- REAL CATEGORIES - Updated: ${new Date().toISOString()} -->
+  <!-- ACTIVE CATEGORIES ONLY -->
   ${categories.map(category => {
     const lastmod = category.updatedAt ? new Date(category.updatedAt).toISOString() : 
                    category.createdAt ? new Date(category.createdAt).toISOString() : 
-                   new Date().toISOString();
+                   requestTime;
     return `
   <url>
     <loc>${baseUrl}/customized/${category.slug}</loc>
@@ -118,30 +155,22 @@ export async function GET() {
       status: 200,
       headers: {
         'Content-Type': 'application/xml',
-        // 🎯 NO CACHE - Immediate updates
-        'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+        'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0, s-maxage=0',
         'Pragma': 'no-cache',
         'Expires': '0',
       },
     });
 
   } catch (error) {
-    console.error('❌ Sitemap error:', error);
+    console.error(`❌ [${requestTime}] Sitemap error:`, error);
     
-    // Fallback with no cache
     const fallbackXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- ERROR at ${requestTime}: ${error.message} -->
   <url>
     <loc>${baseUrl}</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
     <priority>1.0</priority>
   </url>
-  <url>
-    <loc>${baseUrl}/about</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <!-- ERROR: ${error.message} -->
 </urlset>`;
 
     return new NextResponse(fallbackXml, {
