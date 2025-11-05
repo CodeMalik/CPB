@@ -4,18 +4,17 @@ import Link from "next/link";
 
 const CategoryHero = ({ imageSrc, name }) => {
   return (
-    <section className="relative bg-white w-full aspect-[21/9] min-h-[250px] max-h-[500px] overflow-hidden flex items-center justify-center">
+    <section className="relative bg-white w-full aspect-[21/9] min-h-[250px] max-h-[550px]  overflow-hidden flex items-center justify-center">
       {imageSrc ? (
-        <Image
-          src={imageSrc.url || imageSrc}
-          alt={name || "Category Image"}
-          width={1920}
-          height={823} // 1920 / 21 * 9 ≈ 823
-          priority
-          className="w-full h-auto max-w-full max-h-full"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
-          quality={85}
-        />
+       <Image
+  src={imageSrc.url || imageSrc}
+  alt={name || "Category Image"}
+  fill
+  priority
+className="object-cover w-full h-full max-sm:border-l-8 max-sm:border-r-8 max-sm:border-gray-300"
+  sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+  quality={85}
+/>
       ) : null}
 
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10">
