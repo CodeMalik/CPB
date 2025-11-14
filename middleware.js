@@ -1,9 +1,31 @@
 import { NextResponse } from 'next/server'
 
+// Countries to block
+const BLOCKED_COUNTRIES = ['IN', 'SG', 'CN']; // India, Singapore, China
+
 export async function middleware(request) {
   const { nextUrl } = request
   
-  // First, check if this path needs to be redirected
+  // Get client IP and country
+  const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
+  const country = request.headers.get('x-vercel-ip-country') || 
+                  request.headers.get('cf-ipcountry') || 
+                  request.geo?.country || 
+                  'unknown';
+
+  // Check if country is blocked
+  if (BLOCKED_COUNTRIES.includes(country)) {
+    console.log(`🚫 Blocked request from ${country} (IP: ${ip}) for path: ${nextUrl.pathname}`);
+    
+    return new Response('Access denied from your region', {
+      status: 403,
+      headers: {
+        'Content-Type': 'text/plain',
+      },
+    });
+  }
+
+  // Your existing redirection logic
   if (
     request.method === "GET" &&
     !nextUrl.pathname.startsWith("/_next") &&
@@ -15,15 +37,13 @@ export async function middleware(request) {
     try {
       const pathname = nextUrl.pathname.toLowerCase()
       
-      // Call our API to check for redirections
       const baseUrl = new URL(request.url).origin
       const response = await fetch(`${baseUrl}/api/check-redirection?path=${encodeURIComponent(pathname)}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
-        // Add cache control to prevent too many requests
-        next: { revalidate: 60 } // Cache for 60 seconds
+        next: { revalidate: 60 }
       })
 
       if (response.ok) {
@@ -38,7 +58,6 @@ export async function middleware(request) {
       }
     } catch (error) {
       console.error('Redirection middleware error:', error)
-      // Don't block the request if redirection check fails
     }
   }
 
