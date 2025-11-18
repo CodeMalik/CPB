@@ -11,7 +11,7 @@ const CategoryHero = ({ imageSrc, name }) => {
           alt={name || "Category Image"}
           fill
           priority
-          className="object-cover w-full h-full max-sm:border-l-8 max-sm:border-r-8 max-sm:border-white"
+          className="object-cover lg:object-[center_top] w-full h-full max-sm:border-l-8 max-sm:border-r-8 max-sm:border-white"
           sizes="100vw"
           quality={90}
         />
