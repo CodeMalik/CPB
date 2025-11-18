@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const CategoryHero = ({ imageSrc, name }) => {
   return (
-    <section className="relative bg-white w-full aspect-[21/9] min-h-[250px] max-h-[550px] overflow-hidden flex items-center justify-center">
+    <section className="relative bg-white w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] xl:h-[550px] overflow-hidden flex items-center justify-center">
       {imageSrc ? (
         <Image
           src={imageSrc.url || imageSrc}
@@ -12,14 +12,14 @@ const CategoryHero = ({ imageSrc, name }) => {
           fill
           priority
           className="object-cover w-full h-full max-sm:border-l-8 max-sm:border-r-8 max-sm:border-white"
-          sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 100vw, (max-width: 1280px) 100vw, (max-width: 1536px) 100vw, (max-width: 1920px) 100vw, 100vw"
-          quality={85}
+          sizes="100vw"
+          quality={90}
         />
       ) : null}
 
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10">
-        <h1 className="text-3xl md:text-4xl">{name}</h1>
-        <p className="mt-6 text-sm">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl">{name}</h1>
+        <p className="mt-6 text-sm md:text-base lg:text-lg">
           <Link href={"/"}><span className="">Home</span></Link> <span className="mx-1">|</span>{" "}
           <span className="text-blue-400 underline">{name}</span>
         </p>
