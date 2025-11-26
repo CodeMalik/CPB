@@ -106,6 +106,7 @@ export function ContactForm({ isHome = true, content, isBread = false, name, tag
     formData.append("length", data.length || "");
     formData.append("width", data.width || "");
     formData.append("depth", data.depth || "");
+    formData.append("weight", data.weight || ""); // Added weight field
     formData.append("quantity", data.quantity || "");
     formData.append("boxType", data.boxType || "");
     formData.append("size", data.size || "");
@@ -205,9 +206,9 @@ export function ContactForm({ isHome = true, content, isBread = false, name, tag
               className={"py-6"}
             />
             <Input
-              placeholder="Quantity"
-              {...register("quantity")}
-              className={`py-6`}
+              placeholder="Weight"
+              {...register("weight")}
+              className={"py-6"}
             />
           </div>
 
@@ -301,36 +302,43 @@ export function ContactForm({ isHome = true, content, isBread = false, name, tag
                 className={`py-6 ${errors.email ? "border border-red-themed" : ""}`}
               />
             </span>
-            <div className="flex items-center">
-              <Input
-                type="file"
-                accept="image/*"
-                ref={fileInputRef}
-                onChange={handleImageChange}
-                className="hidden"
-              />
-              <Button
-                variant="outline"
-                className={"py-6 justify-start text-base"}
-                type="button"
-                onClick={triggerFileSelect}
-              >
-                <UploadCloud className="w-4 h-4 mr-2" />
-                Upload
-              </Button>
-              {preview && (
-                <div className="ml-6">
-                  <img
-                    src={preview}
-                    width={100}
-                    height={50}
-                    alt="Preview"
-                    className="max-w-xs border"
-                  />
-                  <span></span>
-                </div>
-              )}
-            </div>
+            
+            <Input
+              placeholder="Quantity"
+              {...register("quantity")}
+              className={`py-6`}
+            />
+          </div>
+
+          <div className="flex items-center mt-4">
+            <Input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              onChange={handleImageChange}
+              className="hidden"
+            />
+            <Button
+              variant="outline"
+              className={"py-6 justify-start text-base"}
+              type="button"
+              onClick={triggerFileSelect}
+            >
+              <UploadCloud className="w-4 h-4 mr-2" />
+              Upload
+            </Button>
+            {preview && (
+              <div className="ml-6">
+                <img
+                  src={preview}
+                  width={100}
+                  height={50}
+                  alt="Preview"
+                  className="max-w-xs border"
+                />
+                <span></span>
+              </div>
+            )}
           </div>
 
           <div className="mt-4">
