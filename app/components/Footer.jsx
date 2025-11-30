@@ -21,7 +21,7 @@ export default function Footer() {
             <li><Link href="/about" className="hover:underline">About Us</Link></li>
             <li><Link href="/our-recent-boxes" className="hover:underline">Our Recent Boxes</Link></li>
             <li><Link href="/contact" className="hover:underline">Contact Us</Link></li>
-            <li><Link href="/custompackboxes/sitemap.xml" className="hover:underline">Sitemap</Link></li>
+            <li><Link href="/sitemap.xml" className="hover:underline">Sitemap</Link></li>
             <li><Link href="/customized/apparel-boxes" className="hover:underline">Apparel Packaging</Link></li>
             <li><Link href="/terms-and-conditions" className="hover:underline">Terms & Conditions</Link></li>
             <li><Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link></li>
