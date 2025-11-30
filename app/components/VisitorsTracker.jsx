@@ -116,18 +116,18 @@ const VisitorsTracker = () => {
 
   // Only render the cookie banner, nothing else
   return (
-    <div className="fixed md:bottom-4 md:left-44 md:right-44 bg-red-600 text-white p-4 md:rounded-4xl bottom-0 left-0 right-0 rounded-t-2xl shadow-lg z-50 border border-red-700 ml-2 mr-2">
+    <div className="fixed md:bottom-4 h-20 md:left-44 md:right-44 bg-red-600 text-white p-4 md:rounded-4xl bottom-0 left-0 right-0 rounded-t-2xl shadow-lg z-50 border border-red-700 ml-2 mr-2">
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 md:gap-4">
         {/* Text Content */}
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold mb-1 text-lg md:text-base">We use cookies</h3>
+          <h3 className="font-semibold text-lg md:text-base">We use cookies</h3>
           <p className="text-sm md:text-xs text-red-100 leading-relaxed">
             We use cookies to enhance your experience. Accept to share your email for better service.
           </p>
         </div>
         
         {/* Form and Buttons */}
-        <div className="w-full lg:w-auto">
+        <div className="w-full lg:w-auto ">
           <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3 w-full">
             {/* Email Input - Full width on mobile, constrained on larger screens */}
             <input
