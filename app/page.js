@@ -12,7 +12,10 @@ import {
   Brands,
   FinalCta,
   MidCta,
+  
 } from "./components";
+
+import VisitorsTracker from "./components/VisitorsTracker";
 
 // Function to fetch metadata for a static page
 async function getStaticPageMetadata(identifier) {
@@ -66,6 +69,7 @@ export async function generateMetadata() {
 export default function Home() {
   return (
     <>
+    <VisitorsTracker />
       <Hero />
        <ContactUs />
       <CustomBoxesSection />
