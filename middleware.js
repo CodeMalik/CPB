@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
-// Allow ALL countries - empty block list
-const BLOCKED_COUNTRIES = []; // Empty array to block no countries
+// Only allow these countries - block everything else
+const ALLOWED_COUNTRIES = ['US', 'GB', 'UM']; // USA, UK, US Minor Outlying Islands
 
 // Optional: Add known VPN/Proxy IP ranges or specific IPs you want to block
 const BLOCKED_IPS = [
@@ -71,10 +71,7 @@ export async function middleware(request) {
   const clientIP = extractRealIP(forwardedFor) || realIP || 'unknown';
   const country = cfCountry || geoCountry || 'unknown';
 
-  // Log access for monitoring (optional)
-  console.log(`🌍 Access from ${country} (IP: ${clientIP}) for path: ${nextUrl.pathname}`);
-
-  // Block if IP is in VPN/proxy range (optional - you can remove this too if you want)
+  // Block if IP is in VPN/proxy range
   if (isVPNorProxy(clientIP)) {
     console.log(`🔒 Blocked VPN/Proxy request from IP: ${clientIP} for path: ${nextUrl.pathname}`);
     
@@ -98,10 +95,9 @@ export async function middleware(request) {
     });
   }
 
-  // REMOVED: Country blocking logic - now all countries are allowed
-  // Only block if country is explicitly in BLOCKED_COUNTRIES (which is empty)
-  if (BLOCKED_COUNTRIES.includes(country)) {
-    console.log(`🚫 Blocked request from ${country} (IP: ${clientIP}) for path: ${nextUrl.pathname}`);
+  // MAIN BLOCKING LOGIC: Block if country is NOT in allowed list
+  if (country !== 'unknown' && !ALLOWED_COUNTRIES.includes(country)) {
+    console.log(`🌍 Blocked request from ${country} (IP: ${clientIP}) for path: ${nextUrl.pathname}`);
     
     return new Response('Access denied from your region', {
       status: 403,
@@ -111,7 +107,19 @@ export async function middleware(request) {
     });
   }
 
-  // Your existing redirection logic (now for all countries)
+  // Also block if country is unknown (could be VPN/Tor)
+  if (country === 'unknown') {
+    console.log(`❓ Blocked unknown country request from IP: ${clientIP} for path: ${nextUrl.pathname}`);
+    
+    return new Response('Access denied: Region not detectable', {
+      status: 403,
+      headers: {
+        'Content-Type': 'text/plain',
+      },
+    });
+  }
+
+  // Your existing redirection logic (only for allowed countries)
   if (
     request.method === "GET" &&
     !nextUrl.pathname.startsWith("/_next") &&
@@ -147,7 +155,7 @@ export async function middleware(request) {
     }
   }
 
-  // Continue with normal response for all countries
+  // Continue with normal response only for allowed countries
   const response = NextResponse.next();
   response.headers.set('x-pathname', nextUrl.pathname);
   
