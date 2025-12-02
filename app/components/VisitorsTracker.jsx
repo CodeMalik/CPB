@@ -116,7 +116,7 @@ const VisitorsTracker = () => {
 
   // Only render the cookie banner, nothing else
   return (
-    <div className="fixed md:bottom-4 md:h-20 md:left-44 md:right-44 bg-red-600 text-white p-4 md:rounded-4xl bottom-0 left-0 right-0 rounded-t-2xl shadow-lg z-50 border border-red-700 ml-2 mr-2">
+    <div className="fixed md:bottom-4 md:h-20 md:left-44 md:right-44 bg-red-themed text-white p-4 md:rounded-4xl bottom-0 left-0 right-0 rounded-t-2xl shadow-lg z-50 border border-red-700 ml-2 mr-2">
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 md:gap-4">
         {/* Text Content */}
         <div className="flex-1 min-w-0">
