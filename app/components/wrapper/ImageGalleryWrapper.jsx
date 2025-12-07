@@ -4,29 +4,51 @@ import { useState } from "react";
 import Image from "next/image";
 
 export const ImageGalleryWrapper = ({ images = [], image = {} }) => {
-  console.log("Main Image:", image); // Debug log
-  console.log("Additional Images:", images); // Debug log
+  // Function to add Cloudinary transformation parameters
+  const enhanceCloudinaryUrl = (url) => {
+    if (!url || typeof url !== 'string') return url;
+    
+    // Check if it's a Cloudinary URL
+    if (url.includes('res.cloudinary.com')) {
+      // Insert transformation parameters before the filename
+      const parts = url.split('/upload/');
+      if (parts.length === 2) {
+        // Add quality and format transformations
+        // f_png: force PNG format
+        // q_100: maximum quality (0-100)
+        // fl_lossless: lossless compression (optional)
+        return `${parts[0]}/upload/f_png,q_100/${parts[1]}`;
+      }
+    }
+    return url;
+  };
 
   // Create array with main image first, then additional images
   const allRealImages = [];
   
   // Add main image if it exists and has URL
   if (image && image.url) {
-    allRealImages.push(image);
+    const enhancedImage = {
+      ...image,
+      url: enhanceCloudinaryUrl(image.url)
+    };
+    allRealImages.push(enhancedImage);
   }
   
   // Add additional images that have URLs
   if (Array.isArray(images)) {
     images.forEach(img => {
       if (img && img.url) {
-        allRealImages.push(img);
+        const enhancedImg = {
+          ...img,
+          url: enhanceCloudinaryUrl(img.url)
+        };
+        allRealImages.push(enhancedImg);
       }
     });
   }
 
-  console.log("All Real Images:", allRealImages); // Debug log
-
-  // Create exactly 4 slots
+  // ... rest of your component code remains the same
   const imageSlots = [];
   for (let i = 0; i < 4; i++) {
     if (allRealImages[i]) {
@@ -57,6 +79,8 @@ export const ImageGalleryWrapper = ({ images = [], image = {} }) => {
             className="object-contain"
             sizes="(max-width: 768px) 100vw, 50vw"
             priority={selectedImageIndex === 0}
+            // Add unoptimized if Cloudinary is already optimizing
+            unoptimized={imageSlots[selectedImageIndex].url.includes('cloudinary.com')}
           />
         )}
       </div>
@@ -88,6 +112,7 @@ export const ImageGalleryWrapper = ({ images = [], image = {} }) => {
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 25vw, 12.5vw"
+                unoptimized={img.url.includes('cloudinary.com')}
               />
             )}
           </button>
