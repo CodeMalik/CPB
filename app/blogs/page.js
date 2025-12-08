@@ -1,7 +1,10 @@
+// Replace this entire file with the fixed version:
+
 import { connectDB } from '../../lib/mongoose';
 import Blog from '../../app/models/Blog';
 import BlogCard from '../../app/components/BlogCard';
-import SearchBar from '../../app/components/SearchBar';
+// ADD THIS IMPORT
+import Image from 'next/image';
 
 export const metadata = {
   title: 'Blog - Custom Pack Boxes',
@@ -129,13 +132,17 @@ export default async function BlogsPage({ searchParams }) {
                   {blogs.filter(b => b.featured).slice(0, 2).map(blog => (
                     <div key={blog._id} className="group relative bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300">
                       {blog.coverImage?.url && (
-                        <div className="h-64 overflow-hidden">
-                          <img 
+                        <div className="h-64 overflow-hidden relative"> {/* ADD relative class */}
+                          {/* FIXED LINE 133: Replace img with Image component */}
+                          <Image
                             src={blog.coverImage.url}
                             alt={blog.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            priority={true}
                           />
-                          <div className="absolute top-4 left-4">
+                          <div className="absolute top-4 left-4 z-10"> {/* ADD z-10 */}
                             <span className="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
                               Featured
                             </span>

@@ -12,7 +12,6 @@ import {
   Brands,
   FinalCta,
   MidCta,
-  
 } from "./components";
 
 import VisitorsTracker from "./components/VisitorsTracker";
@@ -23,7 +22,9 @@ async function getStaticPageMetadata(identifier) {
     // Ensure NEXT_PUBLIC_BASE_URL is set in your .env.local file
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
     const res = await fetch(`${baseUrl}/api/meta/${identifier}`, {
-      cache: "no-store", // Or 'force-cache' if you want to cache metadata
+      // REMOVED: cache: "no-store"
+      // OPTIONAL: Add revalidation if you want periodic updates
+      next: { revalidate: 3600 } // Revalidate every hour (3600 seconds)
     });
 
     if (!res.ok) {
@@ -69,9 +70,9 @@ export async function generateMetadata() {
 export default function Home() {
   return (
     <>
-    <VisitorsTracker />
+      <VisitorsTracker />
       <Hero />
-       <ContactUs />
+      <ContactUs />
       <CustomBoxesSection />
       <Categories />
       <AboutUs />
