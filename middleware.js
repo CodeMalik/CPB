@@ -61,8 +61,58 @@ function isVPNorProxy(ip) {
 
 export async function middleware(request) {
   const { nextUrl } = request;
+  const pathname = nextUrl.pathname;
   
-  // Get client IP and country with better extraction
+  // ============ SKIP GEO-BLOCKING FOR IMAGE PROXY ============
+  // Allow worldwide access for image proxy URLs
+  if (pathname.startsWith('/api/proxy-image') || 
+      pathname.startsWith('/custom-packaging/')) {
+    
+    // Still check for VPN/proxy even for images
+    const forwardedFor = request.headers.get('x-forwarded-for');
+    const realIP = request.headers.get('x-real-ip');
+    const clientIP = extractRealIP(forwardedFor) || realIP || 'unknown';
+    
+    if (isVPNorProxy(clientIP)) {
+      console.log(`🔒 Blocked VPN/Proxy request for image from IP: ${clientIP} for path: ${pathname}`);
+      return new Response('Access denied: VPN/Proxy detected', {
+        status: 403,
+        headers: { 'Content-Type': 'text/plain' },
+      });
+    }
+    
+    // Apply redirection logic if needed
+    if (
+      request.method === "GET" &&
+      pathname.startsWith('/custom-packaging/') &&
+      !pathname.includes('.')
+    ) {
+      try {
+        const baseUrl = new URL(request.url).origin;
+        const response = await fetch(`${baseUrl}/api/check-redirection?path=${encodeURIComponent(pathname)}`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+          next: { revalidate: 60 }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.redirect) {
+            console.log(`🔀 Redirecting image path ${pathname} to ${data.to}`);
+            const redirectUrl = new URL(data.to, request.url);
+            return NextResponse.redirect(redirectUrl, parseInt(data.type));
+          }
+        }
+      } catch (error) {
+        console.error('Redirection middleware error for image path:', error);
+      }
+    }
+    
+    return NextResponse.next();
+  }
+  
+  // ============ GEO-BLOCKING FOR ALL OTHER PATHS ============
+  // Get client IP and country
   const forwardedFor = request.headers.get('x-forwarded-for');
   const realIP = request.headers.get('x-real-ip');
   const cfCountry = request.headers.get('x-vercel-ip-country') || request.headers.get('cf-ipcountry');
@@ -73,79 +123,62 @@ export async function middleware(request) {
 
   // Block if IP is in VPN/proxy range
   if (isVPNorProxy(clientIP)) {
-    console.log(`🔒 Blocked VPN/Proxy request from IP: ${clientIP} for path: ${nextUrl.pathname}`);
-    
+    console.log(`🔒 Blocked VPN/Proxy request from IP: ${clientIP} for path: ${pathname}`);
     return new Response('Access denied: VPN/Proxy detected', {
       status: 403,
-      headers: {
-        'Content-Type': 'text/plain',
-      },
+      headers: { 'Content-Type': 'text/plain' },
     });
   }
 
   // Block if IP is specifically blocked
   if (BLOCKED_IPS.includes(clientIP)) {
-    console.log(`🚫 Blocked specific IP: ${clientIP} for path: ${nextUrl.pathname}`);
-    
+    console.log(`🚫 Blocked specific IP: ${clientIP} for path: ${pathname}`);
     return new Response('Access denied', {
       status: 403,
-      headers: {
-        'Content-Type': 'text/plain',
-      },
+      headers: { 'Content-Type': 'text/plain' },
     });
   }
 
-  // MAIN BLOCKING LOGIC: Block if country is NOT in allowed list
+  // Block if country is NOT in allowed list
   if (country !== 'unknown' && !ALLOWED_COUNTRIES.includes(country)) {
-    console.log(`🌍 Blocked request from ${country} (IP: ${clientIP}) for path: ${nextUrl.pathname}`);
-    
+    console.log(`🌍 Blocked request from ${country} (IP: ${clientIP}) for path: ${pathname}`);
     return new Response('Access denied from your region', {
       status: 403,
-      headers: {
-        'Content-Type': 'text/plain',
-      },
+      headers: { 'Content-Type': 'text/plain' },
     });
   }
 
-  // Also block if country is unknown (could be VPN/Tor)
+  // Block if country is unknown
   if (country === 'unknown') {
-    console.log(`❓ Blocked unknown country request from IP: ${clientIP} for path: ${nextUrl.pathname}`);
-    
+    console.log(`❓ Blocked unknown country request from IP: ${clientIP} for path: ${pathname}`);
     return new Response('Access denied: Region not detectable', {
       status: 403,
-      headers: {
-        'Content-Type': 'text/plain',
-      },
+      headers: { 'Content-Type': 'text/plain' },
     });
   }
 
-  // Your existing redirection logic (only for allowed countries)
+  // ============ REDIRECTION LOGIC ============
+  // Your existing redirection logic
   if (
     request.method === "GET" &&
-    !nextUrl.pathname.startsWith("/_next") &&
-    !nextUrl.pathname.startsWith("/api") &&
-    !nextUrl.pathname.startsWith("/static") &&
-    !nextUrl.pathname.includes(".") &&
-    nextUrl.pathname !== "/"
+    !pathname.startsWith("/_next") &&
+    !pathname.startsWith("/api") &&
+    !pathname.startsWith("/static") &&
+    !pathname.includes(".") &&
+    pathname !== "/"
   ) {
     try {
-      const pathname = nextUrl.pathname.toLowerCase();
-      
       const baseUrl = new URL(request.url).origin;
       const response = await fetch(`${baseUrl}/api/check-redirection?path=${encodeURIComponent(pathname)}`, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         next: { revalidate: 60 }
       });
 
       if (response.ok) {
         const data = await response.json();
-        
         if (data.redirect) {
           console.log(`🔀 Redirecting ${pathname} to ${data.to} (${data.type})`);
-          
           const redirectUrl = new URL(data.to, request.url);
           return NextResponse.redirect(redirectUrl, parseInt(data.type));
         }
@@ -155,15 +188,15 @@ export async function middleware(request) {
     }
   }
 
-  // Continue with normal response only for allowed countries
+  // Continue with normal response
   const response = NextResponse.next();
-  response.headers.set('x-pathname', nextUrl.pathname);
+  response.headers.set('x-pathname', pathname);
   
   return response;
 }
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:ico|jpg|jpeg|png|svg|css|js)$).*)',
   ],
 }

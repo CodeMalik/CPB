@@ -8,7 +8,8 @@ const ProductHero = ({
   images = [], 
   category = "", 
   name = "", 
-  image = {} 
+  image = {},
+  slug = ""
 }) => {
   return (
     <section>
@@ -17,6 +18,8 @@ const ProductHero = ({
           <ImageGalleryWrapper 
             images={Array.isArray(images) ? images : []} 
             image={image || {}} 
+            category={category}
+            slug={slug}
           />
         </div>
         <div className="right w-full flex-1 mt-20">
