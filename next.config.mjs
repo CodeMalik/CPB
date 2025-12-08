@@ -49,7 +49,9 @@ const nextConfig = {
     ]
   },
   
-  htmlLimitedBots: '.*',
+  // FIXED: Use a proper regex pattern or remove this option
+  // Remove this line if you don't need it, or provide valid regex patterns
+  // htmlLimitedBots: /.*/,
 };
 
 export default nextConfig;
