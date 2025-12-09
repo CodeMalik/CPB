@@ -1,6 +1,6 @@
+// app/api/proxy-image/[...path]/route.js
 import { NextResponse } from 'next/server'
 
-// Cache for image responses
 const imageCache = new Map();
 const CACHE_TTL = 5 * 60 * 1000;
 
@@ -20,56 +20,58 @@ export async function GET(request, { params }) {
     const { searchParams } = new URL(request.url);
     
     // Join the path segments
-    const fullPath = path.join('/');
+    const fullPath = Array.isArray(path) ? path.join('/') : path;
     
-    // Extract the last segment as the image filename
-    const pathSegments = fullPath.split('/');
-    let filename = pathSegments.pop();
+    console.log('Full path requested:', fullPath);
+    console.log('Search params:', Object.fromEntries(searchParams.entries()));
     
-    // Extract filename from query parameter if provided
-    const filenameFromQuery = searchParams.get('filename');
-    if (filenameFromQuery) {
-      filename = filenameFromQuery;
+    // Extract ID from query parameter (this comes from your friendly URLs)
+    const cloudinaryIdFromQuery = searchParams.get('id');
+    
+    let cloudinaryId = cloudinaryIdFromQuery;
+    let filename = 'image.png';
+    
+    // If no ID in query params, try to extract from path
+    if (!cloudinaryId) {
+      // Check if path looks like a Cloudinary ID (alphanumeric, possibly with extensions)
+      const pathSegments = fullPath.split('/');
+      const lastSegment = pathSegments.pop() || '';
+      
+      // Try to extract Cloudinary ID from the path
+      const possibleId = lastSegment.replace(/\.[^/.]+$/, ""); // Remove extension
+      
+      // Check if this looks like a Cloudinary ID (not a friendly name)
+      if (possibleId && /^[a-zA-Z0-9_-]+$/.test(possibleId) && possibleId.length > 10) {
+        cloudinaryId = possibleId;
+        filename = `${possibleId}.png`;
+      } else {
+        // This might be a friendly URL path like "custom-packaging/boxes/product/main"
+        // Extract just the last segment and use it as filename
+        filename = lastSegment || 'image.png';
+        
+        // For friendly URLs, we need to look up the actual Cloudinary ID
+        // For now, return a placeholder or try to find the image
+        console.log('Friendly URL detected, but no ID provided:', fullPath);
+        
+        // Try to extract ID from the full path pattern
+        const idMatch = fullPath.match(/\/([a-zA-Z0-9_-]{10,})(?:\.\w+)?$/);
+        if (idMatch) {
+          cloudinaryId = idMatch[1];
+          filename = `${cloudinaryId}.png`;
+        }
+      }
+    } else {
+      // We have an ID from query params
+      filename = `${cloudinaryId}.png`;
     }
     
-    // Check if filename has an extension
-    const hasExtension = /\.(png|jpg|jpeg|webp|gif|svg)$/i.test(filename);
-    
-    let cloudinaryId;
-    let transformation = 'f_png,q_100';
-    let version = 'v1763560320';
-    
-    if (hasExtension) {
-      // If filename has extension, use it as-is
-      cloudinaryId = filename;
-    } else {
-      // If no extension, the filename is likely the ID
-      // Check if we have transformation/version in the path
-      const possibleId = filename;
-      
-      // Look for transformation and version in previous segments
-      const transformIndex = pathSegments.findIndex(seg => seg.startsWith('t_'));
-      if (transformIndex !== -1) {
-        transformation = pathSegments[transformIndex];
-        pathSegments.splice(transformIndex, 1);
-      }
-      
-      const versionIndex = pathSegments.findIndex(seg => seg.startsWith('v'));
-      if (versionIndex !== -1 && /^v\d+$/.test(pathSegments[versionIndex])) {
-        version = pathSegments[versionIndex];
-        pathSegments.splice(versionIndex, 1);
-      }
-      
-      cloudinaryId = possibleId;
-      
-      // Ensure filename has extension based on transformation
-      const formatMatch = transformation.match(/f_(\w+)/);
-      const format = formatMatch ? formatMatch[1] : 'png';
-      filename = `${filename}.${format}`;
+    if (!cloudinaryId) {
+      console.error('No Cloudinary ID found in request');
+      throw new Error('No image ID provided');
     }
     
     // Build cache key
-    const cacheKey = `${cloudinaryId}_${transformation}_${version}`;
+    const cacheKey = `${cloudinaryId}_default`;
     const cached = imageCache.get(cacheKey);
     
     if (cached && (Date.now() - cached.timestamp < CACHE_TTL)) {
@@ -78,53 +80,57 @@ export async function GET(request, { params }) {
         status: 200,
         headers: {
           ...cached.headers,
-          // Add Content-Disposition for better browser display
           'Content-Disposition': `inline; filename="${encodeURIComponent(filename)}"`,
           'X-Content-Type-Options': 'nosniff',
         }
       });
     }
     
-    // Build Cloudinary URL
-    const cloudinaryUrl = `https://res.cloudinary.com/dfnjpfucl/image/upload/${transformation}/${version}/MKF_CPB/products/${cloudinaryId}`;
+    // Build Cloudinary URL with auto format and quality
+    const cloudinaryUrl = `https://res.cloudinary.com/dfnjpfucl/image/upload/q_auto,f_auto/MKF_CPB/products/${cloudinaryId}`;
+    
+    console.log('Fetching image from Cloudinary:', cloudinaryUrl);
     
     // Fetch the image
     const response = await fetch(cloudinaryUrl);
     
     if (!response.ok) {
-      // Try without version if versioned URL fails
-      const fallbackUrl = `https://res.cloudinary.com/dfnjpfucl/image/upload/${transformation}/MKF_CPB/products/${cloudinaryId}`;
-      const fallbackResponse = await fetch(fallbackUrl);
+      console.error('Cloudinary fetch failed:', response.status);
       
-      if (!fallbackResponse.ok) {
-        throw new Error(`Failed to fetch image: ${response.status} and ${fallbackResponse.status}`);
+      // Try with different formats
+      const formats = ['png', 'jpg', 'jpeg', 'webp'];
+      
+      for (const format of formats) {
+        const formatUrl = `https://res.cloudinary.com/dfnjpfucl/image/upload/MKF_CPB/products/${cloudinaryId}.${format}`;
+        console.log(`Trying format ${format}:`, formatUrl);
+        
+        const formatResponse = await fetch(formatUrl);
+        if (formatResponse.ok) {
+          const imageBuffer = await formatResponse.arrayBuffer();
+          const contentType = formatResponse.headers.get('content-type') || `image/${format}`;
+          
+          const headers = {
+            'Content-Type': contentType,
+            'Content-Disposition': `inline; filename="${encodeURIComponent(`${cloudinaryId}.${format}`)}"`,
+            'Cache-Control': 'public, max-age=31536000, immutable',
+            'Access-Control-Allow-Origin': '*',
+            'X-Content-Type-Options': 'nosniff',
+          };
+          
+          imageCache.set(cacheKey, {
+            buffer: imageBuffer,
+            headers: headers,
+            timestamp: Date.now()
+          });
+          
+          return new NextResponse(imageBuffer, {
+            status: 200,
+            headers: headers
+          });
+        }
       }
       
-      const imageBuffer = await fallbackResponse.arrayBuffer();
-      const contentType = fallbackResponse.headers.get('content-type') || 'image/png';
-      
-      // Prepare response headers
-      const headers = {
-        'Content-Type': contentType,
-        'Content-Disposition': `inline; filename="${encodeURIComponent(filename)}"`,
-        'Cache-Control': 'public, max-age=31536000, immutable',
-        'CDN-Cache-Control': 'public, max-age=31536000, immutable',
-        'Vary': 'Accept-Encoding',
-        'Access-Control-Allow-Origin': '*',
-        'X-Content-Type-Options': 'nosniff',
-      };
-      
-      // Cache the response
-      imageCache.set(cacheKey, {
-        buffer: imageBuffer,
-        headers: headers,
-        timestamp: Date.now()
-      });
-      
-      return new NextResponse(imageBuffer, {
-        status: 200,
-        headers: headers
-      });
+      throw new Error(`Failed to fetch image: ${response.status}`);
     }
     
     const imageBuffer = await response.arrayBuffer();
@@ -135,8 +141,6 @@ export async function GET(request, { params }) {
       'Content-Type': contentType,
       'Content-Disposition': `inline; filename="${encodeURIComponent(filename)}"`,
       'Cache-Control': 'public, max-age=31536000, immutable',
-      'CDN-Cache-Control': 'public, max-age=31536000, immutable',
-      'Vary': 'Accept-Encoding',
       'Access-Control-Allow-Origin': '*',
       'X-Content-Type-Options': 'nosniff',
     };
@@ -156,24 +160,21 @@ export async function GET(request, { params }) {
   } catch (error) {
     console.error('Proxy image error:', error);
     
-    // Return a placeholder image on error
-    const placeholderSvg = `<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
-      <rect width="400" height="300" fill="#f0f0f0"/>
-      <text x="200" y="150" text-anchor="middle" fill="#666" font-family="Arial" font-size="14">
-        Image not available
-      </text>
-    </svg>`;
+    // Return a proper image placeholder instead of SVG text
+    const placeholderImage = Buffer.from(
+      'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=',
+      'base64'
+    );
     
-    return new NextResponse(placeholderSvg, {
+    return new NextResponse(placeholderImage, {
       status: 200,
       headers: {
-        'Content-Type': 'image/svg+xml',
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Content-Disposition': 'inline; filename="placeholder.svg"',
+        'Content-Type': 'image/png',
+        'Cache-Control': 'no-cache',
+        'Content-Disposition': 'inline; filename="placeholder.png"',
       }
     });
   }
 }
 
 export const dynamic = 'force-dynamic';
-export const runtime = 'edge';

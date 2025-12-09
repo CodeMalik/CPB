@@ -62,6 +62,48 @@ function isVPNorProxy(ip) {
 export async function middleware(request) {
   const { nextUrl } = request;
   const pathname = nextUrl.pathname;
+  const hostname = nextUrl.hostname;
+  
+  // ============ ALLOW LOCALHOST ACCESS ============
+  // Skip geo-blocking entirely when running on localhost
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    console.log(`🌐 Localhost access allowed for path: ${pathname}`);
+    
+    // Apply redirection logic if needed
+    if (
+      request.method === "GET" &&
+      !pathname.startsWith("/_next") &&
+      !pathname.startsWith("/api") &&
+      !pathname.startsWith("/static") &&
+      !pathname.includes(".") &&
+      pathname !== "/"
+    ) {
+      try {
+        const baseUrl = new URL(request.url).origin;
+        const response = await fetch(`${baseUrl}/api/check-redirection?path=${encodeURIComponent(pathname)}`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+          next: { revalidate: 60 }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.redirect) {
+            console.log(`🔀 Redirecting ${pathname} to ${data.to} (${data.type})`);
+            const redirectUrl = new URL(data.to, request.url);
+            return NextResponse.redirect(redirectUrl, parseInt(data.type));
+          }
+        }
+      } catch (error) {
+        console.error('Redirection middleware error on localhost:', error);
+      }
+    }
+    
+    const response = NextResponse.next();
+    response.headers.set('x-pathname', pathname);
+    response.headers.set('x-localhost', 'true');
+    return response;
+  }
   
   // ============ SKIP GEO-BLOCKING FOR IMAGE PROXY ============
   // Allow worldwide access for image proxy URLs
