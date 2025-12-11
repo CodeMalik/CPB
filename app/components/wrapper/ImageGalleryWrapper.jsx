@@ -125,14 +125,12 @@ export const ImageGalleryWrapper = ({
           </div>
         ) : (
           <>
-            <Image
+            {/* Main Image - Full Resolution without blur */}
+            <img
               src={imageSlots[selectedImageIndex].proxyUrl || imageSlots[selectedImageIndex].url || ''}
               alt={imageSlots[selectedImageIndex].alt || `Product image ${selectedImageIndex + 1}`}
-              fill
-              className="object-contain"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority={selectedImageIndex === 0}
-              unoptimized={true}
+              className="w-full h-full object-contain"
+              loading="eager"
               onClick={() => openImageInNewTab(imageSlots[selectedImageIndex].proxyUrl || imageSlots[selectedImageIndex].url)}
             />
             
