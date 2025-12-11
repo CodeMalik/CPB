@@ -7,8 +7,7 @@ async function getStaticPageMetadata(identifier) {
     // Ensure NEXT_PUBLIC_BASE_URL is set in your .env.local file
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
     const res = await fetch(`${baseUrl}/api/meta/${identifier}`, {
-      // REMOVED: cache: 'no-store'
-      next: { revalidate: 3600 } // Revalidate every hour
+      cache: 'no-store' // Or 'force-cache' if you want to cache metadata
     });
 
     if (!res.ok) {
@@ -53,11 +52,11 @@ export async function generateMetadata() {
 
 const ContactPage = () => {
   return (
-    <div className="container-big">
-      <ContactInfo />
-      <ContactFormWithMap />
-      <FaqSection />
-    </div>
+        <div className="container-big">
+            <ContactInfo />
+            <ContactFormWithMap />
+            <FaqSection />
+        </div>
   )
 }
 
