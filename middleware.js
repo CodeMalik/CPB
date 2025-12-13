@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server'
 
 // Only allow these countries - block everything else
-const ALLOWED_COUNTRIES = ['US', 'GB', 'UM']; // USA, UK, US Minor Outlying Islands
+// Added 'PK' for Pakistan
+const ALLOWED_COUNTRIES = ['US', 'GB', 'UM', 'PK']; // USA, UK, US Minor Outlying Islands, Pakistan
 
 // Optional: Add known VPN/Proxy IP ranges or specific IPs you want to block
 const BLOCKED_IPS = [
