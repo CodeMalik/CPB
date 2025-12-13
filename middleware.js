@@ -11,7 +11,9 @@ const BLOCKED_IPS = [
 
 // Add allowed IP addresses that bypass geo-blocking
 const ALLOWED_IPS = [
-  '154.208.34.157', // Allow this specific IP to bypass all restrictions
+  '154.208.34.157',
+  '192.168.100.1'
+  // Allow this specific IP to bypass all restrictions
 ];
 
 // Cloudflare VPN IP ranges (example - you can expand this list)
