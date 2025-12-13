@@ -1,19 +1,18 @@
 import { NextResponse } from 'next/server'
 
 // Only allow these countries - block everything else
-const ALLOWED_COUNTRIES = ['US', 'GB', 'UM']
+// Added 'PK' for Pakistan
+const ALLOWED_COUNTRIES = ['US', 'GB', 'UM']; // USA, UK, US Minor Outlying Islands, Pakistan
 
 // Optional: Add known VPN/Proxy IP ranges or specific IPs you want to block
 const BLOCKED_IPS = [
   // Add any specific IPs you want to block regardless of country
-]
+];
 
-// NEW: Whitelisted IPs that bypass country restrictions
-const WHITELISTED_IPS = [
-  // Add specific IPs you want to allow from blocked countries
-  // Example: '203.0.113.45', '198.51.100.22'
-  '154.208.34.153'
-]
+// Add allowed IP addresses that bypass geo-blocking
+const ALLOWED_IPS = [
+  '154.208.34.157', // Allow this specific IP to bypass all restrictions
+];
 
 // Cloudflare VPN IP ranges (example - you can expand this list)
 const KNOWN_VPN_RANGES = [
@@ -32,49 +31,49 @@ const KNOWN_VPN_RANGES = [
   '104.24.0.0/14',
   '172.64.0.0/13',
   '131.0.72.0/22'
-]
+];
 
 function isIPInRange(ip, range) {
   try {
-    const [rangeIP, subnetMask] = range.split('/')
-    const ipInt = ipToInt(ip)
-    const rangeIPInt = ipToInt(rangeIP)
-    const mask = subnetMask ? -1 << (32 - parseInt(subnetMask)) : -1
+    const [rangeIP, subnetMask] = range.split('/');
+    const ipInt = ipToInt(ip);
+    const rangeIPInt = ipToInt(rangeIP);
+    const mask = subnetMask ? -1 << (32 - parseInt(subnetMask)) : -1;
     
-    return (ipInt & mask) === (rangeIPInt & mask)
+    return (ipInt & mask) === (rangeIPInt & mask);
   } catch {
-    return false
+    return false;
   }
 }
 
 function ipToInt(ip) {
-  return ip.split('.').reduce((int, octet) => (int << 8) + parseInt(octet, 10), 0) >>> 0
+  return ip.split('.').reduce((int, octet) => (int << 8) + parseInt(octet, 10), 0) >>> 0;
 }
 
 function extractRealIP(ipHeader) {
-  if (!ipHeader) return 'unknown'
+  if (!ipHeader) return 'unknown';
   
   // Handle multiple IPs in x-forwarded-for (first IP is the client)
-  const ips = ipHeader.split(',').map(ip => ip.trim())
-  return ips[0]
+  const ips = ipHeader.split(',').map(ip => ip.trim());
+  return ips[0];
 }
 
 function isVPNorProxy(ip) {
-  if (!ip || ip === 'unknown' || ip === '::1') return false
+  if (!ip || ip === 'unknown' || ip === '::1') return false;
   
   // Check against known VPN ranges
-  return KNOWN_VPN_RANGES.some(range => isIPInRange(ip, range))
+  return KNOWN_VPN_RANGES.some(range => isIPInRange(ip, range));
 }
 
 export async function middleware(request) {
-  const { nextUrl } = request
-  const pathname = nextUrl.pathname
-  const hostname = nextUrl.hostname
+  const { nextUrl } = request;
+  const pathname = nextUrl.pathname;
+  const hostname = nextUrl.hostname;
   
   // ============ ALLOW LOCALHOST ACCESS ============
   // Skip geo-blocking entirely when running on localhost
   if (hostname === 'localhost' || hostname === '127.0.0.1') {
-    console.log(`🌐 Localhost access allowed for path: ${pathname}`)
+    console.log(`🌐 Localhost access allowed for path: ${pathname}`);
     
     // Apply redirection logic if needed
     if (
@@ -86,30 +85,76 @@ export async function middleware(request) {
       pathname !== "/"
     ) {
       try {
-        const baseUrl = new URL(request.url).origin
+        const baseUrl = new URL(request.url).origin;
         const response = await fetch(`${baseUrl}/api/check-redirection?path=${encodeURIComponent(pathname)}`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
           next: { revalidate: 60 }
-        })
+        });
 
         if (response.ok) {
-          const data = await response.json()
+          const data = await response.json();
           if (data.redirect) {
-            console.log(`🔀 Redirecting ${pathname} to ${data.to} (${data.type})`)
-            const redirectUrl = new URL(data.to, request.url)
-            return NextResponse.redirect(redirectUrl, parseInt(data.type))
+            console.log(`🔀 Redirecting ${pathname} to ${data.to} (${data.type})`);
+            const redirectUrl = new URL(data.to, request.url);
+            return NextResponse.redirect(redirectUrl, parseInt(data.type));
           }
         }
       } catch (error) {
-        console.error('Redirection middleware error on localhost:', error)
+        console.error('Redirection middleware error on localhost:', error);
       }
     }
     
-    const response = NextResponse.next()
-    response.headers.set('x-pathname', pathname)
-    response.headers.set('x-localhost', 'true')
-    return response
+    const response = NextResponse.next();
+    response.headers.set('x-pathname', pathname);
+    response.headers.set('x-localhost', 'true');
+    return response;
+  }
+  
+  // Get client IP and country
+  const forwardedFor = request.headers.get('x-forwarded-for');
+  const realIP = request.headers.get('x-real-ip');
+  const clientIP = extractRealIP(forwardedFor) || realIP || 'unknown';
+  
+  // ============ ALLOW SPECIFIC IP ADDRESSES ============
+  // Allow 154.208.34.157 to bypass all restrictions
+  if (ALLOWED_IPS.includes(clientIP)) {
+    console.log(`✅ Allowed specific IP: ${clientIP} for path: ${pathname}`);
+    
+    // Apply redirection logic if needed
+    if (
+      request.method === "GET" &&
+      !pathname.startsWith("/_next") &&
+      !pathname.startsWith("/api") &&
+      !pathname.startsWith("/static") &&
+      !pathname.includes(".") &&
+      pathname !== "/"
+    ) {
+      try {
+        const baseUrl = new URL(request.url).origin;
+        const response = await fetch(`${baseUrl}/api/check-redirection?path=${encodeURIComponent(pathname)}`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+          next: { revalidate: 60 }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.redirect) {
+            console.log(`🔀 Redirecting ${pathname} to ${data.to} (${data.type})`);
+            const redirectUrl = new URL(data.to, request.url);
+            return NextResponse.redirect(redirectUrl, parseInt(data.type));
+          }
+        }
+      } catch (error) {
+        console.error('Redirection middleware error for allowed IP:', error);
+      }
+    }
+    
+    const response = NextResponse.next();
+    response.headers.set('x-pathname', pathname);
+    response.headers.set('x-allowed-ip', 'true');
+    return response;
   }
   
   // ============ SKIP GEO-BLOCKING FOR IMAGE PROXY ============
@@ -118,25 +163,12 @@ export async function middleware(request) {
       pathname.startsWith('/custom-packaging/')) {
     
     // Still check for VPN/proxy even for images
-    const forwardedFor = request.headers.get('x-forwarded-for')
-    const realIP = request.headers.get('x-real-ip')
-    const clientIP = extractRealIP(forwardedFor) || realIP || 'unknown'
-    
-    // Check for whitelisted IPs even for image paths
-    if (WHITELISTED_IPS.includes(clientIP)) {
-      console.log(`✅ Whitelisted IP allowed for image: ${clientIP} for path: ${pathname}`)
-      const response = NextResponse.next()
-      response.headers.set('x-pathname', pathname)
-      response.headers.set('x-whitelisted', 'true')
-      return response
-    }
-    
     if (isVPNorProxy(clientIP)) {
-      console.log(`🔒 Blocked VPN/Proxy request for image from IP: ${clientIP} for path: ${pathname}`)
+      console.log(`🔒 Blocked VPN/Proxy request for image from IP: ${clientIP} for path: ${pathname}`);
       return new Response('Access denied: VPN/Proxy detected', {
         status: 403,
         headers: { 'Content-Type': 'text/plain' },
-      })
+      });
     }
     
     // Apply redirection logic if needed
@@ -146,113 +178,69 @@ export async function middleware(request) {
       !pathname.includes('.')
     ) {
       try {
-        const baseUrl = new URL(request.url).origin
+        const baseUrl = new URL(request.url).origin;
         const response = await fetch(`${baseUrl}/api/check-redirection?path=${encodeURIComponent(pathname)}`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
           next: { revalidate: 60 }
-        })
+        });
 
         if (response.ok) {
-          const data = await response.json()
+          const data = await response.json();
           if (data.redirect) {
-            console.log(`🔀 Redirecting image path ${pathname} to ${data.to}`)
-            const redirectUrl = new URL(data.to, request.url)
-            return NextResponse.redirect(redirectUrl, parseInt(data.type))
+            console.log(`🔀 Redirecting image path ${pathname} to ${data.to}`);
+            const redirectUrl = new URL(data.to, request.url);
+            return NextResponse.redirect(redirectUrl, parseInt(data.type));
           }
         }
       } catch (error) {
-        console.error('Redirection middleware error for image path:', error)
+        console.error('Redirection middleware error for image path:', error);
       }
     }
     
-    return NextResponse.next()
+    return NextResponse.next();
   }
   
   // ============ GEO-BLOCKING FOR ALL OTHER PATHS ============
-  // Get client IP and country
-  const forwardedFor = request.headers.get('x-forwarded-for')
-  const realIP = request.headers.get('x-real-ip')
-  const cfCountry = request.headers.get('x-vercel-ip-country') || request.headers.get('cf-ipcountry')
-  const geoCountry = request.geo?.country
-  
-  const clientIP = extractRealIP(forwardedFor) || realIP || 'unknown'
-  const country = cfCountry || geoCountry || 'unknown'
+  // Get country info
+  const cfCountry = request.headers.get('x-vercel-ip-country') || request.headers.get('cf-ipcountry');
+  const geoCountry = request.geo?.country;
+  const country = cfCountry || geoCountry || 'unknown';
 
-  // 1. Block if IP is in VPN/proxy range
+  // Block if IP is in VPN/proxy range
   if (isVPNorProxy(clientIP)) {
-    console.log(`🔒 Blocked VPN/Proxy request from IP: ${clientIP} for path: ${pathname}`)
+    console.log(`🔒 Blocked VPN/Proxy request from IP: ${clientIP} for path: ${pathname}`);
     return new Response('Access denied: VPN/Proxy detected', {
       status: 403,
       headers: { 'Content-Type': 'text/plain' },
-    })
+    });
   }
 
-  // 2. Block if IP is specifically blocked
+  // Block if IP is specifically blocked
   if (BLOCKED_IPS.includes(clientIP)) {
-    console.log(`🚫 Blocked specific IP: ${clientIP} for path: ${pathname}`)
+    console.log(`🚫 Blocked specific IP: ${clientIP} for path: ${pathname}`);
     return new Response('Access denied', {
       status: 403,
       headers: { 'Content-Type': 'text/plain' },
-    })
+    });
   }
 
-  // 3. NEW: Allow if IP is in the whitelist (bypasses country restrictions)
-  if (WHITELISTED_IPS.includes(clientIP)) {
-    console.log(`✅ Whitelisted IP allowed: ${clientIP} from ${country} for path: ${pathname}`)
-    
-    // Apply redirection logic if needed
-    if (
-      request.method === "GET" &&
-      !pathname.startsWith("/_next") &&
-      !pathname.startsWith("/api") &&
-      !pathname.startsWith("/static") &&
-      !pathname.includes(".") &&
-      pathname !== "/"
-    ) {
-      try {
-        const baseUrl = new URL(request.url).origin
-        const response = await fetch(`${baseUrl}/api/check-redirection?path=${encodeURIComponent(pathname)}`, {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-          next: { revalidate: 60 }
-        })
-
-        if (response.ok) {
-          const data = await response.json()
-          if (data.redirect) {
-            console.log(`🔀 Redirecting ${pathname} to ${data.to} (${data.type})`)
-            const redirectUrl = new URL(data.to, request.url)
-            return NextResponse.redirect(redirectUrl, parseInt(data.type))
-          }
-        }
-      } catch (error) {
-        console.error('Redirection middleware error for whitelisted IP:', error)
-      }
-    }
-    
-    const response = NextResponse.next()
-    response.headers.set('x-pathname', pathname)
-    response.headers.set('x-whitelisted', 'true')
-    return response
-  }
-
-  // 4. Block if country is NOT in allowed list (only runs if IP is not whitelisted)
+  // Block if country is NOT in allowed list
   if (country !== 'unknown' && !ALLOWED_COUNTRIES.includes(country)) {
-    console.log(`🌍 Blocked request from ${country} (IP: ${clientIP}) for path: ${pathname}`)
+    console.log(`🌍 Blocked request from ${country} (IP: ${clientIP}) for path: ${pathname}`);
     return new Response('Access denied from your region', {
       status: 403,
       headers: { 'Content-Type': 'text/plain' },
-    })
+    });
   }
 
-  // 5. Block if country is unknown
+  // Block if country is unknown
   if (country === 'unknown') {
-    console.log(`❓ Blocked unknown country request from IP: ${clientIP} for path: ${pathname}`)
+    console.log(`❓ Blocked unknown country request from IP: ${clientIP} for path: ${pathname}`);
     return new Response('Access denied: Region not detectable', {
       status: 403,
       headers: { 'Content-Type': 'text/plain' },
-    })
+    });
   }
 
   // ============ REDIRECTION LOGIC ============
@@ -266,31 +254,31 @@ export async function middleware(request) {
     pathname !== "/"
   ) {
     try {
-      const baseUrl = new URL(request.url).origin
+      const baseUrl = new URL(request.url).origin;
       const response = await fetch(`${baseUrl}/api/check-redirection?path=${encodeURIComponent(pathname)}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         next: { revalidate: 60 }
-      })
+      });
 
       if (response.ok) {
-        const data = await response.json()
+        const data = await response.json();
         if (data.redirect) {
-          console.log(`🔀 Redirecting ${pathname} to ${data.to} (${data.type})`)
-          const redirectUrl = new URL(data.to, request.url)
-          return NextResponse.redirect(redirectUrl, parseInt(data.type))
+          console.log(`🔀 Redirecting ${pathname} to ${data.to} (${data.type})`);
+          const redirectUrl = new URL(data.to, request.url);
+          return NextResponse.redirect(redirectUrl, parseInt(data.type));
         }
       }
     } catch (error) {
-      console.error('Redirection middleware error:', error)
+      console.error('Redirection middleware error:', error);
     }
   }
 
   // Continue with normal response
-  const response = NextResponse.next()
-  response.headers.set('x-pathname', pathname)
+  const response = NextResponse.next();
+  response.headers.set('x-pathname', pathname);
   
-  return response
+  return response;
 }
 
 export const config = {
