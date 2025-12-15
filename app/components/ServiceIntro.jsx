@@ -4,7 +4,7 @@ export default function ServiceIntro() {
   const { heading, description, features, projectDelivered } = serviceIntro;
   return (
     <section className="bg-[#f2e6e6] relative py-10 md:py-16 mb-24 lg:mb-40 md:px-16">
-      <div className="container mx-auto">
+      <div className="max-w-[1500] mx-auto">
         <div className="items-center justify-between mb-32 flex flex-col md:flex-row gap-10">
           {/* Left Content */}
           <div className="md:w-[50%]">

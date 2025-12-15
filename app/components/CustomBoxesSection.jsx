@@ -5,7 +5,7 @@ import { aboutFeatures } from "../constant";
 export default function CustomBoxesSection() {
   return (
     <section className="py-16 px-4 bg-white">
-      <div className="container mx-auto">
+      <div className="max-w-[1500] mx-auto">
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           <div>
             <div className="mb-12 md:mb-20 ">
@@ -63,7 +63,7 @@ export default function CustomBoxesSection() {
 </a>
     </div>
 
-          <div className="flex-1 max-w-lg mx-auto">
+          <div className="flex-1 max-w-lg mx-auto md:ml-70 md:mt-10">
             <Image
               src={customBoxSection.image}
               alt="Custom Box Example"

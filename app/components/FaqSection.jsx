@@ -11,7 +11,7 @@ export default function FAQSection() {
 
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="container">
+      <div className="max-w-[1500] mx-auto">
         <h2 className="text-5xl font-semibold tracking-tight text-center mb-8">
           Frequently Asked Questions
         </h2>
@@ -19,7 +19,7 @@ export default function FAQSection() {
         <Accordion
           type="single"
           collapsible
-          className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 items-start"
+          className="max-w-[1500] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 items-start"
         >
           {accordionData.map((faq, index) => (
             <AccordionItem

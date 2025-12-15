@@ -32,7 +32,7 @@ const reviews = [
 const Testimonials = () => {
   return (
     <section className="py-12 text-center">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-[1500] mx-auto px-4">
         <h2 className="text-4xl font-bold mb-2">What Our Clients Say</h2>
         <p className=" mb-8">Discover What Our Customers Have to Say About Our Packaging Solutions</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -65,7 +65,7 @@ const Testimonials = () => {
         
       </div>
        <div className="mt-12">
-      <div className="container flex flex-wrap items-center justify-center gap-12 ">
+      <div className="max-w-[1500] mx-auto flex flex-wrap items-center justify-center gap-18 ">
               {benefitsImages.map((image, index) => (
                   <Image key={index} src={image.src} alt={image.name} width={120} height={120}/>
               ))}

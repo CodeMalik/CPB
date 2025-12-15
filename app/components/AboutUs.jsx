@@ -6,7 +6,7 @@ import { CustomHtml } from ".";
 const AboutUs = () => {
   return (
     <section>
-      <div className="container ">
+      <div className="max-w-[1500] mx-auto">
         <CustomHtml
           as="h2"
           html={aboutUsSection.heading}

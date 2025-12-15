@@ -4,7 +4,7 @@ import { BrandCarousel } from ".";
 
 const Brands = () => {
   return (
-    <section className="py-12">
+    <section className="py-12  max-w-[1500] mx-auto">
       <div className="heading mb-8 text-2xl text-center">
         Trusted  <span className="text-red-themed font-semibold">500+</span>{" "}
         Custom Packaging Partner

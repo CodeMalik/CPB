@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function PackagingSection() {
   return (
     <section className="bg-[#e8f3ff] py-12 px-4 sm:px-6 lg:px-8">
-      <div className="container mx-auto text-center">
+      <div className="max-w-[1500] mx-auto text-center">
         <div className="flex justify-center mb-8">
           <div className="relative w-full max-w-3xl">
             <Image

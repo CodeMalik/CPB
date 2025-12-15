@@ -43,9 +43,9 @@ export default function SearchInput() {
           handleSearch(e.target.value);
         }}
         placeholder="Search..."
-        className="w-full border-2 border-red-themed bg-background px-4 py-3.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="w-full border border-red-themed bg-background px-4 py-3.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
       />
-      <Search className="absolute right-3 top-3 h-6 w-6 text-muted-foreground" />
+      <Search className="absolute right-2 top-3 h-6 w-6 text-muted-foreground" />
     </div>
   );
 }

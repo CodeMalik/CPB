@@ -5,7 +5,7 @@ import Image from "next/image";
 const SpecificationTabs = () => {
   return (
     <section className=" py-[6rem] md:py-16">
-      <div className="container-big">
+      <div className="max-w-[1500] mx-auto">
         <Tabs defaultValue={specificationTabs[0].heading}>
           <TabsList className={"mx-auto w-auto bg-transparent grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mb-[11rem] sm:mb-[5rem] md:mb-0 gap-4 md:gap-12"}>
             {specificationTabs.map((tabs, index) => (

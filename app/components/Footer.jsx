@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function Footer() {
   return (
     <footer className="bg-[#f3eaea] text-[#222] text-[16px] pt-10 pb-4 border-t border-red-200">
-      <div className="mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-2">
         {/* Company Info */}
         <div>
           <Image src={"/logo.png"} width={200} height={200} alt="Website logo" className="-mt-4 mb-6"/>
@@ -15,7 +15,7 @@ export default function Footer() {
           </p>
         </div>
         {/* Quick Links */}
-        <div>
+        <div className="ml-20">
           <h2 className="font-semibold text-xl mb-2">Quick Links</h2>
           <ul className="space-y-1">
             <li><Link href="/about" className="hover:underline">About Us</Link></li>
@@ -46,7 +46,7 @@ export default function Footer() {
           </ul>
         </div> 
         {/* Hot Products */}
-        <div>
+        <div className="ml-20">
           <h2 className="font-semibold text-xl mb-2">Hot Products</h2>
           <ul className="space-y-2">
             <li><Link className="hover:underline" href={"/custom-packaging/custom-underwear-boxes"}>Custom Underwear Boxes</Link></li>

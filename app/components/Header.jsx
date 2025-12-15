@@ -50,7 +50,7 @@ export default function Header() {
       </div>
 
       {/* Bottom white bar */}
-      <div className="sticky top-0 z-50 bg-white shadow py-2 px-2 md:pl-6 md:pr-32 transition-all duration-300 ease-in-out">
+      <div className="sticky top-0 z-50 bg-white shadow py-2 px-2 md:pl-6 md:pr-4 transition-all duration-300 ease-in-out">
         <div className="flex items-center justify-between">
           {/* Logo + Desktop Nav */}
           <div className="flex items-center gap-6">
