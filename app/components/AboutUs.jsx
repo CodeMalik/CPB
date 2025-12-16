@@ -10,9 +10,9 @@ const AboutUs = () => {
         <CustomHtml
           as="h2"
           html={aboutUsSection.heading}
-          className="text-4xl text-center max-w-[70rem] mt-8 mx-auto"
+          className="text-4xl text-center max-w-[70rem] md:mt-10 mx-auto"
         />
-        <div className="flex justify-between flex-col lg:flex-row items-center gap-6 mt-8">
+        <div className="flex justify-between flex-col lg:flex-row items-center gap-6 mt-10  ml-3 mr-3 md:ml-0 md:mr-0">
           <div className="left lg:w-[50%]">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {aboutUsSection.aboutBenefits.map((benefit, index) => (
@@ -21,21 +21,21 @@ const AboutUs = () => {
                   className={`${index === 0 ? "md:col-span-2" : "md:col-span-1"
                     }`}
                 >
-                  <h4 className="text-red-themed mb-3 text-lg font-bold">
+                  <h4 className="text-red-themed mb-3 text-lg md:mt-6 font-bold">
                     {benefit.title && benefit.title}
                   </h4>
-                  <p className="text-gray-600">{benefit.description}</p>
+                  <p className="text-gray-600 md:mt-4">{benefit.description}</p>
                 </div>
               ))}
             </div>
-            <a href="#quote" className="cursor-pointer">
+            <a href="#quote" className="cursor-pointer ">
               <button
                 className="
   group inline-flex items-center gap-2 cursor-pointer px-6 py-3 my-6 text-lg font-semibold rounded-full 
   text-white bg-red-themed border border-red-themed 
   hover:bg-transparent hover:text-red-themed hover:border-red-themed
   transition-all duration-300 ease-in-out
-  shadow-md hover:shadow-lg
+  shadow-md hover:shadow-lg md:mb-10 md:mt-10
 "
               >
                 <span className="relative">

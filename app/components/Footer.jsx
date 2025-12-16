@@ -15,7 +15,7 @@ export default function Footer() {
           </p>
         </div>
         {/* Quick Links */}
-        <div className="ml-20">
+        <div className="md:ml-20">
           <h2 className="font-semibold text-xl mb-2">Quick Links</h2>
           <ul className="space-y-1">
             <li><Link href="/about" className="hover:underline">About Us</Link></li>
@@ -46,7 +46,7 @@ export default function Footer() {
           </ul>
         </div> 
         {/* Hot Products */}
-        <div className="ml-20">
+        <div className="md:ml-20">
           <h2 className="font-semibold text-xl mb-2">Hot Products</h2>
           <ul className="space-y-2">
             <li><Link className="hover:underline" href={"/custom-packaging/custom-underwear-boxes"}>Custom Underwear Boxes</Link></li>

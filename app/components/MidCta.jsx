@@ -3,7 +3,7 @@ import React from 'react'
 
 const MidCta = () => {
   return (
-    <div className="max-w-[1500] mx-auto h-[300px] relative md:block hidden">
+    <div className="max-w-[1500] mx-auto h-[300px] relative md:block hidden md:mb-20">
       <Image 
         src="https://res.cloudinary.com/dfnjpfucl/image/upload/v1754045782/Untitled_design_21_zvobfn.png"
         alt="Mid Cta representing eco friendly packaging"

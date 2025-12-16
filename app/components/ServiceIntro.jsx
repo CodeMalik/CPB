@@ -5,10 +5,10 @@ export default function ServiceIntro() {
   return (
     <section className="bg-[#f2e6e6] relative py-10 md:py-16 mb-24 lg:mb-40 md:px-16">
       <div className="max-w-[1500] mx-auto">
-        <div className="items-center justify-between mb-32 flex flex-col md:flex-row gap-10">
+        <div className="items-center justify-between mb-32 flex flex-col md:flex-row gap-10 ml-3 mr-3 md:ml-0 md:mr-0">
           {/* Left Content */}
           <div className="md:w-[50%]">
-            <h2 className="text-3xl md:text-4xl font-semibold text-black mb-6">
+            <h2 className="text-3xl md:text-4xl font-semibold text-black mb-10">
               {heading}
             </h2>
             <p className="text-gray-700 text-base leading-relaxed">
@@ -32,7 +32,7 @@ export default function ServiceIntro() {
             })}
           </div>
         </div>
-        <div className="projects relative lg:absolute  md:py-10 lg:-bottom-12 shadow-lg w-full lg:w-[80%]  lg:left-1/2 lg:-translate-x-1/2 mx-auto mt-10 rounded-xl bg-white">
+        <div className="projects relative lg:absolute  md:py-10 lg:-bottom-12 shadow-lg w-full lg:w-[80%] lg:left-1/2 lg:-translate-x-1/2 mx-auto mt-10 rounded-xl bg-white">
           <div className="grid relative place-items-center grid-cols-1 md:grid-cols-4">
             {projectDelivered.map((project, index) => {
                 let Icon = project.icon;

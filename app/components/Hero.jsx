@@ -35,7 +35,7 @@ export default function HeroSection() {
         </div>
 
         {/* Right Image */}
-        <div className="flex-1 w-full max-w-md md:max-w-3xl">
+        <div className="flex-1 w-full max-w-lg md:max-w-5xl">
           <Image
             src="https://res.cloudinary.com/dfnjpfucl/image/upload/v1751973245/second-banner-mobile.6ea44d0a-1024x683_meoinx.webp" // replace with your Cloudinary image
             alt="Packaging Products"

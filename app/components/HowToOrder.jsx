@@ -23,7 +23,7 @@ const steps = [
 
 export default function HowToOrder() {
   return (
-    <section className="bg-white px-4 md:px-8">
+    <section className="bg-white px-4 md:px-8 md:w-130 md:ml-20">
       <h2 className="text-3xl md:text-3xl pb-8 font-semibold text-center">
         How to <span className="text-red-themed font-bold">Order</span> From Us
       </h2>
