@@ -167,7 +167,7 @@ export const ImageGalleryWrapper = ({
       </div>
 
       {/* Thumbnail Gallery */}
-      <div className="grid grid-cols-4 gap-2 mt-8">
+      <div className="grid grid-cols-4 gap-2 md:mt-7">
         {imageSlots.map((img, index) => (
           <div key={index} className="relative group">
             <button
