@@ -115,7 +115,7 @@ export const ImageGalleryWrapper = ({
   return (
     <div className="space-y-4">
       {/* Main Large Image - Clickable for new tab */}
-      <div className="w-full aspect-square relative rounded-lg overflow-hidden bg-gray-100 border border-gray-200 group cursor-pointer">
+      <div className="w-full md:mt-10 aspect-square relative rounded-lg overflow-hidden bg-gray-100 border border-gray-200 group cursor-pointer">
         {imageSlots[selectedImageIndex].isPlaceholder ? (
           <div className="w-full h-full flex flex-col items-center justify-center text-gray-400">
             <svg className="w-16 h-16 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -167,7 +167,7 @@ export const ImageGalleryWrapper = ({
       </div>
 
       {/* Thumbnail Gallery */}
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-4 gap-2 mt-8">
         {imageSlots.map((img, index) => (
           <div key={index} className="relative group">
             <button
