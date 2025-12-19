@@ -1,24 +1,18 @@
 import React from 'react'
 import { connectDB } from "@/lib/mongoose"
 import Product from "@/app/models/Product"
+import Meta from "@/app/models/Meta"
 import { ProductHero, LongDescription, SpecificationTabs, ProductSpecifications, FaqSection, Testimonials, PackagingFeatures } from '@/app/components'
 import { notFound } from 'next/navigation'
 
 async function getDynamicPageMetadata(identifier) {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/meta/${identifier}`, {
-      cache: 'no-store'
-    });
-
-    if (!res.ok) {
-      if (res.status === 404) {
-        console.warn(`Metadata not found for identifier: ${identifier}`);
-        return null;
-      }
-      throw new Error(`Failed to fetch metadata: ${res.statusText}`);
+    await connectDB();
+    const meta = await Meta.findOne({ identifier });
+    if (!meta) {
+      return null;
     }
-    return res.json();
+    return meta;
   } catch (error) {
     console.error(`Error fetching metadata for ${identifier}:`, error);
     return null;

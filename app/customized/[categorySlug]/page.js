@@ -1,6 +1,7 @@
 import { connectDB } from "@/lib/mongoose"
 import Category from "@/app/models/Category"
 import Product from "@/app/models/Product"
+import Meta from "@/app/models/Meta"
 import { CategoryHero, ContactForm, FaqSection, LongDescription, PackagingFeatures, Products, ServiceIntro, Testimonials } from "@/app/components"
 import mongoose from "mongoose";
 import { notFound } from "next/navigation";
@@ -8,19 +9,12 @@ import { notFound } from "next/navigation";
 // Function to fetch metadata for a dynamic page
 async function getDynamicPageMetadata(identifier) {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/meta/${identifier}`, {
-      cache: 'no-store' // Or 'force-cache' if you want to cache metadata
-    });
-
-    if (!res.ok) {
-      if (res.status === 404) {
-        console.warn(`Metadata not found for identifier: ${identifier}`);
-        return null; // Or return default metadata
-      }
-      throw new Error(`Failed to fetch metadata: ${res.statusText}`);
+    await connectDB();
+    const meta = await Meta.findOne({ identifier });
+    if (!meta) {
+      return null; // Or return default metadata
     }
-    return res.json();
+    return meta;
   } catch (error) {
     console.error(`Error fetching metadata for ${identifier}:`, error);
     return null; // Return null or default metadata on error
