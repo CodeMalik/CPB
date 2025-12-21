@@ -187,7 +187,7 @@ export const customBoxSection = {
   description:
     "Your packaging is your first impression so make it unforgettable with Custom Pack Boxes. Tailored designs, bold branding, and free creative freedom in every box.",
   image:
-    "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751364382/service-side-img_maflfh.jpg",
+    "/3rdsection.png",
   features: [
     {
       icon: "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751363945/parcel-size_l68zxq.png",
@@ -225,7 +225,7 @@ export const aboutUsSection = {
   heading:
     "<span class='dm-sans font-semibold text-red-themed'>Custom Packaging</span> for Brands That Want More Than a Box Unique Designs, Premium Materials, and <span class='dm-sans font-semibold text-red-themed'>Total Brand Control</span>.",
   image:
-    "https://res.cloudinary.com/dfnjpfucl/image/upload/v1751364339/Capture-1-1_dof9ln.png",
+    "/5thsection.jpg",
   aboutBenefits: [
     {
       title: null,

@@ -8,7 +8,7 @@ export default function CustomBoxesSection() {
       <div className="max-w-[1500px] mx-auto">
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           
-          {/* Left Column */}
+          {/* Left Column - UNCHANGED */}
           <div>
             {/* Header Section */}
             <div className="mb-12 md:mb-20">
@@ -76,16 +76,32 @@ export default function CustomBoxesSection() {
             </a>
           </div>
 
-          {/* Right Column - Image */}
-          <div className="flex-1 max-w-lg mx-auto md:ml-70 md:mt-10">
-            <Image
-              src={customBoxSection.image}
-              alt="Custom Box Example"
-              className="rounded-xl shadow-lg w-[600px] max-h-[500px] object-cover"
-              width={500}
-              height={300}
-              priority
-            />
+          {/* Right Column - INCREASED IMAGE SIZE ONLY */}
+          <div className="flex-1 max-w-[800px] mx-auto md:ml-70 md:mt-25
+          ">
+            <div className="relative group">
+              {/* Gradient border container */}
+              <div className="rounded-2xl overflow-hidden p-1.5 bg-gradient-to-br from-red-themed/20 via-pink-500/20 to-purple-500/20">
+                {/* Inner white border and shadow */}
+                <div className="rounded-xl overflow-hidden border-4 border-white shadow-2xl">
+                  <Image
+                    src={customBoxSection.image}
+                    alt="Custom Box Example"
+                    className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    width={900}
+                    height={700}
+                    priority
+                  />
+                </div>
+              </div>
+              
+              {/* Decorative corners */}
+              <div className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-red-themed/70 rounded-tl-xl"></div>
+              <div className="absolute -top-3 -right-3 w-10 h-10 border-t-2 border-r-2 border-pink-500/70 rounded-tr-xl"></div>
+              <div className="absolute -bottom-3 -left-3 w-10 h-10 border-b-2 border-l-2 border-purple-500/70 rounded-bl-xl"></div>
+              <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-blue-500/70 rounded-br-xl"></div>
+
+            </div>
           </div>
           
         </div>
