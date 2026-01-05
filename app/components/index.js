@@ -58,3 +58,4 @@ export { default as SearchResults } from "./SearchResults";
 
 // Footer
 export { default as Footer } from "./Footer";
+export { default as TawkTo } from "./TawkTo";
