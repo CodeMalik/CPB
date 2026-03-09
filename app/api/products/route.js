@@ -30,7 +30,8 @@ export async function POST(req) {
       shortDescription,
       longDescription,
       categorySlug,
-      meta
+      meta,
+      h1
     } = body;
     // 🟡 1. Find category by slug
     const category = await Category.find({ slug: Array.isArray(categorySlug) ? { $in: categorySlug } : categorySlug });
@@ -56,10 +57,11 @@ export async function POST(req) {
       longDescription,
       categoryIds,
       categorySlug,
-      meta
+      meta,
+      h1
     });
 
-     return new NextResponse(JSON.stringify(newProduct), {
+    return new NextResponse(JSON.stringify(newProduct), {
       status: 201,
       headers: corsHeaders,
     });
@@ -76,7 +78,7 @@ export async function GET() {
   try {
     await connectDB();
     const products = await Product.find();
-     return new NextResponse(JSON.stringify(products), {
+    return new NextResponse(JSON.stringify(products), {
       status: 200,
       headers: corsHeaders,
     });

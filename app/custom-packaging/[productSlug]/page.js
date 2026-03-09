@@ -89,16 +89,16 @@ const page = async ({ params }) => {
       console.log('Static method failed, trying alternative approach...', error);
       // Option 2: Manual approach if static method fails
       product = await Product.findOne({ slug: productSlug }).lean();
-      
+
       if (product) {
         // Manually process the product to add proxy URLs
         const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
         const category = product.categorySlug || 'products';
-        
+
         // Process main image
         if (product.image?.url) {
-          const cloudinaryId = product.image.url.match(/MKF_CPB\/products\/([^\/.]+)/)?.[1] || 
-                              product.image.public_id?.split('/').pop();
+          const cloudinaryId = product.image.url.match(/MKF_CPB\/products\/([^\/.]+)/)?.[1] ||
+            product.image.public_id?.split('/').pop();
           if (cloudinaryId) {
             product.image.proxyUrl = `${baseUrl}/custom-packaging/${category}/${product.slug}/main?id=${cloudinaryId}`;
             product.image.apiProxyUrl = `${baseUrl}/api/proxy-image/${cloudinaryId}`;
@@ -106,13 +106,13 @@ const page = async ({ params }) => {
             product.image.friendlyUrl = `${baseUrl}/custom-packaging/${category}/${product.slug}/main`;
           }
         }
-        
+
         // Process gallery images
         if (Array.isArray(product.images)) {
           product.images = product.images.map((img, index) => {
             if (img?.url) {
-              const cloudinaryId = img.url.match(/MKF_CPB\/products\/([^\/.]+)/)?.[1] || 
-                                  img.public_id?.split('/').pop();
+              const cloudinaryId = img.url.match(/MKF_CPB\/products\/([^\/.]+)/)?.[1] ||
+                img.public_id?.split('/').pop();
               if (cloudinaryId) {
                 const friendlyName = img.title?.toLowerCase().replace(/\s+/g, '-') || `image${index + 1}`;
                 return {
@@ -137,7 +137,7 @@ const page = async ({ params }) => {
 
     // Safely format the product data
     const safeProduct = {
-      heading: product.heading || '',
+      heading: product.h1 || product.heading || '',
       image: product.image || {},
       images: Array.isArray(product.images) ? product.images : [],
       shortDescription: product.shortDescription || '',
@@ -148,14 +148,14 @@ const page = async ({ params }) => {
       slug: product.slug || '',
       // Add proxy URLs arrays
       imageProxyUrls: product.image?.proxyUrl ? [product.image.proxyUrl] : [],
-      galleryProxyUrls: Array.isArray(product.images) 
+      galleryProxyUrls: Array.isArray(product.images)
         ? product.images.filter(img => img?.proxyUrl).map(img => img.proxyUrl)
         : [],
     };
 
     return (
       <div className='mt-4'>
-        <ProductHero 
+        <ProductHero
           heading={safeProduct.heading}
           image={safeProduct.image}
           shortDesc={safeProduct.shortDescription}
@@ -173,7 +173,7 @@ const page = async ({ params }) => {
         <PackagingFeatures />
         <Testimonials />
         <FaqSection />
-        
+
         {/* Debug info - remove in production */}
         <div className="mt-8 p-4 bg-gray-100 rounded">
           <h3 className="text-sm font-semibold mb-2">Debug Info:</h3>

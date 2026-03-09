@@ -48,25 +48,25 @@ export async function generateMetadata({ params }) {
   };
 }
 
-const page =  async ({ params }) => {
-  
+const page = async ({ params }) => {
+
   const { categorySlug } = params;
   await connectDB();
   const category = await Category.findOne({ slug: categorySlug }).lean();
 
-    if (!category) {
+  if (!category) {
     return notFound();
   }
   const categoryObjectId = new mongoose.Types.ObjectId(category._id);
   const products = await Product.find({
-    categoryIds: {$in: [categoryObjectId]}
+    categoryIds: { $in: [categoryObjectId] }
   }).lean()
   return (
     <>
       <CategoryHero imageSrc={category.heroImage} name={category.name} />
-      <Products heading={category.heading} products={products}/>
-      <ContactForm  isHome={false} content={category.heading} name={category.name} tagline={category.tagline} shortDescription={category.shortDescription} />
-      <LongDescription longDescription={category.longDescription  } />
+      <Products heading={category.h1 || category.heading} products={products} />
+      <ContactForm isHome={false} content={category.h1 || category.heading} name={category.name} tagline={category.tagline} shortDescription={category.shortDescription} />
+      <LongDescription longDescription={category.longDescription} />
       <PackagingFeatures />
       <ServiceIntro />
       <Testimonials />

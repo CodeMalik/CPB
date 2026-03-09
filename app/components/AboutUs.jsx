@@ -70,7 +70,7 @@ const AboutUs = () => {
                     alt="About Us Image"
                     width={800}
                     height={800}
-                    className="w-full h-120  object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-120 object-cover transform group-hover:scale-105 transition-transform duration-500"
                     priority
                   />
                 </div>

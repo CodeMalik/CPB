@@ -2,11 +2,12 @@ import mongoose from "mongoose";
 
 
 const CategorySchema = new mongoose.Schema({
-     
-    name: {type: String, required: true},
-    heading: {type: String, required: true},
-    slug: {type: String, required: true, unique: true},
-    homeImage: {
+
+  name: { type: String, required: true },
+  heading: { type: String, required: true },
+  h1: { type: String },
+  slug: { type: String, required: true, unique: true },
+  homeImage: {
     url: String,
     alt: String,
     title: String,
@@ -14,7 +15,7 @@ const CategorySchema = new mongoose.Schema({
     description: String,
     public_id: String,
   },
-    heroImage: {
+  heroImage: {
     url: String,
     alt: String,
     title: String,
@@ -22,9 +23,9 @@ const CategorySchema = new mongoose.Schema({
     description: String,
     public_id: String,
   },
-    tagline: String,
-    shortDescription: mongoose.Schema.Types.Mixed,
-    longDescription: mongoose.Schema.Types.Mixed
+  tagline: String,
+  shortDescription: mongoose.Schema.Types.Mixed,
+  longDescription: mongoose.Schema.Types.Mixed
 })
 
 
