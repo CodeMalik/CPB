@@ -25,7 +25,7 @@ const CustomElement = ({
 
       if (!isMatch) return <span key={index}>{part}</span>;
 
-      const spanClass = `${highlightClass} ${isRed ? 'text-red-500' : ''}`;
+      const spanClass = `${highlightClass} ${isRed ? 'text-red-themed' : ''}`;
 
       if (isLink) {
         return (
@@ -46,10 +46,10 @@ const CustomElement = ({
   const content = typeof children === 'string'
     ? highlightText(children)
     : title
-    ? highlightText(title)
-    : children;
+      ? highlightText(title)
+      : children;
 
-  return <Tag className={className}>{content}</Tag>;
+  return <Tag className={`${className} whitespace-pre-line`}>{content}</Tag>;
 };
 
 export default CustomElement;

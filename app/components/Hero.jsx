@@ -1,11 +1,11 @@
 import Image from "next/image";
 import CustomElement from "./CustomElement";
-const highlightWords = ["Custom", "Boxes Delivered"];
 import { benefitsImages } from "../constant"
 
 
 export default function HeroSection() {
-  const title = "Top-Quality Custom Packaging Boxes Delivered";
+  const title = "Premium Custom\nPackaging Boxes\nBuilt to Impress";
+  const highlightWords = ["Custom", "Boxes", "Built to Impress"];
   return (
     <section className="bg-[#f6eaea] px-6 py-12 md:py-20">
       <div className="max-w-[1500] mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
@@ -15,7 +15,7 @@ export default function HeroSection() {
             title={title}
             as="h1"
             isRed
-            className="text-4xl md:text-6xl font-semibold"
+            className="text-4xl md:text-6xl font-black text-black leading-tight"
             highlightWords={highlightWords}
           />
 
@@ -26,10 +26,10 @@ export default function HeroSection() {
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <a href="#quote">
               <button
-              className='border border-red-themed bg-red-themed px-6 py-4 cursor-pointer rounded-full text-white hover:bg-red-400 transition-colors'
-            >
-              Get a Free Quote Today!
-            </button>
+                className='border border-red-themed bg-red-themed px-6 py-4 cursor-pointer rounded-full text-white hover:bg-red-400 transition-colors'
+              >
+                Get a Free Quote Today!
+              </button>
             </a>
           </div>
         </div>
