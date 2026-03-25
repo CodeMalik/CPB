@@ -3,6 +3,7 @@ import Blog from '../../models/Blog';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaArrowLeft, FaUser, FaCalendarAlt, FaClock, FaTag, FaEye, FaShareAlt } from 'react-icons/fa';
+import { replaceInternalLinks } from '@/lib/linkReplacer';
 
 export async function generateMetadata({ params }) {
   try {
@@ -211,7 +212,7 @@ export default async function BlogDetailPage({ params }) {
                 <article className="prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-li:text-gray-600 prose-strong:text-gray-800 prose-a:text-red-600 hover:prose-a:text-red-700 prose-a:no-underline">
                   <div 
                     className="blog-content"
-                    dangerouslySetInnerHTML={{ __html: blog.content }}
+                    dangerouslySetInnerHTML={{ __html: replaceInternalLinks(blog.content) }}
                   />
                 </article>
                 

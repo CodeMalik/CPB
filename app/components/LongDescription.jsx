@@ -1,6 +1,7 @@
 import React from 'react'
 import { highlightWords } from '../constant'
 import CustomElement from './CustomElement'
+import { replaceInternalLinks } from '@/lib/linkReplacer'
 
 const LongDescription = ({longDescription}) => {
   function decodeHtmlEntities(str) {
@@ -46,7 +47,7 @@ const LongDescription = ({longDescription}) => {
 ) : (
   <div
   className="prose prose-sm md:prose-base max-w-none"
-  dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(longDescription) }}
+  dangerouslySetInnerHTML={{ __html: replaceInternalLinks(decodeHtmlEntities(longDescription)) }}
 />
 )}
 
