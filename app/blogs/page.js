@@ -13,14 +13,14 @@ export const metadata = {
 
 async function getBlogs(searchParams) {
   await connectDB();
-  
+
   const search = searchParams?.search || '';
   const tag = searchParams?.tag || '';
   const page = parseInt(searchParams?.page) || 1;
   const limit = 9;
-  
+
   let query = { published: true };
-  
+
   if (search) {
     query.$or = [
       { title: { $regex: search, $options: 'i' } },
@@ -28,21 +28,21 @@ async function getBlogs(searchParams) {
       { tags: { $regex: search, $options: 'i' } }
     ];
   }
-  
+
   if (tag) {
     query.tags = { $regex: tag, $options: 'i' };
   }
-  
+
   const blogs = await Blog.find(query)
     .sort({ createdAt: -1 })
     .skip((page - 1) * limit)
     .limit(limit)
     .select('-content')
     .lean();
-    
+
   const total = await Blog.countDocuments(query);
   const totalPages = Math.ceil(total / limit);
-  
+
   return {
     blogs: JSON.parse(JSON.stringify(blogs)),
     pagination: { page, limit, total, totalPages }
@@ -51,18 +51,18 @@ async function getBlogs(searchParams) {
 
 async function getPopularTags() {
   await connectDB();
-  
+
   const blogs = await Blog.find({ published: true }).select('tags').lean();
   const tagCounts = {};
-  
+
   blogs.forEach(blog => {
     blog.tags?.forEach(tag => {
       tagCounts[tag] = (tagCounts[tag] || 0) + 1;
     });
   });
-  
+
   return Object.entries(tagCounts)
-    .sort(([,a], [,b]) => b - a)
+    .sort(([, a], [, b]) => b - a)
     .slice(0, 10)
     .map(([tag]) => tag);
 }
@@ -74,7 +74,7 @@ export default async function BlogsPage({ searchParams }) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-red-600 via-red-700 to-red-800 text-white py-20 overflow-hidden">
+      <div className="relative bg-red-themed text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-black opacity-10"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
@@ -111,7 +111,7 @@ export default async function BlogsPage({ searchParams }) {
                   type="text"
                   placeholder="Search articles..."
                   defaultValue={searchParams?.search || ''}
-                  className="w-full p-4 pl-12 rounded-xl border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all"
+                  className="w-full p-4 pl-12 rounded-xl border border-gray-300 focus:border-red-themed focus:ring-2 focus:ring-red-themed/20 outline-none transition-all"
                 />
                 <svg className="w-5 h-5 absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -124,9 +124,9 @@ export default async function BlogsPage({ searchParams }) {
               <div className="mb-12">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-2xl font-bold text-gray-800">
-                    <span className="text-red-600">Featured</span> Articles
+                    <span className="text-red-themed">Featured</span> Articles
                   </h2>
-                  <div className="h-1 flex-1 max-w-32 bg-gradient-to-r from-red-600 to-transparent rounded-full"></div>
+                  <div className="h-1 flex-1 max-w-32 bg-gradient-to-r from-red-themed to-transparent rounded-full"></div>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   {blogs.filter(b => b.featured).slice(0, 2).map(blog => (
@@ -143,7 +143,7 @@ export default async function BlogsPage({ searchParams }) {
                             priority={true}
                           />
                           <div className="absolute top-4 left-4 z-10"> {/* ADD z-10 */}
-                            <span className="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            <span className="bg-red-themed text-white px-3 py-1 rounded-full text-sm font-semibold">
                               Featured
                             </span>
                           </div>
@@ -161,7 +161,7 @@ export default async function BlogsPage({ searchParams }) {
                           <span className="text-sm text-gray-500">•</span>
                           <span className="text-sm text-gray-500">{blog.readTime} min read</span>
                         </div>
-                        <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-red-600 transition-colors">
+                        <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-red-themed transition-colors">
                           {blog.title}
                         </h3>
                         <p className="text-gray-600 mb-4">{blog.excerpt}</p>
@@ -170,15 +170,15 @@ export default async function BlogsPage({ searchParams }) {
                             <a
                               key={tag}
                               href={`/blogs?tag=${encodeURIComponent(tag)}`}
-                              className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-red-100 hover:text-red-700 transition-colors"
+                              className="relative z-20 px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-red-themed/10 hover:text-red-themed transition-colors"
                             >
                               {tag}
                             </a>
                           ))}
                         </div>
-                        <a 
+                        <a
                           href={`/blogs/${blog.slug}`}
-                          className="inline-flex items-center text-red-600 font-semibold hover:text-red-700 transition-colors"
+                          className="inline-flex items-center text-red-themed font-semibold hover:text-red-themed transition-colors after:absolute after:inset-0 after:z-10"
                         >
                           Read More
                           <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -200,7 +200,7 @@ export default async function BlogsPage({ searchParams }) {
                   Showing {blogs.length} of {pagination.total} articles
                 </div>
               </div>
-              
+
               {blogs.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {blogs.map(blog => (
@@ -227,7 +227,7 @@ export default async function BlogsPage({ searchParams }) {
                       <a
                         key={pageNum}
                         href={`/blogs?page=${pageNum}${searchParams?.search ? `&search=${searchParams.search}` : ''}${searchParams?.tag ? `&tag=${searchParams.tag}` : ''}`}
-                        className={`px-4 py-2 rounded-lg ${pagination.page === pageNum ? 'bg-red-600 text-white' : 'bg-white text-gray-700 border border-gray-300 hover:border-red-500'}`}
+                        className={`px-4 py-2 rounded-lg ${pagination.page === pageNum ? 'bg-red-themed text-white' : 'bg-white text-gray-700 border border-gray-300 hover:border-red-themed'}`}
                       >
                         {pageNum}
                       </a>
@@ -251,7 +251,7 @@ export default async function BlogsPage({ searchParams }) {
                     <a
                       key={tag}
                       href={`/blogs?tag=${encodeURIComponent(tag)}`}
-                      className={`px-3 py-2 rounded-lg ${searchParams?.tag === tag ? 'bg-red-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-red-50 hover:text-red-700'} transition-colors`}
+                      className={`px-3 py-2 rounded-lg ${searchParams?.tag === tag ? 'bg-red-themed text-white' : 'bg-gray-100 text-gray-700 hover:bg-red-themed/5 hover:text-red-themed'} transition-colors`}
                     >
                       {tag}
                     </a>
@@ -260,8 +260,8 @@ export default async function BlogsPage({ searchParams }) {
               </div>
 
               {/* Newsletter */}
-              <div className="bg-gradient-to-br from-red-50 to-white rounded-xl shadow-lg p-6 border border-red-100">
-                <div className="text-red-600 mb-3">
+              <div className="bg-gradient-to-br from-red-themed/5 to-white rounded-xl shadow-lg p-6 border border-red-themed/10">
+                <div className="text-red-themed mb-3">
                   <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
@@ -275,11 +275,11 @@ export default async function BlogsPage({ searchParams }) {
                   <input
                     type="email"
                     placeholder="Your email"
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none"
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-red-themed focus:ring-1 focus:ring-red-themed outline-none"
                   />
                   <button
                     type="submit"
-                    className="w-full bg-red-600 text-white py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors"
+                    className="w-full bg-red-themed text-white py-2 rounded-lg font-semibold hover:bg-red-themed transition-colors"
                   >
                     Subscribe
                   </button>

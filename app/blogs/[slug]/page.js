@@ -55,8 +55,8 @@ export default async function BlogDetailPage({ params }) {
       return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-4">
           <div className="text-center max-w-md">
-            <div className="w-24 h-24 mx-auto mb-6 bg-red-100 rounded-full flex items-center justify-center">
-              <svg className="w-12 h-12 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-24 h-24 mx-auto mb-6 bg-red-themed/10 rounded-full flex items-center justify-center">
+              <svg className="w-12 h-12 text-red-themed" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
             </div>
@@ -64,7 +64,7 @@ export default async function BlogDetailPage({ params }) {
             <p className="text-gray-600 mb-8">The blog post you&apos;re looking for doesn&apos;t exist or has been removed.</p>
             <Link 
               href="/blogs"
-              className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-3 rounded-xl font-semibold hover:from-red-700 hover:to-red-800 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="inline-flex items-center justify-center gap-3 bg-red-themed text-white px-8 py-3 rounded-xl font-semibold hover:bg-red-themed/90 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               <FaArrowLeft className="w-4 h-4" />
               Back to Blogs
@@ -90,7 +90,7 @@ export default async function BlogDetailPage({ params }) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
         {/* Hero Section */}
-        <div className="relative bg-gradient-to-br from-red-700 via-red-800 to-red-900 text-white overflow-hidden">
+        <div className="relative bg-red-themed text-white overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute inset-0" style={{
@@ -123,50 +123,7 @@ export default async function BlogDetailPage({ params }) {
                 </p>
               </div>
               
-              {/* Blog Meta - Improved Grid Layout */}
-              <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/20">
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-gradient-to-br from-white/30 to-white/10 rounded-xl flex items-center justify-center">
-                      <FaUser className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <p className="text-sm opacity-80 mb-1">Author</p>
-                      <p className="text-lg font-semibold">{blog.author}</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/20">
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-gradient-to-br from-white/30 to-white/10 rounded-xl flex items-center justify-center">
-                      <FaCalendarAlt className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <p className="text-sm opacity-80 mb-1">Published</p>
-                      <p className="text-lg font-semibold">
-                        {new Date(blog.createdAt).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric'
-                        })}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/20">
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-gradient-to-br from-white/30 to-white/10 rounded-xl flex items-center justify-center">
-                      <FaClock className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <p className="text-sm opacity-80 mb-1">Read Time</p>
-                      <p className="text-lg font-semibold">{blog.readTime || '5'} min read</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
               
               {/* Stats */}
               <div className="mt-8 flex flex-wrap items-center gap-6 text-sm">
@@ -209,7 +166,7 @@ export default async function BlogDetailPage({ params }) {
               {/* Content Container */}
               <div className="bg-white rounded-3xl shadow-lg p-8 lg:p-10 border border-gray-100">
                 {/* Content */}
-                <article className="prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-li:text-gray-600 prose-strong:text-gray-800 prose-a:text-red-600 hover:prose-a:text-red-700 prose-a:no-underline">
+                <article className="prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-li:text-gray-600 prose-strong:text-gray-800 prose-a:text-red-themed hover:prose-a:text-red-themed/80 prose-a:no-underline">
                   <div 
                     className="blog-content"
                     dangerouslySetInnerHTML={{ __html: replaceInternalLinks(blog.content) }}
@@ -220,7 +177,7 @@ export default async function BlogDetailPage({ params }) {
                 {blog.tags && blog.tags.length > 0 && (
                   <div className="mt-12 pt-8 border-t border-gray-100">
                     <div className="flex items-center gap-3 mb-6">
-                      <FaTag className="w-5 h-5 text-red-600" />
+                      <FaTag className="w-5 h-5 text-red-themed" />
                       <h3 className="text-xl font-bold text-gray-800">Article Tags</h3>
                     </div>
                     <div className="flex flex-wrap gap-3">
@@ -228,7 +185,7 @@ export default async function BlogDetailPage({ params }) {
                         <Link
                           key={tag}
                           href={`/blogs?tag=${encodeURIComponent(tag)}`}
-                          className="group px-5 py-2.5 bg-gradient-to-r from-red-50 to-red-50 text-red-700 rounded-xl hover:from-red-100 hover:to-red-100 transition-all duration-300 border border-red-100 hover:border-red-200 hover:scale-105 flex items-center gap-2"
+                          className="group px-5 py-2.5 bg-red-themed/5 text-red-themed rounded-xl hover:bg-red-themed/10 transition-all duration-300 border border-red-themed/10 hover:border-red-themed/20 hover:scale-105 flex items-center gap-2"
                         >
                           <span>#</span>
                           <span className="font-medium">{tag}</span>
@@ -246,11 +203,11 @@ export default async function BlogDetailPage({ params }) {
                 {/* Author Card */}
                 <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-xl p-7 border border-gray-200">
                   <div className="text-center mb-6">
-                    <div className="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-red-100 to-red-200 rounded-2xl flex items-center justify-center border-4 border-white shadow-lg">
-                      <FaUser className="w-10 h-10 text-red-600" />
+                    <div className="w-24 h-24 mx-auto mb-4 bg-red-themed/10 rounded-2xl flex items-center justify-center border-4 border-white shadow-lg">
+                      <FaUser className="w-10 h-10 text-red-themed" />
                     </div>
                     <h4 className="text-xl font-bold text-gray-800">{blog.author}</h4>
-                    <p className="text-red-600 font-medium mt-1">Packaging Expert</p>
+                    <p className="text-red-themed font-medium mt-1">Packaging Expert</p>
                   </div>
                   <p className="text-gray-600 leading-relaxed text-center">
                     With {Math.floor(Math.random() * 10) + 5}+ years of experience in the packaging industry, {blog.author} shares valuable insights and practical tips to help businesses optimize their packaging solutions and reduce costs.
@@ -272,8 +229,8 @@ export default async function BlogDetailPage({ params }) {
                   <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-xl p-7 border border-gray-200">
                     <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
                       <h3 className="text-xl font-bold text-gray-800">Related Articles</h3>
-                      <div className="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
-                        <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-10 h-10 bg-red-themed/10 rounded-xl flex items-center justify-center">
+                        <svg className="w-5 h-5 text-red-themed" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                         </svg>
                       </div>
@@ -283,16 +240,16 @@ export default async function BlogDetailPage({ params }) {
                         <Link
                           key={relatedBlog._id}
                           href={`/blogs/${relatedBlog.slug}`}
-                          className="group block bg-white rounded-2xl p-4 border border-gray-100 hover:border-red-200 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                          className="group block bg-white rounded-2xl p-4 border border-gray-100 hover:border-red-themed/20 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
                         >
                           <div className="flex items-start gap-4">
                             <div className="flex-shrink-0 relative">
-                              <div className="w-12 h-12 bg-gradient-to-br from-red-50 to-red-100 rounded-xl flex items-center justify-center">
-                                <span className="text-red-700 font-bold">{index + 1}</span>
+                              <div className="w-12 h-12 bg-red-themed/10 rounded-xl flex items-center justify-center">
+                                <span className="text-red-themed font-bold">{index + 1}</span>
                               </div>
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h4 className="font-semibold text-gray-800 group-hover:text-red-600 transition-colors line-clamp-2 mb-2">
+                              <h4 className="font-semibold text-gray-800 group-hover:text-red-themed transition-colors line-clamp-2 mb-2">
                                 {relatedBlog.title}
                               </h4>
                               <div className="flex items-center gap-3 text-sm text-gray-500">
@@ -318,14 +275,14 @@ export default async function BlogDetailPage({ params }) {
                 )}
                 
                 {/* CTA Card */}
-                <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-3xl shadow-xl p-7 text-white">
+                <div className="bg-red-themed rounded-3xl shadow-xl p-7 text-white">
                   <h3 className="text-xl font-bold mb-4">Need Custom Packaging?</h3>
                   <p className="opacity-90 mb-6">
                     Get expert advice and quotes for your custom packaging needs.
                   </p>
                   <Link
                     href="/contact"
-                    className="inline-flex items-center justify-center w-full bg-white text-red-600 font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition-all duration-300 hover:scale-105"
+                    className="inline-flex items-center justify-center w-full bg-white text-red-themed font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition-all duration-300 hover:scale-105"
                   >
                     Get Free Quote
                   </Link>
@@ -344,8 +301,8 @@ export default async function BlogDetailPage({ params }) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100  flex items-center justify-center px-4">
         <div className="text-center max-w-md">
-          <div className="w-24 h-24 mx-auto mb-6 bg-red-100 rounded-full flex items-center justify-center">
-            <svg className="w-12 h-12 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-24 h-24 mx-auto mb-6 bg-red-themed/10 rounded-full flex items-center justify-center">
+            <svg className="w-12 h-12 text-red-themed" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
           </div>
@@ -353,7 +310,7 @@ export default async function BlogDetailPage({ params }) {
           <p className="text-gray-600 mb-8">There was an error loading the blog post. Please try again later.</p>
           <Link 
             href="/blogs"
-            className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-3 rounded-xl font-semibold hover:from-red-700 hover:to-red-800 transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="inline-flex items-center justify-center gap-3 bg-red-themed text-white px-8 py-3 rounded-xl font-semibold hover:bg-red-themed/90 transition-all duration-300 shadow-lg hover:shadow-xl"
           >
             <FaArrowLeft className="w-4 h-4" />
             Back to Blogs
