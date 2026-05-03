@@ -2,8 +2,33 @@ import { NextResponse } from 'next/server'
 
 // Only allow these countries - block everything else
 // Added 'PK' for Pakistan
-const ALLOWED_COUNTRIES = ['US', 'GB', 'UM']; // USA, UK, US Minor Outlying Islands, Pakistan
-
+const ALLOWED_COUNTRIES = [
+  'AF', 'AX', 'AL', 'DZ', 'AS', 'AD', 'AO', 'AI', 'AQ', 'AG', 'AR', 'AM', 'AW', 'AU', 'AT', 'AZ',
+  'BS', 'BH', 'BD', 'BB', 'BY', 'BE', 'BZ', 'BJ', 'BM', 'BT', 'BO', 'BQ', 'BA', 'BW', 'BV', 'BR', 'IO', 'BN', 'BG', 'BF', 'BI',
+  'CV', 'KH', 'CM', 'CA', 'KY', 'CF', 'TD', 'CL', 'CN', 'CX', 'CC', 'CO', 'KM', 'CG', 'CD', 'CK', 'CR', 'CI', 'HR', 'CU', 'CW', 'CY', 'CZ',
+  'DK', 'DJ', 'DM', 'DO',
+  'EC', 'EG', 'SV', 'GQ', 'ER', 'EE', 'SZ', 'ET',
+  'FK', 'FO', 'FJ', 'FI', 'FR', 'GF', 'PF', 'TF',
+  'GA', 'GM', 'GE', 'DE', 'GH', 'GI', 'GR', 'GL', 'GD', 'GP', 'GU', 'GT', 'GG', 'GN', 'GW', 'GY',
+  'HT', 'HM', 'VA', 'HN', 'HK', 'HU',
+  'IS', 'IN', 'ID', 'IR', 'IQ', 'IE', 'IM', 'IL', 'IT',
+  'JM', 'JP', 'JE', 'JO',
+  'KZ', 'KE', 'KI', 'KP', 'KR', 'KW', 'KG',
+  'LA', 'LV', 'LB', 'LS', 'LR', 'LY', 'LI', 'LT', 'LU',
+  'MO', 'MG', 'MW', 'MY', 'MV', 'ML', 'MT', 'MH', 'MQ', 'MR', 'MU', 'YT', 'MX', 'FM', 'MD', 'MC', 'MN', 'ME', 'MS', 'MA', 'MZ', 'MM',
+  'NA', 'NR', 'NP', 'NL', 'NC', 'NZ', 'NI', 'NE', 'NG', 'NU', 'NF', 'MK', 'MP', 'NO',
+  'OM',
+  'PK', 'PW', 'PS', 'PA', 'PG', 'PY', 'PE', 'PH', 'PN', 'PL', 'PT', 'PR',
+  'QA',
+  'RE', 'RO', 'RU', 'RW',
+  'BL', 'SH', 'KN', 'LC', 'MF', 'PM', 'VC', 'WS', 'SM', 'ST', 'SA', 'SN', 'RS', 'SC', 'SL', 'SG', 'SX', 'SK', 'SI', 'SB', 'SO', 'ZA', 'GS', 'SS', 'ES', 'LK', 'SD', 'SR', 'SJ', 'SE', 'CH', 'SY',
+  'TW', 'TJ', 'TZ', 'TH', 'TL', 'TG', 'TK', 'TO', 'TT', 'TN', 'TR', 'TM', 'TC', 'TV',
+  'UG', 'UA', 'AE', 'GB', 'US', 'UM', 'UY', 'UZ',
+  'VU', 'VE', 'VN', 'VG', 'VI',
+  'WF', 'EH',
+  'YE',
+  'ZM', 'ZW'
+];
 // Optional: Add known VPN/Proxy IP ranges or specific IPs you want to block
 const BLOCKED_IPS = [
   // Add any specific IPs you want to block regardless of country
@@ -41,7 +66,7 @@ function isIPInRange(ip, range) {
     const ipInt = ipToInt(ip);
     const rangeIPInt = ipToInt(rangeIP);
     const mask = subnetMask ? -1 << (32 - parseInt(subnetMask)) : -1;
-    
+
     return (ipInt & mask) === (rangeIPInt & mask);
   } catch {
     return false;
@@ -54,7 +79,7 @@ function ipToInt(ip) {
 
 function extractRealIP(ipHeader) {
   if (!ipHeader) return 'unknown';
-  
+
   // Handle multiple IPs in x-forwarded-for (first IP is the client)
   const ips = ipHeader.split(',').map(ip => ip.trim());
   return ips[0];
@@ -62,7 +87,7 @@ function extractRealIP(ipHeader) {
 
 function isVPNorProxy(ip) {
   if (!ip || ip === 'unknown' || ip === '::1') return false;
-  
+
   // Check against known VPN ranges
   return KNOWN_VPN_RANGES.some(range => isIPInRange(ip, range));
 }
@@ -71,12 +96,12 @@ export async function middleware(request) {
   const { nextUrl } = request;
   const pathname = nextUrl.pathname;
   const hostname = nextUrl.hostname;
-  
+
   // ============ ALLOW LOCALHOST ACCESS ============
   // Skip geo-blocking entirely when running on localhost
   if (hostname === 'localhost' || hostname === '127.0.0.1') {
     console.log(`🌐 Localhost access allowed for path: ${pathname}`);
-    
+
     // Apply redirection logic if needed
     if (
       request.method === "GET" &&
@@ -106,23 +131,23 @@ export async function middleware(request) {
         console.error('Redirection middleware error on localhost:', error);
       }
     }
-    
+
     const response = NextResponse.next();
     response.headers.set('x-pathname', pathname);
     response.headers.set('x-localhost', 'true');
     return response;
   }
-  
+
   // Get client IP and country
   const forwardedFor = request.headers.get('x-forwarded-for');
   const realIP = request.headers.get('x-real-ip');
   const clientIP = extractRealIP(forwardedFor) || realIP || 'unknown';
-  
+
   // ============ ALLOW SPECIFIC IP ADDRESSES ============
   // Allow 154.208.34.157 to bypass all restrictions
   if (ALLOWED_IPS.includes(clientIP)) {
     console.log(`✅ Allowed specific IP: ${clientIP} for path: ${pathname}`);
-    
+
     // Apply redirection logic if needed
     if (
       request.method === "GET" &&
@@ -152,18 +177,18 @@ export async function middleware(request) {
         console.error('Redirection middleware error for allowed IP:', error);
       }
     }
-    
+
     const response = NextResponse.next();
     response.headers.set('x-pathname', pathname);
     response.headers.set('x-allowed-ip', 'true');
     return response;
   }
-  
+
   // ============ SKIP GEO-BLOCKING FOR IMAGE PROXY ============
   // Allow worldwide access for image proxy URLs
-  if (pathname.startsWith('/api/proxy-image') || 
-      pathname.startsWith('/custom-packaging/')) {
-    
+  if (pathname.startsWith('/api/proxy-image') ||
+    pathname.startsWith('/custom-packaging/')) {
+
     // Still check for VPN/proxy even for images
     if (isVPNorProxy(clientIP)) {
       console.log(`🔒 Blocked VPN/Proxy request for image from IP: ${clientIP} for path: ${pathname}`);
@@ -172,7 +197,7 @@ export async function middleware(request) {
         headers: { 'Content-Type': 'text/plain' },
       });
     }
-    
+
     // Apply redirection logic if needed
     if (
       request.method === "GET" &&
@@ -199,10 +224,10 @@ export async function middleware(request) {
         console.error('Redirection middleware error for image path:', error);
       }
     }
-    
+
     return NextResponse.next();
   }
-  
+
   // ============ GEO-BLOCKING FOR ALL OTHER PATHS ============
   // Get country info
   const cfCountry = request.headers.get('x-vercel-ip-country') || request.headers.get('cf-ipcountry');
@@ -279,7 +304,7 @@ export async function middleware(request) {
   // Continue with normal response
   const response = NextResponse.next();
   response.headers.set('x-pathname', pathname);
-  
+
   return response;
 }
 
