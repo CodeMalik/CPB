@@ -3,53 +3,9 @@ import { NextResponse } from 'next/server'
 // Only allow US and UK - block everything else
 const ALLOWED_COUNTRIES = ['US', 'GB', 'UM']; // USA, UK, US Minor Outlying Islands
 
-// Optional: Add known VPN/Proxy IP ranges or specific IPs you want to block
-const BLOCKED_IPS = [
-  // Add any specific IPs you want to block regardless of country
-];
-
-// Add allowed IP addresses that bypass geo-blocking
-const ALLOWED_IPS = [
-  '154.208.34.157',
-  '192.168.100.1'
-  // Allow this specific IP to bypass all restrictions
-];
-
-// Cloudflare VPN IP ranges (example - you can expand this list)
-const KNOWN_VPN_RANGES = [
-  '173.245.48.0/20',
-  '103.21.244.0/22',
-  '103.22.200.0/22',
-  '103.31.4.0/22',
-  '141.101.64.0/18',
-  '108.162.192.0/18',
-  '190.93.240.0/20',
-  '188.114.96.0/20',
-  '197.234.240.0/22',
-  '198.41.128.0/17',
-  '162.158.0.0/15',
-  '104.16.0.0/13',
-  '104.24.0.0/14',
-  '172.64.0.0/13',
-  '131.0.72.0/22'
-];
-
-function isIPInRange(ip, range) {
-  try {
-    const [rangeIP, subnetMask] = range.split('/');
-    const ipInt = ipToInt(ip);
-    const rangeIPInt = ipToInt(rangeIP);
-    const mask = subnetMask ? -1 << (32 - parseInt(subnetMask)) : -1;
-    
-    return (ipInt & mask) === (rangeIPInt & mask);
-  } catch {
-    return false;
-  }
-}
-
-function ipToInt(ip) {
-  return ip.split('.').reduce((int, octet) => (int << 8) + parseInt(octet, 10), 0) >>> 0;
-}
+// Add allowed IP addresses that bypass geo-blocking (if needed)
+const BLOCKED_IPS = [];
+const ALLOWED_IPS = [];
 
 function extractRealIP(ipHeader) {
   if (!ipHeader) return 'unknown';
@@ -57,13 +13,6 @@ function extractRealIP(ipHeader) {
   // Handle multiple IPs in x-forwarded-for (first IP is the client)
   const ips = ipHeader.split(',').map(ip => ip.trim());
   return ips[0];
-}
-
-function isVPNorProxy(ip) {
-  if (!ip || ip === 'unknown' || ip === '::1') return false;
-  
-  // Check against known VPN ranges
-  return KNOWN_VPN_RANGES.some(range => isIPInRange(ip, range));
 }
 
 export async function middleware(request) {
@@ -163,15 +112,6 @@ export async function middleware(request) {
   if (pathname.startsWith('/api/proxy-image') || 
       pathname.startsWith('/custom-packaging/')) {
     
-    // Still check for VPN/proxy even for images
-    if (isVPNorProxy(clientIP)) {
-      console.log(`🔒 Blocked VPN/Proxy request for image from IP: ${clientIP} for path: ${pathname}`);
-      return new Response('Access denied: VPN/Proxy detected', {
-        status: 403,
-        headers: { 'Content-Type': 'text/plain' },
-      });
-    }
-    
     // Apply redirection logic if needed
     if (
       request.method === "GET" &&
@@ -208,15 +148,9 @@ export async function middleware(request) {
   const geoCountry = request.geo?.country;
   const country = cfCountry || geoCountry || 'unknown';
 
-  // Block if IP is in VPN/proxy range
-  if (isVPNorProxy(clientIP)) {
-    console.log(`🔒 Blocked VPN/Proxy request from IP: ${clientIP} for path: ${pathname}`);
-    return new Response('Access denied: VPN/Proxy detected', {
-      status: 403,
-      headers: { 'Content-Type': 'text/plain' },
-    });
-  }
-
+  // REMOVED: VPN/Proxy blocking for ALL users
+  // Now VPN users from US/UK can access the website
+  
   // Block if IP is specifically blocked
   if (BLOCKED_IPS.includes(clientIP)) {
     console.log(`🚫 Blocked specific IP: ${clientIP} for path: ${pathname}`);
@@ -227,6 +161,7 @@ export async function middleware(request) {
   }
 
   // BLOCK ALL COUNTRIES EXCEPT US AND UK
+  // This runs for ALL users including VPN users
   if (country !== 'unknown' && !ALLOWED_COUNTRIES.includes(country)) {
     console.log(`🌍 Blocked request from ${country} (IP: ${clientIP}) for path: ${pathname}`);
     return new Response('This website is only available in the United States and United Kingdom', {
@@ -243,6 +178,9 @@ export async function middleware(request) {
       headers: { 'Content-Type': 'text/plain' },
     });
   }
+
+  // If we reach here, the user is from US or UK (including VPN users)
+  console.log(`✅ Allowed access from ${country} (IP: ${clientIP}) for path: ${pathname}`);
 
   // ============ REDIRECTION LOGIC ============
   // Your existing redirection logic
@@ -278,6 +216,7 @@ export async function middleware(request) {
   // Continue with normal response
   const response = NextResponse.next();
   response.headers.set('x-pathname', pathname);
+  response.headers.set('x-country', country);
   
   return response;
 }
