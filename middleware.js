@@ -164,7 +164,7 @@ export async function middleware(request) {
   // This runs for ALL users including VPN users
   if (country !== 'unknown' && !ALLOWED_COUNTRIES.includes(country)) {
     console.log(`🌍 Blocked request from ${country} (IP: ${clientIP}) for path: ${pathname}`);
-    return new Response('This website is only available in the United States and United Kingdom', {
+    return new Response('This website is not Available', {
       status: 403,
       headers: { 'Content-Type': 'text/plain' },
     });
