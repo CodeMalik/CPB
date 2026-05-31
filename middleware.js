@@ -2,34 +2,8 @@ import { NextResponse } from 'next/server'
 
 // Only allow these countries - block everything else
 // Added 'PK' for Pakistan
-const ALLOWED_COUNTRIES = [
-  // United States and its territories/islands
-  'US',  // United States
-  'AS',  // American Samoa
-  'GU',  // Guam
-  'MP',  // Northern Mariana Islands
-  'PR',  // Puerto Rico
-  'UM',  // U.S. Minor Outlying Islands
-  'VI',  // U.S. Virgin Islands
-  
-  // United Kingdom and its territories/islands
-  'GB',  // United Kingdom
-  'AI',  // Anguilla
-  'BM',  // Bermuda
-  'VG',  // British Virgin Islands
-  'KY',  // Cayman Islands
-  'FK',  // Falkland Islands
-  'GI',  // Gibraltar
-  'GG',  // Guernsey
-  'JE',  // Jersey
-  'IM',  // Isle of Man
-  'MS',  // Montserrat
-  'PN',  // Pitcairn Islands
-  'SH',  // Saint Helena
-  'GS',  // South Georgia & South Sandwich Islands
-  'TC',  // Turks and Caicos Islands
-  'IO'   // British Indian Ocean Territory
-];
+const ALLOWED_COUNTRIES = ['US', 'GB', 'UM']; // USA, UK, US Minor Outlying Islands, Pakistan
+
 // Optional: Add known VPN/Proxy IP ranges or specific IPs you want to block
 const BLOCKED_IPS = [
   // Add any specific IPs you want to block regardless of country
@@ -67,7 +41,7 @@ function isIPInRange(ip, range) {
     const ipInt = ipToInt(ip);
     const rangeIPInt = ipToInt(rangeIP);
     const mask = subnetMask ? -1 << (32 - parseInt(subnetMask)) : -1;
-
+    
     return (ipInt & mask) === (rangeIPInt & mask);
   } catch {
     return false;
@@ -80,7 +54,7 @@ function ipToInt(ip) {
 
 function extractRealIP(ipHeader) {
   if (!ipHeader) return 'unknown';
-
+  
   // Handle multiple IPs in x-forwarded-for (first IP is the client)
   const ips = ipHeader.split(',').map(ip => ip.trim());
   return ips[0];
@@ -88,7 +62,7 @@ function extractRealIP(ipHeader) {
 
 function isVPNorProxy(ip) {
   if (!ip || ip === 'unknown' || ip === '::1') return false;
-
+  
   // Check against known VPN ranges
   return KNOWN_VPN_RANGES.some(range => isIPInRange(ip, range));
 }
@@ -97,12 +71,12 @@ export async function middleware(request) {
   const { nextUrl } = request;
   const pathname = nextUrl.pathname;
   const hostname = nextUrl.hostname;
-
+  
   // ============ ALLOW LOCALHOST ACCESS ============
   // Skip geo-blocking entirely when running on localhost
   if (hostname === 'localhost' || hostname === '127.0.0.1') {
     console.log(`🌐 Localhost access allowed for path: ${pathname}`);
-
+    
     // Apply redirection logic if needed
     if (
       request.method === "GET" &&
@@ -132,23 +106,23 @@ export async function middleware(request) {
         console.error('Redirection middleware error on localhost:', error);
       }
     }
-
+    
     const response = NextResponse.next();
     response.headers.set('x-pathname', pathname);
     response.headers.set('x-localhost', 'true');
     return response;
   }
-
+  
   // Get client IP and country
   const forwardedFor = request.headers.get('x-forwarded-for');
   const realIP = request.headers.get('x-real-ip');
   const clientIP = extractRealIP(forwardedFor) || realIP || 'unknown';
-
+  
   // ============ ALLOW SPECIFIC IP ADDRESSES ============
   // Allow 154.208.34.157 to bypass all restrictions
   if (ALLOWED_IPS.includes(clientIP)) {
     console.log(`✅ Allowed specific IP: ${clientIP} for path: ${pathname}`);
-
+    
     // Apply redirection logic if needed
     if (
       request.method === "GET" &&
@@ -178,18 +152,18 @@ export async function middleware(request) {
         console.error('Redirection middleware error for allowed IP:', error);
       }
     }
-
+    
     const response = NextResponse.next();
     response.headers.set('x-pathname', pathname);
     response.headers.set('x-allowed-ip', 'true');
     return response;
   }
-
+  
   // ============ SKIP GEO-BLOCKING FOR IMAGE PROXY ============
   // Allow worldwide access for image proxy URLs
-  if (pathname.startsWith('/api/proxy-image') ||
-    pathname.startsWith('/custom-packaging/')) {
-
+  if (pathname.startsWith('/api/proxy-image') || 
+      pathname.startsWith('/custom-packaging/')) {
+    
     // Still check for VPN/proxy even for images
     if (isVPNorProxy(clientIP)) {
       console.log(`🔒 Blocked VPN/Proxy request for image from IP: ${clientIP} for path: ${pathname}`);
@@ -198,7 +172,7 @@ export async function middleware(request) {
         headers: { 'Content-Type': 'text/plain' },
       });
     }
-
+    
     // Apply redirection logic if needed
     if (
       request.method === "GET" &&
@@ -225,10 +199,10 @@ export async function middleware(request) {
         console.error('Redirection middleware error for image path:', error);
       }
     }
-
+    
     return NextResponse.next();
   }
-
+  
   // ============ GEO-BLOCKING FOR ALL OTHER PATHS ============
   // Get country info
   const cfCountry = request.headers.get('x-vercel-ip-country') || request.headers.get('cf-ipcountry');
@@ -305,7 +279,7 @@ export async function middleware(request) {
   // Continue with normal response
   const response = NextResponse.next();
   response.headers.set('x-pathname', pathname);
-
+  
   return response;
 }
 
