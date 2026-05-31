@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server'
 
-// Only allow these countries - block everything else
-// Added 'PK' for Pakistan
-const ALLOWED_COUNTRIES = ['US', 'GB', 'UM']; // USA, UK, US Minor Outlying Islands, Pakistan
+// Only allow US and UK - block everything else
+const ALLOWED_COUNTRIES = ['US', 'GB', 'UM']; // USA, UK, US Minor Outlying Islands
 
 // Optional: Add known VPN/Proxy IP ranges or specific IPs you want to block
 const BLOCKED_IPS = [
@@ -119,7 +118,7 @@ export async function middleware(request) {
   const clientIP = extractRealIP(forwardedFor) || realIP || 'unknown';
   
   // ============ ALLOW SPECIFIC IP ADDRESSES ============
-  // Allow 154.208.34.157 to bypass all restrictions
+  // Allow specific IPs to bypass all restrictions
   if (ALLOWED_IPS.includes(clientIP)) {
     console.log(`✅ Allowed specific IP: ${clientIP} for path: ${pathname}`);
     
@@ -227,10 +226,10 @@ export async function middleware(request) {
     });
   }
 
-  // Block if country is NOT in allowed list
+  // BLOCK ALL COUNTRIES EXCEPT US AND UK
   if (country !== 'unknown' && !ALLOWED_COUNTRIES.includes(country)) {
     console.log(`🌍 Blocked request from ${country} (IP: ${clientIP}) for path: ${pathname}`);
-    return new Response('Access denied from your region', {
+    return new Response('This website is only available in the United States and United Kingdom', {
       status: 403,
       headers: { 'Content-Type': 'text/plain' },
     });
